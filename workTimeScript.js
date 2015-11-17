@@ -283,6 +283,7 @@ function GetSumReportTimeForMonth()
 	return sum;	
 }
 
+
 // убирает концовку для месяца
 function RemoveConclusionForMonth()
 {
@@ -495,6 +496,7 @@ function DifferenceOfTime(time1, time2)
 
 
 // остальные функции
+//todo: могут быть несколько приходов за день, появляется 2 промежутка	
 function SeparateStartAndFinish()
 {	
 	var thFinish =  $("<th></th>", 
@@ -581,19 +583,32 @@ function DivideDayoffIntoParts()
 	$("tr.intervalRow").each(
 		function(index)
 		{
-			if ($(this).prev().attr("class") == "dayoff" && $(this).next().attr("class") == "dayoff")
+			if ($(this).prev().attr("class") == "dayoff" 
+				&& $(this).next().attr("class") == "dayoff" 
+				&& $(this).next().children("td.dayoff").length == 0)
 			{		
 				var newDayoff = $("td.dayoff").first().clone();
 				$(this).next().append(newDayoff);				
 			}
 		}
 	);
+	
+
 	$("td.dayoff").attr("colspan", "5").each(
 		function(index)
-		{
+		{			
 			var rowspan = 1;
-			rowspan += $(this).parent().nextUntil(".intervalRow").filter("tr.dayoff").length;
-			rowspan += $(this).parent().prevUntil(".intervalRow").filter("tr.dayoff").length;
+			$(this).parent().nextUntil(".intervalRow").filter("tr.dayoff").each(
+				function(index)
+				{
+					if ($(this).children("td.dayoff").length != 0)
+					{
+						return false;
+					}
+					rowspan++;
+				}
+			);
+			
 			$(this).attr("rowspan", rowspan);
 		}
 	);
@@ -647,7 +662,6 @@ function WriteFullNamesOfDays()
 		}
 	)
 }
-
 
 function TestTimeArithmetics()
 {
@@ -743,7 +757,6 @@ function TestTimeArithmetics()
 	console.log(DifferenceOfTime("02:06", "-01:05"), "03:11");
 }
 
-// todo
 function CreateSettings()
 {
 	$("div.navbar").append($("<div id=settings></div>"));
@@ -781,7 +794,7 @@ $(document).ready
 		{
 			RemoveColumnsWhenThereIsNoReport();
 		}
-		SeparateStartAndFinish();		
+		SeparateStartAndFinish();
 		RemoveUnnesessaryBlocks();
 		AddRowBetweenWeeksWithWeekNumber();
 		WriteFullNamesOfDays();		
