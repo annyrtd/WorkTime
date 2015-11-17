@@ -452,7 +452,7 @@ function DifferenceOfTime(time1, time2)
 	var minutes1 = +time1.substr(position1 + 1);	
 	var minutes2 = +time2.substr(position2 + 1);
 	var differenceHours, differenceMinutes;
-	if (hours1 < hours2) /*!!!!! < or <= */
+	if (hours1 < hours2)
 	{
 		differenceHours = +(hours2 - hours1) + Math.floor((minutes2 - minutes1)/60);
 		differenceMinutes = +(minutes2 - minutes1);
@@ -535,7 +535,7 @@ function SeparateStartAndFinish()
 				"class": "range text",
 			})
 			.append(finish);			
-			$(this).text("").append(start).after(tdFinish);		
+			$(this).empty().append(start).after(tdFinish);		
 		}
 	);
 	var size = ($("td.dayoff").attr("colspan"));

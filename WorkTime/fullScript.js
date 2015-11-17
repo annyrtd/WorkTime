@@ -49,6 +49,48 @@ function PutInfoToTheLeftPanel()
 	clearfix1,
 	$("div.status-left"),
 	clearfix2);	
+	
+	var newText = ChangeNumberOfMonthToWord($("div.status-left").text());
+	$("div.status-left").empty().append(newText);
+}
+
+function ChangeNumberOfMonthToWord(textOfStatusLeftBlock)
+{
+	var temp = textOfStatusLeftBlock;
+	
+	var fisrtChar = temp.substr(0,1);
+	
+	switch(fisrtChar)
+	{
+		case "п":
+			temp = "П" + temp.substr(1);
+			break;
+		case "в":
+			temp = "В" + temp.substr(1);
+			break;
+		case "с":
+			temp = "С" + temp.substr(1);
+			break;
+		case "ч":
+			temp = "Ч" + temp.substr(1);
+			break;
+	}
+	
+	temp = temp.replace(".01.", " Января ");	
+	temp = temp.replace(".02.", " Февраля ");
+	temp = temp.replace(".03.", " Марта ");
+	temp = temp.replace(".04.", " Апреля ");
+	temp = temp.replace(".05.", " Мая ");
+	temp = temp.replace(".06.", " Июня ");
+	temp = temp.replace(".07.", " Июля ");
+	temp = temp.replace(".08.", " Августа ");
+	temp = temp.replace(".09.", " Сентября ");
+	temp = temp.replace(".10.", " Октября ");
+	temp = temp.replace(".11.", " Ноября ");
+	temp = temp.replace(".12.", " Декабря ");
+	
+	var position = temp.indexOf(",");
+	return temp.substr(0, position) + "<br>" + temp.substr(position + 2);
 }
 
 function CreateMenu()
@@ -84,7 +126,8 @@ function CreateMenu()
 	$("#menu_li0_submenu").load("/ ul.nav2 li", 
 		function()
 		{
-			$("#menu_li0_submenu li").last().children("a").attr("href", "http://co-msk-app02/");
+			$("#menu_li0_submenu li").first().children("a").attr("href", "http://co-msk-app02/?officeid=1");
+			$("#menu_li0_submenu li").last().children("a").attr("href", "http://co-msk-app02/?officeid=2");
 		}
 	).hide();
 	
