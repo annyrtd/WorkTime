@@ -496,7 +496,6 @@ function DifferenceOfTime(time1, time2)
 
 
 // остальные функции
-//todo: могут быть несколько приходов за день, появляется 2 промежутка	
 function SeparateStartAndFinish()
 {	
 	var thFinish =  $("<th></th>", 
@@ -510,16 +509,33 @@ function SeparateStartAndFinish()
 		function()
 		{
 			var timeRange = $(this).text();
-			var position = timeRange.indexOf("—");
-			var start = timeRange.substr(0, position);
-			var finish = timeRange.substr(position + 1);
+			var position = timeRange.indexOf(";");
+			var start = "", finish = "", positionCurrent, startCurrent, finishCurrent;
+			
+			while(position > -1)
+			{
+				var current = timeRange.substr(0, position);
+				positionCurrent = current.indexOf("—");
+				startCurrent = current.substr(0, positionCurrent);
+				finishCurrent = current.substr(positionCurrent + 1);
+				start += startCurrent + "<br>";
+				finish += finishCurrent + "<br>";
+				timeRange = timeRange.substr(position + 2);
+				position = timeRange.indexOf(";");
+			}
+			
+			positionCurrent = timeRange.indexOf("—");
+			startCurrent = timeRange.substr(0, positionCurrent);
+			finishCurrent = timeRange.substr(positionCurrent + 1);
+			start +=startCurrent;
+			finish += finishCurrent;
 			
 			var tdFinish =  $("<td></td>", 
 			{
 				"class": "range text",
 			})
 			.append(finish);			
-			$(this).text(start).after(tdFinish);		
+			$(this).text("").append(start).after(tdFinish);		
 		}
 	);
 	var size = ($("td.dayoff").attr("colspan"));
