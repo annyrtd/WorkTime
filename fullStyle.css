@@ -1,0 +1,290 @@
+﻿body
+{
+	background-color: white !important;
+	color: rgb(38, 47, 74) !important;
+}
+
+th
+{	
+	padding: 6px 10px !important;
+	background-color: #DDDDDD !important;
+}
+
+th.indicator
+{
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+}
+
+.navbar
+{
+	min-height: 370px !important;	
+	border: 0px solid white !important;	
+	background-color: #C1AEC1    !important;
+	text-align: left !important;
+}
+
+.navbar a
+{
+	color: rgb(38, 47, 74) !important;	
+}
+
+.navbar li:hover a
+{		
+	color: white !important;
+}
+
+
+.content-medium
+{
+	min-width: 800px !important;	
+}
+
+
+.current 
+{
+    border: 0px solid rgb(20, 139, 238) !important;
+}
+
+tr 
+{
+    border-top: 1px solid #cacaca !important;
+    border-bottom: 1px solid #cacaca !important;
+}
+
+tbody tr:hover td 
+{
+	background-color: white !important;
+}
+
+tbody tr.dayoff:hover td
+{
+	background-color: #FFDEAD !important;
+}
+.dayoff
+{
+	background-color: #FFDEAD !important;
+}
+
+.intervalRow:hover td
+{
+	background-color: #CACACA !important;
+}
+
+input[type=submit], input[type=button]
+{
+	padding: 5px 10px! important;	
+    font-size: smaller;
+    font-weight: bolder;
+	border : solid 0px #781078;
+	background-color: rgb(229, 229, 229) !important;
+}
+
+.navbar input[type=submit]
+{
+	width: 100%;
+    margin: 2px auto !important;
+	padding: 3px 5px! important;	
+    font-size: smaller;
+    font-weight: bolder;
+	border : solid 0px #781078;
+	background-color: rgb(229, 229, 229) !important;	
+}
+
+input[type=submit]:hover, input[type=button]:hover, .navbar input[type=submit]:hover
+{
+	cursor: pointer;	
+	background-color: rgb(38, 47, 74) !important;
+	color: white; 	
+}
+
+input[type=text], select
+{
+	color: rgb(38, 47, 74) !important;	
+	background-color: rgb(199, 216, 229) !important;
+}
+
+input[type=text]:focus, select
+{
+	color: rgb(38, 47, 74) !important;
+	background-color: rgb(199, 216, 229) !important;
+}
+
+input[type=text]:hover, select
+{
+	cursor: pointer;
+}
+
+
+.resetButton
+{
+	font-size: 7pt;
+	text-align: center;
+	margin: 0 auto;		
+	width: 130px;
+	outline: none;
+}
+
+.resetFilters
+{
+	font-size: 9pt !important;
+	position: fixed;
+	top: 56px;
+	right: 30px;
+	background-color: rgb(199, 216, 229);
+	padding: 5px 0px;
+}
+
+.resetButton:hover
+{
+	cursor: pointer;
+}
+
+.buttonDiv
+{
+	width: 130px;
+	margin: 0 auto;
+}
+
+
+.status-left, .status-right
+{
+	width: 100% !important;
+	font-size: 12px !important;
+	font-weight: bold;
+	text-align": right;
+}
+
+.status-right a
+{
+	font-size: 12px !important;
+}
+
+.status-center
+{
+	width: 100% !important;
+	background-color: #C1AEC1;
+	padding: 5px 0px;
+	margin: 0px !important;
+}
+
+
+.status-bar
+{
+	min-width: 816px !important;	
+	border: 0px solid white !important;	
+	margin: 0px 0px 3px 10px !important;
+	background-color: white   !important;
+	padding: 15px 0px 0px 0px !important;
+}
+
+#menu
+{
+	position: fixed;
+	top: 45px;
+	left: 147px;
+	width: 1203px;
+	padding-left: 0px;
+}
+
+#menu li
+{
+	list-style-type: none;
+	margin: 0px 10px;	
+	background-color: rgb(193, 174, 193);
+	text-align: center;	
+	height: 30px;
+	width: 140px;
+}
+
+#menu > li
+{
+	float: left;
+}
+
+#menu li:hover
+{
+	background-color: rgb(38, 47, 74);	
+}
+
+#menu > li:hover > ul 
+{
+	display: block !important;
+}
+
+#menu > li:hover > ul > li
+{	
+	width: 140px;
+	position: relative;
+	left: -30px;
+	top: 3px;
+}
+
+#menu > li:hover > ul > li.current
+{
+	background: rgb(193, 174, 193);	
+}
+
+#menu > li:hover > ul > li > a
+{
+	color: rgb(38, 47, 74);
+}
+
+#menu > li > ul > li:hover 
+{
+	background-color: #8A3F92
+}
+
+#menu > li:hover > ul > li.current:hover
+{
+	background-color: #8A3F92
+}
+
+#menu > li > ul > li:hover > a
+{
+	color: white;
+}
+
+#menu li a
+{
+	color: rgb(38, 47, 74);
+}
+
+#menu li:hover a
+{
+	color: white;
+	cursor: pointer;
+}
+
+#menu .current {
+    background-color: rgb(229, 229, 229);
+}
+
+#menu a
+{
+    display: block;
+    height: 20px;
+	width: 100%;
+	padding: 5px 0px;
+}
+
+div.status-right:hover a
+{
+	cursor: default;
+}
+
+#settings label, #settings select
+{
+	font-size: 9pt;
+	text-align: left;
+}
+
+#scrollTableBlock
+{
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 80%;
+	height: 110px;
+	background-color: white;
+}

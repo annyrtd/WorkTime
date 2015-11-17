@@ -1,0 +1,47 @@
+﻿{
+	"manifest_version": 2,
+	"name": "Work Time",
+	"version": "1.0",
+	"icons": {
+		"128": "images/clock.png"
+	},
+	"content_scripts": [
+		{
+			"matches": [ "http://co-msk-app02/*", "https://co-msk-app02/*" ],
+			"exclude_matches":
+			[
+				"http://co-msk-app02/Preferences/Edit*",
+				"https://co-msk-app02/Preferences/Edit*"
+			],
+			"css": [ "fullStyle.css" ],
+			"js": [ "jquery.js", "fullScript.js" ],
+			"run_at": "document_start"
+		},
+		{
+			"matches": [ "http://co-msk-app02/Personal*", "https://co-msk-app02/Personal*" ],
+			"js": [ "workTimeScript.js" ],
+			"css": [ "workTimeStyle.css" ]
+		},
+		{
+			"matches": 
+			[ 
+				"http://co-msk-app02/", "https://co-msk-app02/", 
+				"http://co-msk-app02/?officeid*", "http://co-msk-app02/?order*", 
+				"https://co-msk-app02/?officeid*", "https://co-msk-app02/?order*" 
+			],
+			"js": [ "officeScript.js" ],
+			"css": [ "officeStyle.css" ]
+		}
+	],
+	
+	"permissions": ["http://co-msk-app02/*"],
+	
+	"web_accessible_resources": [
+		"images/*"
+	],
+	
+	"browser_action": {
+		"default_icon": "images/clock.png",
+		"default_title": "Work Time"
+    }	
+}
