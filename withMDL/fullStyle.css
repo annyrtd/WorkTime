@@ -1,0 +1,443 @@
+﻿/*
+rgb(63, 81, 181) - indigo
+rgb(255, 64, 129) - pink
+*/
+
+
+
+
+body
+{
+	background-color: white !important;
+	color: rgb(38, 47, 74) !important;
+}
+
+th
+{	
+	padding: 6px 10px !important;
+	background-color: #DDDDDD !important;
+}
+
+th.indicator
+{
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+}
+
+.navbar
+{
+	min-height: 370px !important;	
+	border: 0px solid white !important;	
+	background-color: #C1AEC1    !important;
+	text-align: left !important;
+}
+
+.navbar a
+{
+	color: rgb(38, 47, 74) !important;	
+}
+
+.navbar li:hover a
+{		
+	color: white !important;
+}
+
+
+.content-medium
+{
+	min-width: 800px !important;	
+}
+
+
+.current 
+{
+    border: 0px solid rgb(20, 139, 238) !important;
+}
+
+tr 
+{
+    border-top: 1px solid #cacaca !important;
+    border-bottom: 1px solid #cacaca !important;
+}
+
+tbody tr:hover td 
+{
+	background-color: white !important;
+}
+
+tbody tr.dayoff:hover td
+{
+	background-color: #FFDEAD !important;
+}
+.dayoff
+{
+	background-color: #FFDEAD !important;
+}
+
+.intervalRow:hover td
+{
+	background-color: #CACACA !important;
+}
+
+input[type=submit], input[type=button]
+{
+	margin-bottom: 2px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 2px;
+    padding-bottom: 0px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-top: 0px !important;	
+	/*background-color: rgb(229, 229, 229) !important;*/
+	
+	border : solid 0px #781078;
+	
+}
+
+.navbar input[type=submit]
+{
+	width: 100% !important;
+	padding: 0px 5px! important;
+    /*margin: 2px auto !important;
+	
+		
+    font-size: smaller !important;
+	*/
+    font-weight: normal !important;
+	border : solid 0px #781078;
+	/*background-color: rgb(229, 229, 229) !important;	*/
+}
+
+input[type=submit]:hover, input[type=button]:hover, .navbar input[type=submit]:hover
+{
+	cursor: pointer;	
+	/*background-color: rgb(38, 47, 74) !important;
+	color: white; 	
+	*/
+}
+
+input[type=text], select
+{
+	color: rgb(38, 47, 74) !important;	
+	background-color: rgb(199, 216, 229) !important;
+}
+
+input[type=text]:focus, select
+{
+	color: rgb(38, 47, 74) !important;
+	background-color: rgb(199, 216, 229) !important;
+}
+
+input[type=text]:hover, select
+{
+	cursor: pointer;
+}
+
+
+.resetButton
+{
+	font-size: 8pt !important;
+	text-align: center !important;
+	margin: 0 auto;		
+	width: 130px !important;
+	height: 20px !important;
+	line-height: 20px !important;
+	outline: none;
+}
+
+.resetFilters
+{
+	position: fixed !important;
+	top: 90px !important;
+	right: 30px !important;
+	/*background-color: rgb(199, 216, 229);*/
+	padding: 0px !important;
+}
+
+.resetButton:hover
+{
+	cursor: pointer;
+}
+
+.buttonDiv
+{
+	width: 130px;
+	/*margin: 0 auto;*/
+}
+
+
+.status-left, .status-right
+{
+	width: 100% !important;
+	font-size: 12px !important;
+	font-weight: bold;
+	text-align": right;
+}
+
+.status-right a
+{
+	font-size: 12px !important;
+}
+
+.status-center
+{
+	width: 100% !important;
+	background-color: #C1AEC1;
+	padding: 5px 0px;
+	margin: 0px !important;
+	
+}
+
+
+.status-bar
+{
+	min-width: 816px !important;	
+	border: 0px solid white !important;	
+	margin: 0px 0px 3px 10px !important;
+	background-color: white   !important;
+	padding: 15px 0px 0px 0px !important;
+}
+
+#menu
+{
+	position: fixed;
+	top: 45px;
+	left: 147px;
+	width: 1203px;
+	padding-left: 0px;
+}
+
+/*
+
+#menu li
+{
+	list-style-type: none;
+	margin: 0px 10px;	
+	background-color: rgb(193, 174, 193);
+	text-align: center;	
+	height: 30px;
+	width: 140px;
+}
+
+#menu > li
+{
+	float: left;
+}
+
+#menu li:hover
+{
+	background-color: rgb(38, 47, 74);	
+}
+
+#menu > li:hover > ul 
+{
+	display: block !important;
+	opacity: 1;
+}
+
+#menu > li:hover > ul > li
+{	
+	width: 140px;
+	position: relative;
+	left: -30px;
+	top: 3px;
+}
+
+#menu > li:hover > ul > li.current
+{
+	background: rgb(193, 174, 193);	
+}
+
+#menu > li:hover > ul > li > a
+{
+	color: rgb(38, 47, 74);
+}
+
+#menu > li > ul > li:hover 
+{
+	background-color: #8A3F92
+}
+
+#menu > li:hover > ul > li.current:hover
+{
+	background-color: #8A3F92
+}
+
+#menu > li > ul > li:hover > a
+{
+	color: white;
+}
+
+#menu li a
+{
+	color: rgb(38, 47, 74);
+}
+
+#menu li:hover a
+{
+	color: white;
+	cursor: pointer;
+}
+
+#menu .current {
+    background-color: rgb(229, 229, 229);
+}
+
+#menu a
+{
+    display: table-cell;
+    height: 30px;
+	vertical-align: middle;
+    text-align: center;
+	width: 140px;
+	padding: 0px;
+}
+*/
+
+div.status-right:hover a
+{
+	cursor: default;
+}
+
+#settings label, #settings select
+{
+	font-size: 9pt;
+	text-align: left;
+}
+
+#scrollTableBlock
+{
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 80%;
+	height: 100px;
+	background-color: white;
+}
+
+#menu a, li 
+{
+	font-family: Roboto, sans-serif !important;
+}
+
+#menu  a, li
+{
+	color: #6B6B6B;
+	text-decoration: none;
+	
+}
+
+#menu > li
+{
+	width: 120px;
+	list-style-type: none;
+	margin: 0px 10px;
+	text-align: center;	
+	height: 30px;
+	border: 1px solid white !important;
+}
+
+#menu > li.current > a
+{
+	background-color: white !important;
+	border-bottom: 2px solid rgb(255, 64, 129) !important;	
+	color: rgb(255, 64, 129) !important;
+}
+
+#menu  li:hover > a
+{
+	font-weight: bolder;
+}
+
+#menu > li > ul > li
+{
+	background-color: white;
+}
+
+.nav > li 
+{
+	display: inline-block;
+	cursor: pointer;
+}
+
+.nav > li:hover
+{
+	background: #EBEBEB
+}
+
+.nav > li > a
+{
+	width: 120px;
+	height: 30px;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.drop 
+{
+	position: relative;
+}
+
+.drop > ul 
+{
+	width: 140px;
+	padding: 0px;
+	position: absolute;
+	left: 0px;
+	top: 30px;
+	-webkit-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	
+	-moz-transform: scale(0); /* Для Firefox */
+    -ms-transform: scale(0); /* Для IE */
+    -webkit-transform: scale(0); /* Для Safari, Chrome, iOS */
+    -o-transform: scale(0); /* Для Opera */
+	transform: scale(0);
+	
+	-webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+	transform-origin: 0 0;
+	
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+}
+
+.drop > ul > li 
+{
+	display: block;
+	width: 140px;
+	height: 30px;
+	position: relative;
+	left: 0px;
+	top: 0px;
+}
+
+.drop > ul > li > a 
+{
+	width: 140px;
+	height: 30px;
+	padding: 0px;
+	display: table-cell;	
+	text-align: center;
+	vertical-align: middle;
+}
+
+.drop > ul > li > a:hover 
+{
+	background: #EBEBEB;
+}			
+
+.drop:hover >ul 
+{
+	-moz-transform: scale(1); /* Для Firefox */
+    -ms-transform: scale(1); /* Для IE */
+    -webkit-transform: scale(1); /* Для Safari, Chrome, iOS */
+    -o-transform: scale(1); /* Для Opera */
+	transform: scale(1);
+}

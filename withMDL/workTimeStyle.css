@@ -1,0 +1,76 @@
+﻿table.full-size 
+{
+    width: auto !important;	
+	margin: auto !important;
+	margin-top: 30px !important;
+}
+
+table.full-size td
+{	
+	padding: 6px 20px !important;
+}
+
+table.full-size th
+{	
+	padding: 6px 20px !important;
+	background-color: #DDDDDD   !important;
+}
+
+
+.time
+{	
+    text-align: center !important;
+}
+
+.range
+{	
+    text-align: center !important;
+}
+
+.conclusion
+{
+	width: 300px;	
+	margin: auto;
+	padding: 20px;
+}
+
+.barrier
+{
+	clear: both;
+	height: 20px;
+}
+
+.intervalRow
+{
+	height: 20px;
+    background-color: rgb(240, 240, 240);	
+}
+
+.intervalRow:hover
+{
+	cursor: pointer;
+}
+
+.intervalCell
+{
+	font-size: 7pt;
+	text-align: center left;
+}
+
+.enoughWorkTime
+{
+	color: #009900;
+	font-weight: bold;
+}
+
+.notEnoughWorkTime
+{
+	color: #CC0000;	
+	font-weight: bold;
+}
+
+.weekday
+{	
+	font-weight: bold;
+	text-align: justify !important;
+}
