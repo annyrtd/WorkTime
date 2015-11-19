@@ -318,14 +318,17 @@ function GetColumnToSort(currentHeader)
 
 function AddResetFiltersButton()
 {
+	var icon = $('<i class="material-icons">clear</i>');
+	
 	var button = $("<button></button>", 
 	{
 		"id": "idReset",
-		"class": "resetButton resetFilters",
+		"class": "mdl-button mdl-js-button  mdl-button--fab mdl-button--icon mdl-button--accent  mdl-js-ripple-effect",
 		type: "button"
-	}).append("Сбросить фильтры");
+	}).append(icon);	
 	
 	
+	var tooltip = $('<div class="mdl-tooltip" for="idReset">Сбросить<br>фильтры</div>');	
 	
 	var div = $("<div></div>",
 	{
@@ -333,9 +336,11 @@ function AddResetFiltersButton()
 	}).append(button).css("width", "100%");
 	
 	$(".status-bar").append(div);
-	/*
-	componentHandler.upgradeElement(document.querySelector("#idReset"), 'MaterialButton');
-	componentHandler.upgradeElement(document.querySelector("#idReset"), 'MaterialRipple');*/
+
+	componentHandler.upgradeElement(tooltip.get(0));	
+	componentHandler.upgradeElement(button.get(0));
+	$(".status-bar").append(tooltip);
+	
 }
 
 
@@ -445,17 +450,16 @@ $(document).ready
 		PrepareEmployeeColumnForSort();
 		PrepareWorkgroupColumnForSort();		
 		PrepareRoomColumnForSort();
-		//AddResetFiltersButton();
+		AddResetFiltersButton();
 		
-		RemoveEmptyColumns();
-		$("button.resetButton").parent().append($("<button>Кнопка</button>"));
+		RemoveEmptyColumns();		
 		
-		
-		ChangeButtonsToMD();
-		
-		$("form").last().before($("#workingButton"));
-		$("button.resetButton").after($("#workingButton2"), $("#workingButton"));
-		
+		$("button").not("#idReset").each(
+			function(index)
+			{	
+				ChangeButtonsToMD.apply(this);				
+			}
+		);
 		
 		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 
@@ -491,86 +495,6 @@ $(document).ready
 				SetFilters();
 			}
 		);
-		
-		/*
-		$("#workgroupSelect").change(
-			function()
-			{		
-				//$("#searchInput").val("");
-				var inputText = $("select#workgroupSelect option").filter(":selected").val();
-				if (inputText == "NoGroup")
-				{
-					$('td.workgroup').each(
-						function(index)
-						{
-							if ($(this).text() == "")
-								$(this).parent().show();
-							else								
-								$(this).parent().hide();
-						}
-					);
-					return;
-				}
-				var cellsThatContainInputText = 'td.workgroup:contains("' + inputText + '")';
-				$(cellsThatContainInputText).parent().show();				
-				$('td.workgroup').not(cellsThatContainInputText).parent().hide();			
-			}
-		);
-		
-		$("#workStateSelect").change(
-			function()
-			{					
-				//$("#searchInput").val("");
-				var inputText = $("select#workStateSelect option").filter(":selected").val();
-				
-				$("tbody tr").each(
-					function(index)
-					{
-						if ($(this).children("td.indicator").first().children("img").attr("src").indexOf(inputText) > -1)
-						{
-							$(this).show();
-						}
-						else
-						{							
-							$(this).hide();
-						}
-					}
-				);
-				
-				$(this).attr("title", $("select#workStateSelect option").filter(":selected").attr("title"));
-			}
-		);
-		
-		$("#roomSelect").change(
-			function()
-			{					
-				//$("#searchInput").val("");
-				var inputText = $("select#roomSelect option").filter(":selected").val();
-				if (inputText == "NoRoom")
-				{
-					$('td.room').each(
-						function(index)
-						{
-							if ($(this).text() == "")
-								$(this).parent().show();
-							else								
-								$(this).parent().hide();
-						}
-					);
-					return;
-				}
-				if (inputText == "")
-				{
-					$('td.room').parent().show();
-					return;
-				}
-				var cellsThatContainInputText = 'td.room:contains("' + inputText + '")';
-				$(cellsThatContainInputText).parent().show();				
-				$('td.room').not(cellsThatContainInputText).parent().hide();			
-			}
-		);
-		
-		*/
 		
 		$(".arrowDiv").click(		
 			function ()
@@ -630,7 +554,7 @@ $(document).ready
 		);
 		
 		
-		$("button.resetFilters").on("click", 
+		$("button#idReset").on("click", 
 			function()
 			{				
 				$("table.full-size > tbody > tr").show();

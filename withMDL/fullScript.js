@@ -95,7 +95,6 @@ function ChangeNumberOfMonthToWord(textOfStatusLeftBlock)
 
 function CreateMenu()
 {
-	//$("div.status-bar").addClass("mdl-layout__tab-bar");
 	var newMenu = $("<ul></ul>",
 	{
 		"id": "menu", 		
@@ -130,7 +129,7 @@ function CreateMenu()
 		{
 			$("#menu_li0_submenu li").first().children("a").attr("href", "http://co-msk-app02/?officeid=1");
 			$("#menu_li0_submenu li").last().children("a").attr("href", "http://co-msk-app02/?officeid=2");
-			ChangeButtonsToMD();			
+						
 		}
 	);
 	
@@ -139,7 +138,7 @@ function CreateMenu()
 		function()
 		{
 			$("#menu_li1_submenu li").last().children("a").attr("href", "http://co-msk-app02/Personal");
-			ChangeButtonsToMD();
+			
 		}
 	);
 	
@@ -149,7 +148,7 @@ function CreateMenu()
 		function()
 		{
 			$("#menu_li2_submenu li").last().children("a").attr("href", "http://co-msk-app02/Notes");
-			ChangeButtonsToMD();
+			
 		}
 	);
 	
@@ -159,50 +158,32 @@ function CreateMenu()
 		function()
 		{
 			$("#menu_li3_submenu li").eq(1).children("a").attr("href", "http://co-msk-app02/Calendar");
-			ChangeButtonsToMD();
+			
 		}
 	);
-	
-	
-	
-	
-	
-	
-	
-	
 }
 
 function ChangeButtonsToMD()
 {
-	$("button, input[type=submit], input[type=button]").each(
-		function()
-		{
-			$(this).addClass("mdl-button mdl-button--raised mdl-js-button mdl-button--accent mdl-js-ripple-effect");
-		}
-	);
+	$(this).addClass("mdl-button mdl-button--raised mdl-js-button mdl-button--accent mdl-js-ripple-effect");
+	componentHandler.upgradeElement($(this).get(0));	
+}
+
+function ReplaceInput()
+{
+	var button = $("<button></button>",
+	{
+		type: $(this).attr("type"),
+		"class": "inputReplaceButton " + $(this).attr("class")
+	}).append($(this).attr("value"));
 	
-	$(".mdl-button").click(
-		function()
-		{
-			var z = $(this);
-			window.setTimeout( 
-				function()
-				{
-					z.blur();
-				},
-				100
-			);			
-		}
-	);
-	/*
-	$("button, input[type='submit'], input[type='button']").each(
-		function()
-		{
-			componentHandler.upgradeElement(this, 'MaterialButton');
-			componentHandler.upgradeElement(this, 'MaterialRipple');
-		}
-	)*/
+	if($(this).attr("type") == "button")
+	{
+		button.attr("onclick", $(this).attr("onclick"));
+	}
 	
+	$(this).after(button);
+	$(this).hide();
 }
 
 $(document).ready
@@ -217,27 +198,22 @@ $(document).ready
 		$(document).show();		
 		$(".status-bar").height("100px");
 		
-		$("form").last().append($("<button id='workingButton'>Кнопка</button>"));		
-		$("form").last().append($("<button id='workingButton2'>Кнопка</button>"));
+			
 		
-		var button = $("<button></button>", 
-	{
-		"id": "idReset",
-		"class": "resetButton resetFilters",
-		type: "button"
-	}).append("Сбросить фильтры");
-	
-	
-	
-	var div = $("<div></div>",
-	{
-		"class": "buttonDiv"
-	}).append(button).css("width", "100%");
-	
-	$(".status-bar").append(div);
+		$("input[type=submit], input[type=button]").each(
+			function(index)
+			{	
+				ReplaceInput.apply(this);				
+			}
+		);
 		
+		$("button").each(
+			function(index)
+			{	
+				ChangeButtonsToMD.apply(this);				
+			}
+		);
 		
-		ChangeButtonsToMD();
 		
 		$("div.status-right a").click(
 			function()

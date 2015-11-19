@@ -283,7 +283,6 @@ function GetSumReportTimeForMonth()
 	return sum;	
 }
 
-
 // убирает концовку для месяца
 function RemoveConclusionForMonth()
 {
@@ -452,7 +451,7 @@ function DifferenceOfTime(time1, time2)
 	var minutes1 = +time1.substr(position1 + 1);	
 	var minutes2 = +time2.substr(position2 + 1);
 	var differenceHours, differenceMinutes;
-	if (hours1 < hours2)
+	if (hours1 < hours2) /*!!!!! < or <= */
 	{
 		differenceHours = +(hours2 - hours1) + Math.floor((minutes2 - minutes1)/60);
 		differenceMinutes = +(minutes2 - minutes1);
@@ -509,33 +508,16 @@ function SeparateStartAndFinish()
 		function()
 		{
 			var timeRange = $(this).text();
-			var position = timeRange.indexOf(";");
-			var start = "", finish = "", positionCurrent, startCurrent, finishCurrent;
-			
-			while(position > -1)
-			{
-				var current = timeRange.substr(0, position);
-				positionCurrent = current.indexOf("—");
-				startCurrent = current.substr(0, positionCurrent);
-				finishCurrent = current.substr(positionCurrent + 1);
-				start += startCurrent + "<br>";
-				finish += finishCurrent + "<br>";
-				timeRange = timeRange.substr(position + 2);
-				position = timeRange.indexOf(";");
-			}
-			
-			positionCurrent = timeRange.indexOf("—");
-			startCurrent = timeRange.substr(0, positionCurrent);
-			finishCurrent = timeRange.substr(positionCurrent + 1);
-			start +=startCurrent;
-			finish += finishCurrent;
+			var position = timeRange.indexOf("—");
+			var start = timeRange.substr(0, position);
+			var finish = timeRange.substr(position + 1);
 			
 			var tdFinish =  $("<td></td>", 
 			{
 				"class": "range text",
 			})
 			.append(finish);			
-			$(this).empty().append(start).after(tdFinish);		
+			$(this).text(start).after(tdFinish);		
 		}
 	);
 	var size = ($("td.dayoff").attr("colspan"));
@@ -599,32 +581,19 @@ function DivideDayoffIntoParts()
 	$("tr.intervalRow").each(
 		function(index)
 		{
-			if ($(this).prev().attr("class") == "dayoff" 
-				&& $(this).next().attr("class") == "dayoff" 
-				&& $(this).next().children("td.dayoff").length == 0)
+			if ($(this).prev().attr("class") == "dayoff" && $(this).next().attr("class") == "dayoff")
 			{		
 				var newDayoff = $("td.dayoff").first().clone();
 				$(this).next().append(newDayoff);				
 			}
 		}
 	);
-	
-
 	$("td.dayoff").attr("colspan", "5").each(
 		function(index)
-		{			
+		{
 			var rowspan = 1;
-			$(this).parent().nextUntil(".intervalRow").filter("tr.dayoff").each(
-				function(index)
-				{
-					if ($(this).children("td.dayoff").length != 0)
-					{
-						return false;
-					}
-					rowspan++;
-				}
-			);
-			
+			rowspan += $(this).parent().nextUntil(".intervalRow").filter("tr.dayoff").length;
+			rowspan += $(this).parent().prevUntil(".intervalRow").filter("tr.dayoff").length;
 			$(this).attr("rowspan", rowspan);
 		}
 	);
@@ -678,6 +647,7 @@ function WriteFullNamesOfDays()
 		}
 	)
 }
+
 
 function TestTimeArithmetics()
 {
@@ -773,6 +743,7 @@ function TestTimeArithmetics()
 	console.log(DifferenceOfTime("02:06", "-01:05"), "03:11");
 }
 
+// todo
 function CreateSettings()
 {
 	$("div.navbar").append($("<div id=settings></div>"));
@@ -792,7 +763,10 @@ function CreateSettings()
 			$("div.table-form").eq(1).hide();
 			$("div.table-form").eq(2).hide();
 			$("div.table-form").eq(3).hide();
-			ChangeButtonsToMD();
+			//todo input for сохранить	
+			
+			ReplaceInput.apply($("form[action='/Preferences/Edit'] input[type=submit]").get(0));
+			ChangeButtonsToMD.apply($("form[action='/Preferences/Edit'] button.inputReplaceButton").get(0));		
 		}
 	);
 }
@@ -811,7 +785,7 @@ $(document).ready
 		{
 			RemoveColumnsWhenThereIsNoReport();
 		}
-		SeparateStartAndFinish();
+		SeparateStartAndFinish();		
 		RemoveUnnesessaryBlocks();
 		AddRowBetweenWeeksWithWeekNumber();
 		WriteFullNamesOfDays();		
@@ -851,9 +825,15 @@ $(document).ready
 					type: "button"
 				}).append("Вернуться к месяцу...");
 				
+				
+				ChangeButtonsToMD.apply(button.get(0));
+				
 				var div = $("<div></div>", {
 					"class": "buttonDiv"
-				}).append("<br><br>", button);
+				}).append("<br><br>", button)
+				.css("margin", "auto");
+				
+				
 				
 				$("table.full-size").after(div);
 
@@ -862,9 +842,7 @@ $(document).ready
 				
 				RemoveConclusionForMonth();
 				AddConclusionForWeek();	
-				isMonth = false;
-				
-				ChangeButtonsToMD();
+				isMonth = false;		
 
 				$(".resetButton").click(
 					function()

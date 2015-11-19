@@ -114,3 +114,9 @@ th.workgroup
 {
 	background-color: rgb(221, 221, 221) !important;
 }
+
+
+.mdl-tooltip.is-active 
+{
+    animation: pulse 200ms cubic-bezier(0, 0, 0.2, 1) forwards !important;
+}

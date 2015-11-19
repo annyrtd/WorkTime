@@ -134,16 +134,31 @@ input[type=text]:hover, select
 	cursor: pointer;
 }
 
+.inputReplaceButton
+{
+	width: 113px !important;
+	padding: 0px 10px !important;
+	font-size: 8pt !important;
+}
 
 .resetButton
 {
-	font-size: 8pt !important;
+	font-size: 7pt !important;
 	text-align: center !important;
 	margin: 0 auto;		
-	width: 130px !important;
+	width: 140px !important;
 	height: 20px !important;
 	line-height: 20px !important;
 	outline: none;
+	padding: 0px 5px !important;
+}
+
+#idReset
+{
+	outline: none;
+	position: fixed;
+	top: 80px;
+	right: 32px;
 }
 
 .resetFilters
@@ -153,6 +168,10 @@ input[type=text]:hover, select
 	right: 30px !important;
 	/*background-color: rgb(199, 216, 229);*/
 	padding: 0px !important;
+	/*width: 130px !important;
+	height: 20px !important;
+	*/
+	font-size: 8pt !important;
 }
 
 .resetButton:hover
@@ -382,7 +401,7 @@ div.status-right:hover a
 
 .drop > ul 
 {
-	width: 140px;
+	width: 120px;
 	padding: 0px;
 	position: absolute;
 	left: 0px;
@@ -411,7 +430,7 @@ div.status-right:hover a
 .drop > ul > li 
 {
 	display: block;
-	width: 140px;
+	width: 120px;
 	height: 30px;
 	position: relative;
 	left: 0px;
@@ -420,7 +439,7 @@ div.status-right:hover a
 
 .drop > ul > li > a 
 {
-	width: 140px;
+	width: 120px;
 	height: 30px;
 	padding: 0px;
 	display: table-cell;	
