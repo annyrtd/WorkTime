@@ -1,11 +1,4 @@
-﻿table.full-size 
-{
-    width: auto !important;	
-	margin: auto !important;
-	margin-top: 30px !important;
-}
-
-table.full-size td
+﻿table.full-size td
 {	
 	padding: 6px 20px !important;
 }
@@ -16,6 +9,10 @@ table.full-size th
 	background-color: #DDDDDD   !important;
 }
 
+table.full-size 
+{
+	margin-top: 30px !important;
+}
 
 .time
 {	

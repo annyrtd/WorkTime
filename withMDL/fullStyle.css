@@ -3,8 +3,22 @@ rgb(63, 81, 181) - indigo
 rgb(255, 64, 129) - pink
 */
 
+table.full-size 
+{
+    width: auto !important;	
+	margin: auto !important;	
+	/*margin-right: 70px !important;*/
+}
 
+table.full-size td.text
+{
+	white-space: pre-line;
+}
 
+table.full-size td.text.phone
+{
+	white-space: nowrap;
+}
 
 body
 {
@@ -117,6 +131,16 @@ input[type=submit]:hover, input[type=button]:hover, .navbar input[type=submit]:h
 	*/
 }
 
+input[type="text"], select
+{
+    background-color: initial !important;
+    margin: initial !important;
+    padding: initial !important;
+}
+
+
+/*
+
 input[type=text], select
 {
 	color: rgb(38, 47, 74) !important;	
@@ -128,11 +152,15 @@ input[type=text]:focus, select
 	color: rgb(38, 47, 74) !important;
 	background-color: rgb(199, 216, 229) !important;
 }
-
+*/
 input[type=text]:hover, select
 {
 	cursor: pointer;
 }
+
+
+
+
 
 .inputReplaceButton
 {
@@ -157,7 +185,7 @@ input[type=text]:hover, select
 {
 	outline: none;
 	position: fixed;
-	top: 80px;
+	top: 170px;
 	right: 32px;
 }
 
@@ -166,11 +194,7 @@ input[type=text]:hover, select
 	position: fixed !important;
 	top: 90px !important;
 	right: 30px !important;
-	/*background-color: rgb(199, 216, 229);*/
 	padding: 0px !important;
-	/*width: 130px !important;
-	height: 20px !important;
-	*/
 	font-size: 8pt !important;
 }
 
@@ -208,24 +232,22 @@ input[type=text]:hover, select
 	
 }
 
+.main
+{
+	margin-left: auto !important;
+    margin-right: auto !important;
+	padding: 10px 70px 50px!important;
+}
 
 .status-bar
 {
 	min-width: 816px !important;	
 	border: 0px solid white !important;	
 	margin: 0px 0px 3px 10px !important;
-	background-color: white   !important;
+	background-color: transparent   !important;
 	padding: 15px 0px 0px 0px !important;
 }
 
-#menu
-{
-	position: fixed;
-	top: 45px;
-	left: 147px;
-	width: 1203px;
-	padding-left: 0px;
-}
 
 /*
 
@@ -335,6 +357,18 @@ div.status-right:hover a
 	background-color: white;
 }
 
+.mdl-layout__header-row
+{
+	height: 56px !important;
+}
+
+#menu
+{
+	display: flex;
+	width: 1203px;
+	padding-left: 0px;
+}
+
 #menu a, li 
 {
 	font-family: Roboto, sans-serif !important;
@@ -354,21 +388,43 @@ div.status-right:hover a
 	margin: 0px 10px;
 	text-align: center;	
 	height: 30px;
-	border: 1px solid white !important;
+	border: 0px solid white !important;
+	
+}
+
+#menu > li > a
+{
+	color: white;
+	opacity: 0.7;
+	font-weight: bold;
+}
+
+#menu > li:hover > a
+{
+	opacity: 1;
+}
+
+#menu > li.current
+{
+	background-color: transparent !important;
 }
 
 #menu > li.current > a
 {
-	background-color: white !important;
-	border-bottom: 2px solid rgb(255, 64, 129) !important;	
+	background-color: transparent !important;
+	border-bottom: 3px solid rgb(255, 64, 129) !important;	
 	color: rgb(255, 64, 129) !important;
+	opacity: 1;
+	
 }
 
-#menu  li:hover > a
+/*
+#menu  li > a
 {
-	font-weight: bolder;
+	font-weight: bold;
 }
 
+*/
 #menu > li > ul > li
 {
 	background-color: white;
@@ -380,10 +436,7 @@ div.status-right:hover a
 	cursor: pointer;
 }
 
-.nav > li:hover
-{
-	background: #EBEBEB
-}
+
 
 .nav > li > a
 {
@@ -460,3 +513,38 @@ div.status-right:hover a
     -o-transform: scale(1); /* Для Opera */
 	transform: scale(1);
 }
+
+.main form
+{
+	width: auto;
+	display: block;
+	margin: auto;
+}
+
+
+/*--------------------*/
+
+.mdl-layout__container 
+{
+    position: fixed !important;
+	top: 0;
+	left: 0;
+	z-index: 999;
+}
+
+.mdl-layout__header 
+{
+	height: 100px;
+}
+
+.mdl-layout__drawer 
+{
+	padding-left: 40px; 
+}
+
+.mdl-layout-title 
+{
+    padding-left: 0px !important;
+}
+
+

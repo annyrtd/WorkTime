@@ -44,24 +44,24 @@ thead tr .headerSortDown
 	font-weight: bold;
 }
 
-.room
-{
-	width: 70px !important;
-}
-
-.workgroup
-{
-	width: 130px !important;
-}
-
 td.workgroup, td.employee
 {
 	padding-left: 18px;
 }
 
-th.workgroup
+th.workgroup, td.workgroup
 {
-	width: 138px !important;
+	min-width: 131px !important;
+}
+
+th.employee, td.employee
+{
+	min-width: 125px !important;
+}
+
+th.room, td.room
+{
+	min-width: 67px !important;
 }
 
 #workgroupSelect

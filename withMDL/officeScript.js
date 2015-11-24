@@ -72,7 +72,58 @@ function CreateSearchInput()
 	
 	$("th.text").eq(0).children().hide();
 	$("th.text").eq(0).append(input);
+	
+	
+	
+	
+	
 }
+
+function CreateSearchInput_withMD()
+{
+	var input = $("<input>", {
+		type: "text",
+		"class": "mdl-textfield__input",
+		id: "searchInput",
+		title: "Введите фамилию или имя сотрудника",
+		placeholder: "Сотрудник"
+	}).css("width", "100px");
+	
+	componentHandler.upgradeElement(input.get(0));	
+	
+	var labelForInput = $("<label></label>", {
+		"class": "mdl-textfield__label",
+		"for": "searchInput"
+	}).append('Сотрудник');
+	
+	componentHandler.upgradeElement(labelForInput.get(0));
+	
+	var div = $("<div></div>", {
+		"class": "mdl-textfield mdl-js-textfield"
+	}).append(input);
+	
+	
+	
+	$("th.text").eq(0).children().hide();
+	$("th.text").eq(0).append(div);
+	
+	/*
+	<!-- Expandable Textfield -->
+
+	<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+		<label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+			<i class="material-icons">search</i>
+		</label>
+		<div class="mdl-textfield__expandable-holder">
+			<input class="mdl-textfield__input" type="text" id="sample6">
+			<label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+		</div>
+	</div>
+	*/
+
+}
+
+
 
 function escapeHtml(text) 
 {
@@ -335,11 +386,11 @@ function AddResetFiltersButton()
 		"class": "buttonDiv"
 	}).append(button).css("width", "100%");
 	
-	$(".status-bar").append(div);
+	$(".main").append(div);
 
 	componentHandler.upgradeElement(tooltip.get(0));	
 	componentHandler.upgradeElement(button.get(0));
-	$(".status-bar").append(tooltip);
+	$(".main").append(tooltip);
 	
 }
 
@@ -441,7 +492,7 @@ $(document).ready
 ( 
 	function() 
 	{
-		CreateSearchInput();	
+		CreateSearchInput_withMD();	
 		SetClassesOnColumns();		
 		CreateSelectForGroups();
 		CreateSelectOnWorkState();
@@ -460,6 +511,7 @@ $(document).ready
 				ChangeButtonsToMD.apply(this);				
 			}
 		);
+		
 		
 		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 

@@ -186,6 +186,39 @@ function ReplaceInput()
 	$(this).hide();
 }
 
+function CreateFixedHeader()
+{
+	$(".status-bar").hide();
+	$(".navbar").hide();
+	
+	
+	var title = $('<div class="mdl-layout__header-row"><!-- Title --><span class="mdl-layout-title">' + $(".status-left").html() + '</span></div>');
+	componentHandler.upgradeElement(title.get(0));
+	
+	var header = $('<header></header>', {
+		"class": "mdl-layout__header"
+	}).append(title, $("#menu"));
+	componentHandler.upgradeElement(header.get(0));
+	
+	var drawer = $('<div class="mdl-layout__drawer"></div>')
+	.append('<span class="mdl-layout-title">Настройки</span>')
+	.append($(".navbar form"));
+	componentHandler.upgradeElement(drawer.get(0));
+	
+	var mainContent = $('<main class="mdl-layout__content"></main>')
+	.append($(".main"));
+	
+	componentHandler.upgradeElement(mainContent.get(0));
+	
+	var div = $("<div></div>", {
+		"class": "mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"
+	}).append(header, drawer, mainContent);
+
+	$(".navbar").before(div);
+}
+
+
+
 $(document).ready
 ( 
 	function() 
@@ -198,7 +231,6 @@ $(document).ready
 		$(document).show();		
 		$(".status-bar").height("100px");
 		
-			
 		
 		$("input[type=submit], input[type=button]").each(
 			function(index)
@@ -214,6 +246,7 @@ $(document).ready
 			}
 		);
 		
+		CreateFixedHeader();	
 		
 		$("div.status-right a").click(
 			function()
