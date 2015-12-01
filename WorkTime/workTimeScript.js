@@ -797,6 +797,8 @@ function CreateSettings()
 				paddingTop: "2em"
 			});
 			
+			
+			$("div.table-form").eq(0).children("label").text('Округлять "отчетное" время');
 			$("div.table-form").eq(1).hide();
 			$("div.table-form").eq(2).hide();
 			$("div.table-form").eq(3).hide();
