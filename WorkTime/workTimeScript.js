@@ -575,12 +575,20 @@ function AddRowBetweenWeeksWithWeekNumber()
 			if ($(this).children().first().text() == "Пн")
 			{
 				if ($(this).prev().attr("class") != "intervalRow")
-				{			
+				{	
+					if (numberOfWeek == 3)
+					{
+						titleOfWeek = "3ья неделя."
+					}
+					else
+					{
+						titleOfWeek = numberOfWeek + "ая неделя."
+					}			
 					var cell = $("<td></td>",
 					{
 						"class": "intervalCell"	,	
 						"colspan": length,
-					}).append(numberOfWeek + "ая неделя.");
+					}).append(titleOfWeek);
 					numberOfWeek++;
 					var row = $("<tr></tr>",
 					{
