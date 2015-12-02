@@ -7,7 +7,7 @@ jQuery.expr[':'].contains = function(a, i, m) {
       .indexOf(m[3].toUpperCase()) >= 0;
 };
 
-function SetOnlyOneButton()
+function SetRaisedForOnlyOneButton()
 {
 	var colorOfStatus = $("div.status-right > img").attr("src");
 	colorOfStatus = colorOfStatus.replace("/Content/ball_", "");
@@ -16,13 +16,17 @@ function SetOnlyOneButton()
 	{
 		case "blue":
 		case "green":
-			$("form[action='/Remote/Come']").hide();			
+			$("form[action='/Remote/Come']").children("button")
+				.removeClass("mdl-button--raised");
+			componentHandler.upgradeElement($("form[action='/Remote/Come']").children("button").get(0));			
 			$("form[action='/Remote/Leave']").show();
 			break;
 		case "yellow":
 		case "gray":		
-			$("form[action='/Remote/Come']").show();			
-			$("form[action='/Remote/Leave']").hide();
+			$("form[action='/Remote/Come']").show();
+			$("form[action='/Remote/Leave']").children("button")
+				.removeClass("mdl-button--raised");
+			componentHandler.upgradeElement($("form[action='/Remote/Leave']").children("button").get(0));
 			break;
 	}
 }
@@ -192,7 +196,11 @@ function CreateFixedHeader()
 	$(".navbar").hide();
 	
 	
-	var title = $('<div class="mdl-layout__header-row"><!-- Title --><span class="mdl-layout-title">' + $(".status-left").html() + '</span></div>');
+	var title = $('<div class="mdl-layout__header-row"><!-- Title --><span class="mdl-layout-title">' 
+		+ $(".status-left").html() + '</span>'			
+		+ '<span class="mdl-layout-title" style="position: fixed; right: 260px; top: 15px;"></span>' 
+		+ '<span class="mdl-layout-title" style="position: fixed; right: 10px; top: 15px;">' 
+		+ $(".status-right").text() + '</span></div>');
 	componentHandler.upgradeElement(title.get(0));
 	
 	var header = $('<header></header>', {
@@ -206,7 +214,8 @@ function CreateFixedHeader()
 	componentHandler.upgradeElement(drawer.get(0));
 	
 	var mainContent = $('<main class="mdl-layout__content"></main>')
-	.append($(".main"));
+	.append($(".status-center"), 
+	$(".main"));
 	
 	componentHandler.upgradeElement(mainContent.get(0));
 	
@@ -215,6 +224,22 @@ function CreateFixedHeader()
 	}).append(header, drawer, mainContent);
 
 	$(".navbar").before(div);
+	
+	$(".mdl-layout-title").eq(2).prepend($(".status-right img"));	
+	
+	var temp = $("<div></div>");
+	temp.load("http://co-msk-app02/Personal tr.summary",
+		function ()
+		{
+			$(".mdl-layout-title").eq(1).append("Текущее время: ", '<span class="mdl-layout-title currentTime" style="display: inline">' 
+				+ $(this).children(".summary").last().children("td.time").eq(2).text() + '</span>');
+			if ($(this).children(".summary").last().children("td.time").eq(2).hasClass("negative"))
+			{
+				$("span.currentTime").addClass("accentColor");
+			}
+		}
+	);
+	
 }
 
 
@@ -223,7 +248,6 @@ $(document).ready
 ( 
 	function() 
 	{
-		SetOnlyOneButton();
 		PutInfoToTheLeftPanel();
 		CreateMenu();
 		$("ul.nav2").hide();
@@ -245,7 +269,7 @@ $(document).ready
 				ChangeButtonsToMD.apply(this);				
 			}
 		);
-		
+		SetRaisedForOnlyOneButton();		
 		CreateFixedHeader();	
 		
 		$("div.status-right a").click(

@@ -44,6 +44,7 @@ thead tr .headerSortDown
 	font-weight: bold;
 }
 
+
 td.workgroup, td.employee
 {
 	padding-left: 18px;
@@ -51,7 +52,7 @@ td.workgroup, td.employee
 
 th.workgroup, td.workgroup
 {
-	min-width: 131px !important;
+	min-width: 160px !important;
 }
 
 th.employee, td.employee
@@ -61,30 +62,32 @@ th.employee, td.employee
 
 th.room, td.room
 {
-	min-width: 67px !important;
+	min-width: 	100px !important;
 }
 
 #workgroupSelect
 {
 	width: 115px !important;
+	height: 30px !important;
 }
 
 #workStateSelect
 {
 	width: 20px !important;
+	height: 30px !important;
 }
 
 #roomSelect
 {	
 	width: 50px !important;
 	padding: 0px !important;
+	height: 30px !important;
 }
 
 .arrowDiv
 {
 	width: 8px;
 	height: 23px;
-	background-image: url(chrome-extension://pbokpiiagfoppnddhpfkefeelinccdfp/images/bg.gif);
 	background-repeat: no-repeat;
 	background-position: center;
 	cursor: pointer;
@@ -93,15 +96,6 @@ th.room, td.room
 .arrowDiv:active
 {
 	height: 25px;
-}
-.headerSortUp 
-{
-	background-image: url(chrome-extension://pbokpiiagfoppnddhpfkefeelinccdfp/images/asc.gif);
-}
-
-.headerSortDown 
-{
-	background-image: url(chrome-extension://pbokpiiagfoppnddhpfkefeelinccdfp/images/desc.gif);
 }
 
 .tableArrows
@@ -119,4 +113,27 @@ th.room, td.room
 .mdl-tooltip.is-active 
 {
     animation: pulse 200ms cubic-bezier(0, 0, 0.2, 1) forwards !important;
+}
+
+.text .mdl-textfield {
+    width: 100px;
+}
+
+input[type=text], select, select option
+{
+	color: black !important;
+	
+}
+
+input[type=text]
+{	
+    font-size: 11pt !important;
+}
+
+table.full-size .mdl-textfield__label
+{	
+	color: gray !important;
+    font-size: 12pt !important;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+	line-height: 11px !important;
 }

@@ -3,6 +3,12 @@ rgb(63, 81, 181) - indigo
 rgb(255, 64, 129) - pink
 */
 
+
+body
+{
+	font-family: Roboto, Helvetica, Arial, sans-serif !important;
+}
+
 table.full-size 
 {
     width: auto !important;	
@@ -522,6 +528,7 @@ div.status-right:hover a
 }
 
 
+
 /*--------------------*/
 
 .mdl-layout__container 
@@ -539,7 +546,8 @@ div.status-right:hover a
 
 .mdl-layout__drawer 
 {
-	padding-left: 40px; 
+	padding-left: 30px; 
+	padding-right: 20px;
 }
 
 .mdl-layout-title 
@@ -548,3 +556,16 @@ div.status-right:hover a
 }
 
 
+.accentColor
+{
+	color: rgb(255, 64, 129);
+}
+
+.status-center
+{
+	background-color: white !important;
+	font-family: Roboto, Helvetica, Arial, sans-serif !important;
+	color: black !important;
+	font-size: 13pt !important;
+	padding-top: 20px !important;
+}

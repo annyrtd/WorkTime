@@ -86,30 +86,33 @@ function CreateSearchInput_withMD()
 		"class": "mdl-textfield__input",
 		id: "searchInput",
 		title: "Введите фамилию или имя сотрудника",
-		placeholder: "Сотрудник"
-	}).css("width", "100px");
-	
-	componentHandler.upgradeElement(input.get(0));	
+		//placeholder: "Сотрудник"
+	});
 	
 	var labelForInput = $("<label></label>", {
 		"class": "mdl-textfield__label",
 		"for": "searchInput"
-	}).append('Сотрудник');
+	}).append('Сотрудник');	
 	
-	componentHandler.upgradeElement(labelForInput.get(0));
+	var icon = $('<i class="material-icons" style="float: left; margin-top: 22px;">search</i>');
 	
 	var div = $("<div></div>", {
 		"class": "mdl-textfield mdl-js-textfield"
-	}).append(input);
-	
+	}).append(input, labelForInput);
 	
 	
 	$("th.text").eq(0).children().hide();
-	$("th.text").eq(0).append(div);
+	$("th.text").eq(0).append(icon,div);
+	
+	componentHandler.upgradeElement($(".mdl-textfield.mdl-js-textfield").get(0));
 	
 	/*
 	<!-- Expandable Textfield -->
 
+	<button class="mdl-button mdl-js-button mdl-button--icon">
+		<i class="material-icons">mood</i>
+	</button>
+	
 	<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
 		<label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
 			<i class="material-icons">search</i>
@@ -193,7 +196,15 @@ function CreateSelectForGroups()
 	);
 	
 	arrayOfGroupNames.sort();
-	//console.log(arrayOfGroupNames);
+	
+	var button, tooltip;
+	if (IsMyHomeOffice())
+	{
+		button = $('<button style="float: left;" id="groupSelectButton" class="mdl-button mdl-js-button mdl-button--icon' 
+			+'  mdl-button--accent mdl-js-ripple-effect"><i class="material-icons">home</i></button>')
+		tooltip = $('<div class="mdl-tooltip" for="groupSelectButton">Моя группа</div>');	
+	}
+	
 	
 	var select = $("<select></select>", {
 		id: "workgroupSelect",
@@ -214,7 +225,17 @@ function CreateSelectForGroups()
 	}
 	
 	$("th.text").eq(5).children().hide();
-	$("th.text").eq(5).append(select);
+	
+	if (button !== undefined && tooltip !== undefined)
+	{
+		$("th.text").eq(5).append(button, tooltip, select);
+		componentHandler.upgradeElement(button.get(0));
+		componentHandler.upgradeElement(tooltip.get(0));	
+	}	
+	else
+	{
+		$("th.text").eq(5).append(select);
+	}
 }
 
 function CreateSelectOnWorkState()
@@ -228,6 +249,8 @@ function CreateSelectOnWorkState()
 	.append("<option id='option_ball_blue' value='/Content/ball_blue.png' title='Работает удаленно'>Работает удаленно</option>")
 	.append("<option id='option_ball_yellow' value='/Content/ball_yellow.png' title='Закончил работу'>Закончил работу</option>")
 	.append("<option id='option_ball_gray' value='/Content/ball_gray.png' title='Отсутствует'>Отсутствует</option>");
+	
+	
 	
 	//$("th.indicator").eq(0).children().hide();
 	$("th.indicator").eq(0).append(select);
@@ -249,7 +272,14 @@ function CreateSelectOnRoom()
 	);
 	
 	arrayOfRoomNumbers.sort();
-	//console.log(arrayOfRoomNumbers);
+	
+	var button, tooltip;
+	if (IsMyHomeOffice())
+	{
+		button = $('<button style="float: left;" id="roomSelectButton" class="mdl-button mdl-js-button mdl-button--icon' 
+			+'  mdl-button--accent mdl-js-ripple-effect"><i class="material-icons">home</i></button>')
+		tooltip = $('<div class="mdl-tooltip" for="roomSelectButton">Моя комната</div>');	
+	}
 	
 	var select = $("<select></select>", {
 		id: "roomSelect",
@@ -270,17 +300,55 @@ function CreateSelectOnRoom()
 	}
 	
 	$("th.text").eq(6).children().hide();
-	$("th.text").eq(6).append(select);
+	if (button !== undefined && tooltip !== undefined)
+	{
+		$("th.text").eq(6).append(button, tooltip, select);
+		componentHandler.upgradeElement(button.get(0));
+		componentHandler.upgradeElement(tooltip.get(0));
+	}
+	else
+	{		
+		$("th.text").eq(6).append(select);
+	}
+}
+
+function IsMyHomeOffice()
+{
+	var myName = GetMyName();
+	if ($('td.employee:contains("' + myName + '")').length > 0)
+	{
+		return true;
+	}
+	return false;
 }
 
 
 // добавляют стрелочки для сортировки
 function PrepareEmployeeColumnForSort()
-{
+{	
+/*
+	$("#searchInput").css("float", "left");
+	var cell1 = $("<td></td>").append($("#searchInput").parent());
+	
 	var arrowDiv = $("<div></div>",
 	{
 		"class": "arrowDiv"
 	}).css("float", "right");
+	var cell2 = $("<td></td>").append(arrowDiv);
+	var row = $("<tr></tr>").append(cell1, cell2);
+	
+	var table = $("<table></table>").append(row);
+	
+	$("th.text").first().append(table);
+	*/
+	var arrowDiv = $("<div></div>",
+	{
+		"class": "arrowDiv"
+	}).css({
+		"float": "right",
+		"margin": "20px 0px",
+		"backgroundImage": "url(" + chrome.extension.getURL("/images/bg.gif") + ")"
+	});
 	
 	var clearfix = $("<div></div>",
 	{
@@ -288,7 +356,8 @@ function PrepareEmployeeColumnForSort()
 	});
 	
 	$("#searchInput").css("float", "left");
-	$("#searchInput").after(arrowDiv, clearfix);
+	$("#searchInput").parent().after(arrowDiv, clearfix);
+	
 }
 
 function PrepareWorkgroupColumnForSort()
@@ -296,8 +365,9 @@ function PrepareWorkgroupColumnForSort()
 	var arrowDiv = $("<div></div>",
 	{
 		"class": "arrowDiv"
-	}).css("float", "right");
-	
+	}).css("float", "right")
+	.css("backgroundImage", "url(" + chrome.extension.getURL("/images/bg.gif") + ")");
+ 	
 	var clearfix = $("<div></div>",
 	{
 		"class": "clearfix"		
@@ -312,7 +382,8 @@ function PrepareRoomColumnForSort()
 	var arrowDiv = $("<div></div>",
 	{
 		"class": "arrowDiv"
-	}).css("float", "right");
+	}).css("float", "right")
+	.css("backgroundImage", "url(" + chrome.extension.getURL("/images/bg.gif") + ")");
 	
 	var clearfix = $("<div></div>",
 	{
@@ -322,6 +393,7 @@ function PrepareRoomColumnForSort()
 	$("#roomSelect").css("float", "left");
 	$("#roomSelect").after(arrowDiv, clearfix);
 }
+
 
 // убирает пустые колонки
 function RemoveEmptyColumns()
@@ -486,6 +558,118 @@ function FilterRoom()
 }
 
 
+//Выбор "домашних" групп и комнат
+
+function SelectHomeGroup()
+{
+	$("table.full-size > tbody > tr").show();
+	$("#searchInput").val("");
+	
+	var inputText = GetMyGroupName();	
+	$("#workgroupSelect").val(inputText);
+	
+	if (inputText == "")
+	{
+		return;
+	}
+	
+	if (inputText == "NoGroup")
+	{
+		$('td.workgroup').not('[style="display: none;"]').each(
+			function(index)
+			{
+				if ($(this).text() == "")
+					$(this).parent().show();
+				else								
+					$(this).parent().hide();
+			}
+		);
+		return;
+	}
+	var cellsThatContainInputText = 'td.workgroup:contains("' + inputText + '")';
+	$(cellsThatContainInputText).parent().not('[style="display: none;"]').show();				
+	$('td.workgroup').not(cellsThatContainInputText).parent().hide();	
+	
+}
+
+function GetMyGroupName()
+{
+	var groupname = "";
+	var myName = GetMyName();
+	
+	$('td.workgroup').each(
+		function(index)
+		{
+			if ($(this).parent().children("td.employee").text() == myName)
+			{
+				groupname = $(this).text();
+				return false;
+			}
+		}
+	);
+	return groupname;
+}
+
+function GetMyName()
+{
+	var myName = $(".status-right a").text();
+	
+	var position = myName.indexOf(" ");
+	var firstName = myName.substr(0, position);
+	var lastName = myName.substr(position + 1);
+	myName = lastName + " " + firstName;
+	
+	return myName;
+}
+
+function SelectHomeRoom()
+{
+	$("table.full-size > tbody > tr").show();
+	$("#searchInput").val("");
+	
+	var inputText = GetMyRoomNumber();
+	$("#roomSelect").val(inputText);
+	
+	if (inputText == "")
+	{
+		return;
+	}
+	
+	if (inputText == "NoRoom")
+	{
+		$('td.room').not('[style="display: none;"]').each(
+			function(index)
+			{
+				if ($(this).text() == "")
+					$(this).parent().show();
+				else								
+					$(this).parent().hide();
+			}
+		);
+		return;
+	}
+	var cellsThatContainInputText = 'td.room:contains("' + inputText + '")';
+	$(cellsThatContainInputText).parent().not('[style="display: none;"]').show();				
+	$('td.room').not(cellsThatContainInputText).parent().hide();	
+}
+
+function GetMyRoomNumber()
+{
+	var roomNumber = "";
+	var myName = GetMyName();
+	
+	$('td.room').each(
+		function(index)
+		{
+			if ($(this).parent().children("td.employee").text() == myName)
+			{
+				roomNumber = $(this).text();
+				return false;
+			}
+		}
+	);
+	return roomNumber;
+}
 
 
 $(document).ready
@@ -494,7 +678,8 @@ $(document).ready
 	{
 		CreateSearchInput_withMD();	
 		SetClassesOnColumns();		
-		CreateSelectForGroups();
+		
+		CreateSelectForGroups();		
 		CreateSelectOnWorkState();
 		CreateSelectOnRoom();
 		
@@ -505,12 +690,17 @@ $(document).ready
 		
 		RemoveEmptyColumns();		
 		
-		$("button").not("#idReset").each(
+		$("button")
+		.not("#idReset")
+		.not(".mdl-button--icon")
+		.not("form[action='/Remote/Come'] button, form[action='/Remote/Leave'] button")
+		.each(
 			function(index)
 			{	
 				ChangeButtonsToMD.apply(this);				
 			}
 		);
+	
 		
 		
 		
@@ -526,20 +716,6 @@ $(document).ready
 			}
 		);
 		
-		$( "#searchInput" ).focus( 
-			function ()
-			{
-				$(this).attr("placeholder", "");
-			}
-		);
-		
-		$( "#searchInput" ).blur( 
-			function ()
-			{
-				$(this).attr("placeholder", "Сотрудник");				
-			}
-		);
-		
 		
 		$("#workgroupSelect, #workStateSelect, #roomSelect").change(
 			function ()
@@ -547,6 +723,7 @@ $(document).ready
 				SetFilters();
 			}
 		);
+		
 		
 		$(".arrowDiv").click(		
 			function ()
@@ -576,7 +753,8 @@ $(document).ready
 						}
 					);
 					
-					$(this).removeClass("headerSortUp").addClass("headerSortDown");					
+					$(this).removeClass("headerSortUp").addClass("headerSortDown")
+						.css("backgroundImage", "url(" + chrome.extension.getURL("/images/asc.gif") + ")");					
 				}
 				else
 				{
@@ -599,7 +777,8 @@ $(document).ready
 								}
 						}
 					);
-					$(this).removeClass("headerSortDown").addClass("headerSortUp");
+					$(this).removeClass("headerSortDown").addClass("headerSortUp")
+						.css("backgroundImage", "url(" + chrome.extension.getURL("/images/desc.gif") + ")");
 				}
 				$("table.full-size > tbody").append(arrayToSort);
 			}
@@ -611,6 +790,20 @@ $(document).ready
 			{				
 				$("table.full-size > tbody > tr").show();
 				$("#workgroupSelect, #workStateSelect, #roomSelect, #searchInput").val("");
+			}
+		);
+		
+		$("#roomSelectButton").click(
+			function()
+			{
+				SelectHomeRoom();
+			}
+		);
+		
+		$("#groupSelectButton").click(
+			function()
+			{
+				SelectHomeGroup();
 			}
 		);
 		
