@@ -164,7 +164,7 @@ $(document).ready
 ( 
 	function() 
 	{
-		SetOnlyOneButton();
+		//SetOnlyOneButton();
 		PutInfoToTheLeftPanel();
 		CreateMenu();
 		$("ul.nav2").hide();

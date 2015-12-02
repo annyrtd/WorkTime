@@ -152,7 +152,14 @@ function AddReportColumn()
 function AddConclusionForMonth()
 {		
 	var necessaryWidth = $("table.full-size").css("width");	
-	var currentTime = GetAlreadyWorkedTimeForMonth();
+	var currentTime = GetAlreadyWorkedTimeForMonth();	
+	if ($("#NetTime") !== undefined)
+	{
+		if ($("#NetTime").children("option[selected]").val() == "Yes")
+		{
+			currentTime = SumOfTime(currentTime, GetTimeOfHolidays());
+		}
+	}	
 	var thisDayLeft = GetCurrentTimeForCurrentDay();
 	var timeForMonthLeft = DifferenceOfTime(GetTimeForMonthLeft(), thisDayLeft);
     var reportTimeForMonth = GetSumReportTimeForMonth();	
@@ -244,6 +251,12 @@ function GetAlreadyWorkedTimeForMonth()
 	return time;
 }
 
+function GetTimeOfHolidays()
+{
+	var hours = 8 * $("tr.dayoff").length;
+	return Pad(hours, 2) + ":00";
+}
+
 function GetCurrentTimeForCurrentDay()
 {	
 	//var temp = $("tr[id]").not("[class=future]").last().children(".time").eq(2).text();	
@@ -297,6 +310,16 @@ function AddConclusionForWeek()
 {
 	var necessaryWidth = $("table.full-size").css("width");	
 	var currentTime = GetCurrentTimeForWeek();
+	
+	if ($("#NetTime") !== undefined)
+	{
+		if ($("#NetTime").children("option[selected]").val() == "Yes")
+		{
+			currentTime = SumOfTime(currentTime, GetTimeOfHolidaysForWeek());
+		}
+	}	
+	
+	
 	var thisDayLeft = GetCurrentTimeForCurrentDay();
 	var timeForWeekLeft = GetTimeForWeekLeft();
 	
@@ -312,31 +335,31 @@ function AddConclusionForWeek()
 	}
 	
 	var label1_1 = $("<label></label>", {
-		id: "text_currentTime"
+		id: "text_currentTime_week"
 	}).append("Отработанное время за неделю: ");
 	
 	var label1_2 = $("<label></label>", {
-		id: "currentTime"
+		id: "currentTime_week"
 	}).append(currentTime);
 	
 	
 	var label2_1 = $("<label></label>", {
-		id: "text_thisDayLeft",
+		id: "text_thisDayLeft_week",
 		"class": currentTimeClass
 	}).append("Остаток на текущий день: ");
 	
 	var label2_2 = $("<label></label>", {
-		id: "thisDayLeft",
+		id: "thisDayLeft_week",
 		"class": currentTimeClass
 	}).append(thisDayLeft);
 	
 	
 	var label3_1 = $("<label></label>", {
-		id: "text_timeForMonthOrWeekLeft"
+		id: "text_timeForMonthOrWeekLeft_week"
 	}).append("Остаток до конца недели: ");	
 	
 	var label3_2 = $("<label></label>", {
-		id: "timeForMonthOrWeekLeft"
+		id: "timeForMonthOrWeekLeft_week"
 	}).append(timeForWeekLeft);
 	
 	
@@ -364,6 +387,13 @@ function GetCurrentTimeForWeek()
 		}
 	)
 	return sum;
+}
+
+
+function GetTimeOfHolidaysForWeek()
+{	
+	var hours = 8 * $("tr.dayoff").not('[style="display: none;"]').length;
+	return Pad(hours, 2) + ":00";
 }
 
 function GetTimeForWeekLeft()
@@ -799,9 +829,21 @@ function CreateSettings()
 			
 			
 			$("div.table-form").eq(0).children("label").text('Округлять "отчетное" время');
-			$("div.table-form").eq(1).hide();
+			$("div.table-form").eq(1).children("label").text('Учитывать отпуск в отработанном времени за месяц');
 			$("div.table-form").eq(2).hide();
 			$("div.table-form").eq(3).hide();
+			if($("div.table-form").eq(1)
+				.children("select").first()
+				.children("option[selected]").val() == "Yes")
+			{
+				$("#currentTime").text(SumOfTime(GetAlreadyWorkedTimeForMonth(), GetTimeOfHolidays()));
+				$("#currentTime_week").text(SumOfTime(GetCurrentTimeForWeek(), GetTimeOfHolidaysForWeek()));
+			}
+			else
+			{
+				$("#currentTime").text(GetAlreadyWorkedTimeForMonth());				
+				$("#currentTime_week").text(GetCurrentTimeForWeek());
+			}
 		}
 	);
 }
