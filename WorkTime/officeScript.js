@@ -229,7 +229,8 @@ function PrepareEmployeeColumnForSort()
 	var arrowDiv = $("<div></div>",
 	{
 		"class": "arrowDiv"
-	}).css("float", "right");
+	}).css("float", "right")
+	.css("backgroundImage", "url(" + chrome.extension.getURL("/images/bg.gif") + ")");
 	
 	var clearfix = $("<div></div>",
 	{
@@ -245,7 +246,8 @@ function PrepareWorkgroupColumnForSort()
 	var arrowDiv = $("<div></div>",
 	{
 		"class": "arrowDiv"
-	}).css("float", "right");
+	}).css("float", "right")
+	.css("backgroundImage", "url(" + chrome.extension.getURL("/images/bg.gif") + ")");
 	
 	var clearfix = $("<div></div>",
 	{
@@ -261,7 +263,8 @@ function PrepareRoomColumnForSort()
 	var arrowDiv = $("<div></div>",
 	{
 		"class": "arrowDiv"
-	}).css("float", "right");
+	}).css("float", "right")
+	.css("backgroundImage", "url(" + chrome.extension.getURL("/images/bg.gif") + ")");
 	
 	var clearfix = $("<div></div>",
 	{
@@ -585,7 +588,8 @@ $(document).ready
 						}
 					);
 					
-					$(this).removeClass("headerSortUp").addClass("headerSortDown");					
+					$(this).removeClass("headerSortUp").addClass("headerSortDown")
+						.css("backgroundImage", "url(" + chrome.extension.getURL("/images/asc.gif") + ")");
 				}
 				else
 				{
@@ -608,7 +612,9 @@ $(document).ready
 								}
 						}
 					);
-					$(this).removeClass("headerSortDown").addClass("headerSortUp");
+					$(this).removeClass("headerSortDown").addClass("headerSortUp")
+						.css("backgroundImage", "url(" + chrome.extension.getURL("/images/desc.gif") + ")");
+						
 				}
 				$("table.full-size > tbody").append(arrayToSort);
 			}

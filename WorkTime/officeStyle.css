@@ -84,7 +84,6 @@ th.workgroup
 {
 	width: 8px;
 	height: 23px;
-	background-image: url(chrome-extension://pbokpiiagfoppnddhpfkefeelinccdfp/images/bg.gif);
 	background-repeat: no-repeat;
 	background-position: center;
 	cursor: pointer;
@@ -93,15 +92,6 @@ th.workgroup
 .arrowDiv:active
 {
 	height: 25px;
-}
-.headerSortUp 
-{
-	background-image: url(chrome-extension://pbokpiiagfoppnddhpfkefeelinccdfp/images/asc.gif);
-}
-
-.headerSortDown 
-{
-	background-image: url(chrome-extension://pbokpiiagfoppnddhpfkefeelinccdfp/images/desc.gif);
 }
 
 .tableArrows
