@@ -272,11 +272,11 @@ $(document).ready
 		SetRaisedForOnlyOneButton();		
 		CreateFixedHeader();	
 		
-		$("div.status-right a").click(
+		$("div.status-right a, th.indicator a").click(
 			function()
 			{				
 				return false;	
 			}
-		)		
+		)
 	}		
 );
