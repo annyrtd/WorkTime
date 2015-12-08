@@ -271,7 +271,11 @@ function ChangePicturesToMDLIcons()
 			}
 			if (color == "green")
 			{
-				color = "#32C71A";
+				color = "#17FF36";
+			}
+			if (color == "blue")
+			{
+				color = "rgb(63, 81, 181)";
 			}
 			
 			var icon = $('<i class="material-icons" style="display: block; color:' + color + ';">' + iconType + '</i>');
@@ -289,6 +293,37 @@ function ChangePicturesToMDLIcons()
 	
 	$("table.full-size i").first().hide();
 }
+
+
+
+function CreateCommonMDLCard()
+{
+	if (window.location.pathname == "/")
+		return;
+	
+	$(".status-center").hide();
+	$(".main").hide();
+	var classname = $("table.full-size").parent().attr("class");
+	
+	var title = $('<div class="mdl-card__title"></div>')
+	.append('<h2 class="mdl-card__title-text">'
+	+ $(".status-center").text()
+	+ '</h2>');
+	
+	var supportingText = $('<div class="mdl-card__supporting-text"></div>')
+	.append($("table.full-size"), $("form[action='/Notes']"));
+	
+	var div = $('<div class="' + classname + ' mdl-card mdl-shadow--2dp">')
+	.append(title, supportingText);
+	
+	
+	$(".mdl-layout__content").append(div);
+	
+	componentHandler.upgradeElement($(".mdl-card").get(0));	
+}
+
+
+
 
 $(document).ready
 ( 
@@ -319,19 +354,18 @@ $(document).ready
 		CreateFixedHeader();	
 		
 		ChangePicturesToMDLIcons();
+		CreateCommonMDLCard();
 		
 		$("div.status-right a, th.indicator a").click(
 			function()
 			{				
 				return false;	
 			}
-		)
-		
+		)		
 		
 		$(window).resize(
 			function()
 			{
-				console.log($(this).width());
 				if ($(this).width() < 830)
 				{
 					$("div.mainMenu").addClass("is-small-header");

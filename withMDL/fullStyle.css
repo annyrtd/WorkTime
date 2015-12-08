@@ -4,7 +4,7 @@ rgb(255, 64, 129) - pink
 */
 
 
-body
+*:not(i)
 {
 	font-family: Roboto, Helvetica, Arial, sans-serif !important;
 }
@@ -190,9 +190,9 @@ input[type=text]:hover, select
 #idReset
 {
 	outline: none;
-	position: fixed;
+	/*position: fixed;
 	top: 170px;
-	right: 32px;
+	right: 32px;*/
 }
 
 .resetFilters
@@ -593,4 +593,23 @@ div.is-small-header span.mdl-layout-title.notfixed
 div.is-small-header span.mdl-layout-title.notfixed
 {
     padding-right: 400px !important;
+}
+
+
+
+.mdl-card > .mdl-card__title, .mdl-card > .mdl-card__supporting-text
+{
+	color: #000000;
+	width: 95% !important;
+}
+
+.mdl-card
+{
+	margin-top: 10px !important;
+	margin-bottom: 10px !important;
+}
+
+.mdl-card table.full-size
+{
+	position: relative !important;
 }

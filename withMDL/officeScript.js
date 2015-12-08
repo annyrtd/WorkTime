@@ -91,7 +91,8 @@ function CreateSearchInput_withMD()
 	
 	var labelForInput = $("<label></label>", {
 		"class": "mdl-textfield__label",
-		"for": "searchInput"
+		"for": "searchInput",
+		"style": "line-height: 12pt !important;"
 	}).append('Сотрудник');	
 	
 	var icon = $('<i class="material-icons" style="float: left; margin-top: 22px;">search</i>');
@@ -450,9 +451,6 @@ function AddResetFiltersButton()
 		type: "button"
 	}).append(icon);	
 	
-	
-	var tooltip = $('<div class="mdl-tooltip" for="idReset">Сбросить<br>фильтры</div>');	
-	
 	var div = $("<div></div>",
 	{
 		"class": "buttonDiv"
@@ -460,9 +458,13 @@ function AddResetFiltersButton()
 	
 	$(".main").append(div);
 
-	componentHandler.upgradeElement(tooltip.get(0));	
+	
+	
+		
+	//var tooltip = $('<div class="mdl-tooltip" for="idReset">Сбросить<br>фильтры</div>');
+	//componentHandler.upgradeElement(tooltip.get(0));	
 	componentHandler.upgradeElement(button.get(0));
-	$(".main").append(tooltip);
+	//$(".main").append(tooltip);
 	
 }
 
@@ -671,6 +673,38 @@ function GetMyRoomNumber()
 	return roomNumber;
 }
 
+function CreateMDLCard()
+{
+	$(".status-center").hide();
+	$(".main").hide();
+	var classname = $("table.full-size").parent().attr("class");
+	
+	var title = $('<div class="mdl-card__title"></div>')
+	.append('<h2 class="mdl-card__title-text">'
+	+ $(".status-center").text()
+	+ '</h2>');
+	
+	var supportingText = $('<div class="mdl-card__supporting-text"></div>')
+	.append($("table.full-size"));
+	
+	//var border = $('<div class="mdl-card__actions mdl-card--border"></div>')
+	
+	var button = $('<div class="mdl-card__menu"></div>').append($("#idReset"));
+	
+	var div = $('<div class="' + classname + ' mdl-card mdl-shadow--2dp">')
+	.append(title, supportingText, /*border, */button);
+	
+	
+	$(".mdl-layout__content").append(div);
+	
+	var tooltip = $('<div class="mdl-tooltip" for="idReset">Сбросить<br>фильтры</div>');
+	componentHandler.upgradeElement(tooltip.get(0));
+	componentHandler.upgradeElement($("#idReset").get(0));	
+	$(".mdl-card__menu").append(tooltip);
+	
+	componentHandler.upgradeElement($(".mdl-card").get(0));	
+}
+
 
 
 $(document).ready
@@ -689,7 +723,8 @@ $(document).ready
 		PrepareRoomColumnForSort();
 		AddResetFiltersButton();
 		
-		RemoveEmptyColumns();		
+		RemoveEmptyColumns();
+		CreateMDLCard();		
 		
 		$("button")
 		.not("#idReset")
@@ -701,8 +736,11 @@ $(document).ready
 				ChangeButtonsToMD.apply(this);				
 			}
 		);
-	
 		
+		
+		
+		
+
 		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 
 			function() 
@@ -789,7 +827,9 @@ $(document).ready
 			function()
 			{				
 				$("table.full-size > tbody > tr").show();
-				$("#workgroupSelect, #workStateSelect, #roomSelect, #searchInput").val("");
+				$("#workgroupSelect, #workStateSelect, #roomSelect").val("");
+				
+				$("#searchInput").val("").parent().removeClass("is-dirty");
 			}
 		);
 		

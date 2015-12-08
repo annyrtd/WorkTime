@@ -134,6 +134,6 @@ table.full-size .mdl-textfield__label
 {	
 	color: gray !important;
     font-size: 12pt !important;
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+	/*font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;*/
 	line-height: 11px !important;
 }

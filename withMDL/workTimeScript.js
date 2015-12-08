@@ -536,10 +536,19 @@ function SeparateStartAndFinish()
 		function()
 		{
 			var timeRange = $(this).text();
+				
 			var position = timeRange.indexOf("—");
-			var start = timeRange.substr(0, position);
-			var finish = timeRange.substr(position + 1);
+			var start, finish;
 			
+			if (position < 0)
+			{
+					start = finish = "";
+			}
+			else
+			{
+				start = timeRange.substr(0, position);
+				finish = timeRange.substr(position + 1);
+			}
 			var tdFinish =  $("<td></td>", 
 			{
 				"class": "range text",
@@ -586,14 +595,8 @@ function AddRowBetweenWeeksWithWeekNumber()
 			{
 				if ($(this).prev().attr("class") != "intervalRow")
 				{		
-					if (numberOfWeek == 3)
-					{
-						titleOfWeek = "3ья неделя."
-					}
-					else
-					{
-						titleOfWeek = numberOfWeek + "ая неделя."
-					}
+					titleOfWeek = numberOfWeek + "-я неделя."
+					
 					var cell = $("<td></td>",
 					{
 						"class": "intervalCell"	,	
@@ -853,6 +856,14 @@ $(document).ready
 			{
 				if (!isMonth)
 				{
+					$(".intervalRow").show();
+					$("tr[id]").not("[class=future]").show();
+					$(".dayoff").show();	
+					RemoveConclusionForWeek();
+					AddConclusionForMonth();
+					isMonth = true;
+					shouldBeHidden = false;
+					$(".buttonDiv").remove();
 					return;
 				}
 				$(this).prevAll().each(
