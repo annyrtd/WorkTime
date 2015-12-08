@@ -671,38 +671,6 @@ function GetMyRoomNumber()
 	return roomNumber;
 }
 
-function ChangePicturesToMDLIcons()
-{
-	$("img").each(
-		function(index)
-		{
-			var iconType, color;
-			switch($(this).attr("src"))
-			{
-				case "/Content/mail.png":
-					iconType = "email";
-					color = "#FFDB58";
-					break;
-				case "/Content/ball_gray.png":
-				case "/Content/ball_green.png":
-				case "/Content/ball_blue.png":
-				case "/Content/ball_yellow.png":					
-					iconType = "lens";
-					color = $(this).attr("src").replace("/Content/ball_", "").replace(".png","");
-					break;
-			}
-			if (color == "green")
-			{
-				color = "#32C71A";
-			}
-			
-			var icon = $('<i class="material-icons" style="color:' + color + ';">' + iconType + '</i>');
-			icon.attr("title", $(this).attr("title"));
-			$(this).after(icon);
-			$(this).hide();
-		}
-	)
-}
 
 
 $(document).ready
@@ -734,7 +702,6 @@ $(document).ready
 			}
 		);
 	
-		ChangePicturesToMDLIcons();
 		
 		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 

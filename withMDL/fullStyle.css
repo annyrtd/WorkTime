@@ -559,6 +559,11 @@ div.status-right:hover a
 	color: rgb(255, 64, 129);
 }
 
+.greenColor
+{
+	color: #17FF36;
+}
+
 .status-center
 {
 	background-color: white !important;
