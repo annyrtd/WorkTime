@@ -197,10 +197,10 @@ function CreateFixedHeader()
 	
 	
 	var title = $('<div class="mdl-layout__header-row" style="flex-wrap: wrap;"><!-- Title -->'
-		+ '<span class="mdl-layout-title notfixed" style="padding-right: 146px;">' 
+		+ '<span class="mdl-layout-title notfixed" style="padding-right: 146px; padding-top: 15px;">' 
 		+ $(".status-left").html() 
 		+ '</span>'	
-		+ '<span class="mdl-layout-title notfixed" style="padding-right: 200px;"></span>' 
+		+ '<span class="mdl-layout-title notfixed" style="padding-right: 200px; padding-top: 0px;"></span>' 
 		+ '<span class="mdl-layout-title" style="position: absolute; right: 10px; top: 15px;">' 
 		+ $(".status-right").text() + '</span>'
 		+ '</div>');

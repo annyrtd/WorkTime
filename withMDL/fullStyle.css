@@ -580,7 +580,7 @@ div.is-small-header ul#menu
 	margin-top: 64px !important; 
 }
 
-span.mdl-layout-title.notfixed
+div.is-small-header span.mdl-layout-title.notfixed
 {
 	padding-top: 15px !important;
 }
