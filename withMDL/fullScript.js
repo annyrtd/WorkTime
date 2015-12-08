@@ -196,11 +196,14 @@ function CreateFixedHeader()
 	$(".navbar").hide();
 	
 	
-	var title = $('<div class="mdl-layout__header-row"><!-- Title --><span class="mdl-layout-title">' 
-		+ $(".status-left").html() + '</span>'			
-		+ '<span class="mdl-layout-title" style="position: fixed; right: 260px; top: 15px;"></span>' 
-		+ '<span class="mdl-layout-title" style="position: fixed; right: 10px; top: 15px;">' 
-		+ $(".status-right").text() + '</span></div>');
+	var title = $('<div class="mdl-layout__header-row" style="flex-wrap: wrap;"><!-- Title -->'
+		+ '<span class="mdl-layout-title notfixed" style="padding-right: 146px;">' 
+		+ $(".status-left").html() 
+		+ '</span>'	
+		+ '<span class="mdl-layout-title notfixed" style="padding-right: 200px;"></span>' 
+		+ '<span class="mdl-layout-title" style="position: absolute; right: 10px; top: 15px;">' 
+		+ $(".status-right").text() + '</span>'
+		+ '</div>');
 	componentHandler.upgradeElement(title.get(0));
 	
 	var header = $('<header></header>', {
@@ -220,7 +223,7 @@ function CreateFixedHeader()
 	componentHandler.upgradeElement(mainContent.get(0));
 	
 	var div = $("<div></div>", {
-		"class": "mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"
+		"class": "mainMenu mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"
 	}).append(header, drawer, mainContent);
 
 	$(".navbar").before(div);
@@ -278,5 +281,22 @@ $(document).ready
 				return false;	
 			}
 		)
+		
+		
+		$(window).resize(
+			function()
+			{
+				console.log($(this).width());
+				if ($(this).width() < 830)
+				{
+					$("div.mainMenu").addClass("is-small-header");
+				}
+				else
+				{
+					$("div.mainMenu").removeClass("is-small-header");
+				}
+			}
+		);
+		
 	}		
 );

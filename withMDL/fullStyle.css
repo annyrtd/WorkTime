@@ -533,9 +533,7 @@ div.status-right:hover a
 
 .mdl-layout__container 
 {
-    position: fixed !important;
-	top: 0;
-	left: 0;
+	min-width: 560px;
 	z-index: 999;
 }
 
@@ -568,4 +566,26 @@ div.status-right:hover a
 	color: black !important;
 	font-size: 13pt !important;
 	padding-top: 20px !important;
+}
+
+
+div.is-small-header header.mdl-layout__header
+{
+	height: 150px !important;
+}
+
+
+div.is-small-header ul#menu
+{
+	margin-top: 64px !important; 
+}
+
+span.mdl-layout-title.notfixed
+{
+	padding-top: 15px !important;
+}
+
+div.is-small-header span.mdl-layout-title.notfixed
+{
+    padding-right: 400px !important;
 }
