@@ -705,6 +705,35 @@ function CreateMDLCard()
 	componentHandler.upgradeElement($(".mdl-card").get(0));	
 }
 
+function ResizeTableHeader()
+{
+	var $table = $('table.full-size'),
+		$bodyCells = $table.find('tbody tr:first').children(),
+		colWidth;
+				
+	colWidth = $bodyCells.map(
+		function() 
+		{
+			console.log($(this), $(this).width());
+			return $(this).width();
+		}
+	).get();
+	
+	
+	
+		
+	// Set the width of thead columns
+	$table.find('th').each(
+		function(i, v) 
+		{
+			$(v).width(colWidth[i]);
+		}
+	);  
+	
+	//$table.find('thead').width($table.find('tbody').width());
+}
+
+
 
 
 $(document).ready
@@ -737,11 +766,6 @@ $(document).ready
 			}
 		);
 		
-		
-		
-		
-
-		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 
 			function() 
 			{		
@@ -750,7 +774,8 @@ $(document).ready
 				var cellsThatContainInputText = 'td.employee:contains("' + inputText + '")';
 				var cellsThatDoNotContainInputText = 'td.employee:contains("' + inputText + '")';
 				$(cellsThatContainInputText).parent().show();				
-				$('td.employee').not(cellsThatDoNotContainInputText).parent().hide();							
+				$('td.employee').not(cellsThatDoNotContainInputText).parent().hide();	
+				ResizeTableHeader();				
 			}
 		);
 		
@@ -759,6 +784,7 @@ $(document).ready
 			function ()
 			{
 				SetFilters();
+				ResizeTableHeader();
 			}
 		);
 		
@@ -830,6 +856,7 @@ $(document).ready
 				$("#workgroupSelect, #workStateSelect, #roomSelect").val("");
 				
 				$("#searchInput").val("").parent().removeClass("is-dirty");
+				ResizeTableHeader();
 			}
 		);
 		
@@ -837,6 +864,7 @@ $(document).ready
 			function()
 			{
 				SelectHomeRoom();
+				ResizeTableHeader();
 			}
 		);
 		
@@ -844,8 +872,17 @@ $(document).ready
 			function()
 			{
 				SelectHomeGroup();
+				ResizeTableHeader();
 			}
 		);
+
+		// Adjust the width of thead cells when window resizes
+		$(window).resize(
+			function() 
+			{
+				ResizeTableHeader();
+			}
+		).resize(); // Trigger resize handler
 		
 	}		
 );

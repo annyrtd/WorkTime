@@ -123,8 +123,11 @@ function CreateMenu()
 		function(index)
 		{
 			$(this).attr("id", "menu_li" + index).addClass("drop");	
+			$(this).children("a").text($(this).children("a").text().toUpperCase());
 		}
 	);
+	
+	
 	
 	
 	$("#menu_li0").append($("<ul id='menu_li0_submenu'><ul>"));
@@ -132,8 +135,13 @@ function CreateMenu()
 		function()
 		{
 			$("#menu_li0_submenu li").first().children("a").attr("href", "http://co-msk-app02/?officeid=1");
-			$("#menu_li0_submenu li").last().children("a").attr("href", "http://co-msk-app02/?officeid=2");
-						
+			$("#menu_li0_submenu li").last().children("a").attr("href", "http://co-msk-app02/?officeid=2")
+			$("#menu_li0_submenu a").each(
+				function()
+				{
+					$(this).text($(this).text().toUpperCase());
+				}
+			);			
 		}
 	);
 	
@@ -142,6 +150,12 @@ function CreateMenu()
 		function()
 		{
 			$("#menu_li1_submenu li").last().children("a").attr("href", "http://co-msk-app02/Personal");
+			$("#menu_li1_submenu a").each(
+				function()
+				{
+					$(this).text($(this).text().toUpperCase());
+				}
+			);	
 			
 		}
 	);
@@ -152,6 +166,12 @@ function CreateMenu()
 		function()
 		{
 			$("#menu_li2_submenu li").last().children("a").attr("href", "http://co-msk-app02/Notes");
+			$("#menu_li2_submenu a").each(
+				function()
+				{
+					$(this).text($(this).text().toUpperCase());
+				}
+			);	
 			
 		}
 	);
@@ -162,6 +182,12 @@ function CreateMenu()
 		function()
 		{
 			$("#menu_li3_submenu li").eq(1).children("a").attr("href", "http://co-msk-app02/Calendar");
+			$("#menu_li3_submenu a").each(
+				function()
+				{
+					$(this).text($(this).text().toUpperCase());
+				}
+			);	
 			
 		}
 	);
@@ -197,7 +223,7 @@ function CreateFixedHeader()
 	
 	
 	var title = $('<div class="mdl-layout__header-row" style="flex-wrap: wrap;"><!-- Title -->'
-		+ '<span class="mdl-layout-title notfixed" style="padding-right: 146px; padding-top: 15px;">' 
+		+ '<span class="mdl-layout-title notfixed" style="padding-right: 146px; padding-top: 33px; line-height: 30px;">' 
 		+ $(".status-left").html() 
 		+ '</span>'	
 		+ '<span class="mdl-layout-title notfixed" style="padding-right: 200px; padding-top: 0px;"></span>' 

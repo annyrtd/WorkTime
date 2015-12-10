@@ -6,7 +6,7 @@ rgb(255, 64, 129) - pink
 
 *:not(i)
 {
-	font-family: Roboto, Helvetica, Arial, sans-serif !important;
+	font-family: Roboto, sans-serif !important;
 }
 
 table.full-size 
@@ -32,6 +32,7 @@ body
 	color: rgb(38, 47, 74) !important;
 }
 
+/*
 th
 {	
 	padding: 6px 10px !important;
@@ -43,7 +44,7 @@ th.indicator
     padding-left: 2px !important;
     padding-right: 2px !important;
 }
-
+*/
 .navbar
 {
 	min-height: 370px !important;	
@@ -144,21 +145,6 @@ input[type="text"], select
     padding: initial !important;
 }
 
-
-/*
-
-input[type=text], select
-{
-	color: rgb(38, 47, 74) !important;	
-	background-color: rgb(199, 216, 229) !important;
-}
-
-input[type=text]:focus, select
-{
-	color: rgb(38, 47, 74) !important;
-	background-color: rgb(199, 216, 229) !important;
-}
-*/
 input[type=text]:hover, select
 {
 	cursor: pointer;
@@ -255,93 +241,6 @@ input[type=text]:hover, select
 }
 
 
-/*
-
-#menu li
-{
-	list-style-type: none;
-	margin: 0px 10px;	
-	background-color: rgb(193, 174, 193);
-	text-align: center;	
-	height: 30px;
-	width: 140px;
-}
-
-#menu > li
-{
-	float: left;
-}
-
-#menu li:hover
-{
-	background-color: rgb(38, 47, 74);	
-}
-
-#menu > li:hover > ul 
-{
-	display: block !important;
-	opacity: 1;
-}
-
-#menu > li:hover > ul > li
-{	
-	width: 140px;
-	position: relative;
-	left: -30px;
-	top: 3px;
-}
-
-#menu > li:hover > ul > li.current
-{
-	background: rgb(193, 174, 193);	
-}
-
-#menu > li:hover > ul > li > a
-{
-	color: rgb(38, 47, 74);
-}
-
-#menu > li > ul > li:hover 
-{
-	background-color: #8A3F92
-}
-
-#menu > li:hover > ul > li.current:hover
-{
-	background-color: #8A3F92
-}
-
-#menu > li > ul > li:hover > a
-{
-	color: white;
-}
-
-#menu li a
-{
-	color: rgb(38, 47, 74);
-}
-
-#menu li:hover a
-{
-	color: white;
-	cursor: pointer;
-}
-
-#menu .current {
-    background-color: rgb(229, 229, 229);
-}
-
-#menu a
-{
-    display: table-cell;
-    height: 30px;
-	vertical-align: middle;
-    text-align: center;
-	width: 140px;
-	padding: 0px;
-}
-*/
-
 div.status-right:hover a
 {
 	cursor: default;
@@ -402,7 +301,9 @@ div.status-right:hover a
 {
 	color: white;
 	opacity: 0.7;
-	font-weight: bold;
+	font-size: 14px;
+	padding: 10px 0px;
+	
 }
 
 #menu > li:hover > a
@@ -424,13 +325,7 @@ div.status-right:hover a
 	
 }
 
-/*
-#menu  li > a
-{
-	font-weight: bold;
-}
 
-*/
 #menu > li > ul > li
 {
 	background-color: white;
@@ -464,7 +359,7 @@ div.status-right:hover a
 	padding: 0px;
 	position: absolute;
 	left: 0px;
-	top: 30px;
+	top: 50px;
 	-webkit-transition: all 0.3s ease;
 	-ms-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -490,7 +385,7 @@ div.status-right:hover a
 {
 	display: block;
 	width: 120px;
-	height: 30px;
+	height: 50px;
 	position: relative;
 	left: 0px;
 	top: 0px;
@@ -504,6 +399,8 @@ div.status-right:hover a
 	display: table-cell;	
 	text-align: center;
 	vertical-align: middle;
+	padding: 10px 0px;
+	font-size: 14px;
 }
 
 .drop > ul > li > a:hover 
@@ -539,7 +436,7 @@ div.status-right:hover a
 
 .mdl-layout__header 
 {
-	height: 100px;
+	height: 120px;
 }
 
 .mdl-layout__drawer 
@@ -576,7 +473,7 @@ div.status-right:hover a
 
 div.is-small-header header.mdl-layout__header
 {
-	height: 150px !important;
+	height: 170px !important;
 }
 
 
@@ -599,8 +496,8 @@ div.is-small-header span.mdl-layout-title.notfixed
 
 .mdl-card > .mdl-card__title, .mdl-card > .mdl-card__supporting-text
 {
-	color: #000000;
-	width: 95% !important;
+	color: #000000;	
+	width: calc(100% - 32px);
 }
 
 .mdl-card
@@ -612,4 +509,9 @@ div.is-small-header span.mdl-layout-title.notfixed
 .mdl-card table.full-size
 {
 	position: relative !important;
+}
+
+.content-wide
+{
+	height: calc(100% - 140px);
 }
