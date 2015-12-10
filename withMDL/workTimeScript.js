@@ -224,7 +224,7 @@ function AddConclusionForMonth()
 	.append("<br>", label3_1, label3_2)	
 	.append("<br>", "<br>", label1_1, label1_2)
 	.append("<br>", label4_1, label4_2, "<br>");
-	$(".content-medium").append(barrier, conclusionDiv);
+	$(".content-wide").append(barrier, conclusionDiv);
 	
 	// проверяет, есть ли показ до конца месяца
 	if ($(".future").length == 0)
@@ -371,7 +371,7 @@ function AddConclusionForWeek()
 	.append(label2_1, label2_2)
 	.append("<br>", label3_1, label3_2)
 	.append("<br>", "<br>", label1_1, label1_2, "<br>");
-	$(".content-medium").append(barrier, conclusionDiv);
+	$(".content-wide").append(barrier, conclusionDiv);
 }
 
 function GetCurrentTimeForWeek()
@@ -615,6 +615,20 @@ function AddRowBetweenWeeksWithWeekNumber()
 	DivideDayoffIntoParts();
 }
 
+function AddFirstRowBetweenWeeks(length)
+{
+	var firstCell = $("<td></td>",
+	{
+		"class": "intervalCell"	,	
+		"colspan": length,
+	}).append("1-я неделя.");
+	var firstRow = $("<tr></tr>",
+	{
+		"class": "intervalRow",
+	}).append(firstCell);
+	$("tbody").prepend(firstRow);
+}
+
 function DivideDayoffIntoParts()
 {
 	$("tr.intervalRow").each(
@@ -636,20 +650,6 @@ function DivideDayoffIntoParts()
 			$(this).attr("rowspan", rowspan);
 		}
 	);
-}
-
-function AddFirstRowBetweenWeeks(length)
-{
-	var firstCell = $("<td></td>",
-	{
-		"class": "intervalCell"	,	
-		"colspan": length,
-	}).append("1ая неделя.");
-	var firstRow = $("<tr></tr>",
-	{
-		"class": "intervalRow",
-	}).append(firstCell);
-	$("tbody").prepend(firstRow);
 }
 
 function WriteFullNamesOfDays()
