@@ -262,22 +262,22 @@ function ChangePicturesToMDLIcons()
 					color = "gray";
 					break;
 				case "/Content/ball_gray.png":
-				case "/Content/ball_green.png":
-				case "/Content/ball_blue.png":
-				case "/Content/ball_yellow.png":					
+					color = "gray";
 					iconType = "lens";
-					color = $(this).attr("src").replace("/Content/ball_", "").replace(".png","");
+					break;
+				case "/Content/ball_green.png":
+					color = "#8bc349";
+					iconType = "lens";
+					break;
+				case "/Content/ball_blue.png":
+					color = "rgb(63, 81, 181)";
+					iconType = "lens";
+					break;
+				case "/Content/ball_yellow.png":
+					color = "#ffeb3b";
+					iconType = "lens";
 					break;
 			}
-			if (color == "green")
-			{
-				color = "#17FF36";
-			}
-			if (color == "blue")
-			{
-				color = "rgb(63, 81, 181)";
-			}
-			
 			var icon = $('<i class="material-icons" style="display: block; color:' + color + ';">' + iconType + '</i>');
 			icon.attr("title", $(this).attr("title"));
 			$(this).after(icon);
@@ -295,7 +295,6 @@ function ChangePicturesToMDLIcons()
 }
 
 
-
 function CreateCommonMDLCard()
 {
 	if (window.location.pathname == "/")
@@ -303,7 +302,7 @@ function CreateCommonMDLCard()
 	
 	$(".status-center").hide();
 	$(".main").hide();
-	var classname = $("table.full-size").parent().attr("class");
+	var classname = "content-wide";
 	
 	var title = $('<div class="mdl-card__title"></div>')
 	.append('<h2 class="mdl-card__title-text">'
