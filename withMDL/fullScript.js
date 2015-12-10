@@ -199,6 +199,40 @@ function ChangeButtonsToMD()
 	componentHandler.upgradeElement($(this).get(0));	
 }
 
+function ChangeTextInputToMD(index)
+{	
+	$(this).addClass("mdl-textfield__input")
+	.css("fontSize", "11pt");
+	
+	var id;
+	if ($(this).attr("id"))
+	{
+		id = $(this).attr("id");
+	}
+	else
+	{
+		id = $(this).attr("name") + "_" + index;
+		$(this).attr("id", id);		
+	}
+	
+
+	var labelForInput = $("<label></label>", {
+		"class": "mdl-textfield__label",
+		"for": id
+	}).append($(this).attr("placeholder"));	
+	
+	$(this).attr("placeholder", "");
+	
+	var div = $("<div></div>", {
+		"class": "mdl-textfield mdl-js-textfield"
+	});
+	
+	$(this).after(div);
+	div.append($(this), labelForInput);	
+	
+	componentHandler.upgradeElement(div.get(0));
+}
+
 function ReplaceInput()
 {
 	var button = $("<button></button>",
@@ -347,8 +381,10 @@ function CreateCommonMDLCard()
 	componentHandler.upgradeElement($(".mdl-card").get(0));	
 }
 
-
-
+function PutButtonsToTheOtherLineInNotes()
+{
+	$("input#Comment").parent().after("<br><br>");
+}
 
 $(document).ready
 ( 
@@ -375,11 +411,21 @@ $(document).ready
 				ChangeButtonsToMD.apply(this);				
 			}
 		);
+		
+		
+		$('input[type=text]').not("#idReset").each(
+			function(index)
+			{
+				ChangeTextInputToMD.apply(this, [index]);
+			}
+		);
 		SetRaisedForOnlyOneButton();		
 		CreateFixedHeader();	
 		
 		ChangePicturesToMDLIcons();
 		CreateCommonMDLCard();
+		
+		PutButtonsToTheOtherLineInNotes();Comment
 		
 		$("div.status-right a, th.indicator a").click(
 			function()

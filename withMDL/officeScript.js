@@ -714,7 +714,6 @@ function ResizeTableHeader()
 	colWidth = $bodyCells.map(
 		function() 
 		{
-			console.log($(this), $(this).width());
 			return $(this).width();
 		}
 	).get();

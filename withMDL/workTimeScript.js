@@ -782,7 +782,7 @@ function TestTimeArithmetics()
 	console.log(DifferenceOfTime("02:06", "-01:05"), "03:11");
 }
 
-// todo
+
 function CreateSettings()
 {
 	$("div.mdl-layout__drawer").append($("<div id=settings></div>"));
@@ -819,8 +819,6 @@ function CreateSettings()
 				$("#currentTime_week").text(GetCurrentTimeForWeek());
 			}
 			
-			
-			//todo input for сохранить	
 			
 			ReplaceInput.apply($("form[action='/Preferences/Edit'] input[type=submit]").get(0));
 			ChangeButtonsToMD.apply($("form[action='/Preferences/Edit'] button.inputReplaceButton").get(0));		

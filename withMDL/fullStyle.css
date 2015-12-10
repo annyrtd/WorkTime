@@ -515,3 +515,21 @@ div.is-small-header span.mdl-layout-title.notfixed
 {
 	height: calc(100% - 140px);
 }
+
+
+form.nav2 input
+{
+	text-align: left !important;
+}
+
+input[type="text"]:focus, select:focus
+{	
+	color: black !important;
+}
+
+.mdl-textfield__label
+{	
+	color: gray !important;
+    font-size: 12pt !important;
+	line-height: 11px !important;
+}
