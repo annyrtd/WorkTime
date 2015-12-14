@@ -536,19 +536,27 @@ function SeparateStartAndFinish()
 		function()
 		{
 			var timeRange = $(this).text();
-				
-			var position = timeRange.indexOf("—");
-			var start, finish;
+			var position = timeRange.indexOf(";");
+			var start = "", finish = "", positionCurrent, startCurrent, finishCurrent;
 			
-			if (position < 0)
+			while(position > -1)
 			{
-					start = finish = "";
+				var current = timeRange.substr(0, position);
+				positionCurrent = current.indexOf("—");
+				startCurrent = current.substr(0, positionCurrent);
+				finishCurrent = current.substr(positionCurrent + 1);
+				start += startCurrent + "<br>";
+				finish += finishCurrent + "<br>";
+				timeRange = timeRange.substr(position + 2);
+				position = timeRange.indexOf(";");
 			}
-			else
-			{
-				start = timeRange.substr(0, position);
-				finish = timeRange.substr(position + 1);
-			}
+			
+			positionCurrent = timeRange.indexOf("—");
+			startCurrent = timeRange.substr(0, positionCurrent);
+			finishCurrent = timeRange.substr(positionCurrent + 1);
+			start +=startCurrent;
+			finish += finishCurrent;
+			
 			var tdFinish =  $("<td></td>", 
 			{
 				"class": "range text",
@@ -567,8 +575,8 @@ function SeparateStartAndFinish()
 					"class": "remote",
 				}).append(start);				
 			}
-			
-			$(this).text(start).after(tdFinish);		
+					
+			$(this).empty().append(start).after(tdFinish);
 		}
 	);
 	var size = ($("td.dayoff").attr("colspan"));
