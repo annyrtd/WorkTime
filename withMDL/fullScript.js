@@ -457,7 +457,7 @@ $(document).ready
 					$("div.mainMenu").removeClass("is-small-header");
 				}
 			}
-		);
+		).resize();
 		
 	}		
 );
