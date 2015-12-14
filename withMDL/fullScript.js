@@ -1,35 +1,11 @@
 ﻿$(document).hide();
 
-
 // OVERWRITES old selecor
 jQuery.expr[':'].contains = function(a, i, m) {
   return jQuery(a).text().toUpperCase()
       .indexOf(m[3].toUpperCase()) >= 0;
 };
 
-function SetRaisedForOnlyOneButton()
-{
-	var colorOfStatus = $("div.status-right > img").attr("src");
-	colorOfStatus = colorOfStatus.replace("/Content/ball_", "");
-	colorOfStatus = colorOfStatus.replace(".png", "");
-	switch(colorOfStatus)
-	{
-		case "blue":
-		case "green":
-			$("form[action='/Remote/Come']").children("button")
-				.removeClass("mdl-button--raised");
-			componentHandler.upgradeElement($("form[action='/Remote/Come']").children("button").get(0));			
-			$("form[action='/Remote/Leave']").show();
-			break;
-		case "yellow":
-		case "gray":		
-			$("form[action='/Remote/Come']").show();
-			$("form[action='/Remote/Leave']").children("button")
-				.removeClass("mdl-button--raised");
-			componentHandler.upgradeElement($("form[action='/Remote/Leave']").children("button").get(0));
-			break;
-	}
-}
 
 function PutInfoToTheLeftPanel()
 {
@@ -254,8 +230,7 @@ function CreateFixedHeader()
 {
 	$(".status-bar").hide();
 	$(".navbar").hide();
-	
-	
+
 	var title = $('<div class="mdl-layout__header-row" style="flex-wrap: wrap;"><!-- Title -->'
 		+ '<span class="mdl-layout-title notfixed" style="padding-right: 146px; padding-top: 33px; line-height: 30px;">' 
 		+ $(".status-left").html() 
@@ -290,20 +265,32 @@ function CreateFixedHeader()
 	
 	$(".mdl-layout-title").eq(2).prepend($(".status-right img"));	
 	
+	$(".mdl-layout-title").eq(1).append("Текущее время: ", 
+		'<span class="mdl-layout-title currentTime" style="display: inline">' 
+		+ '</span>');
+	
+	
+	// screenOn: show Body
+	$(document.body).show();
+	
 	var temp = $("<div></div>");
 	temp.load("http://co-msk-app02/Personal tr.summary",
 		function ()
 		{
-			$(".mdl-layout-title").eq(1).append("Текущее время: ", '<span class="mdl-layout-title currentTime" style="display: inline">' 
-				+ $(this).children(".summary").last().children("td.time").eq(2).text() + '</span>');
+			//$(".mdl-layout-title").eq(1).append("Текущее время: ", '<span class="mdl-layout-title currentTime" style="display: inline">' 
+			//	+ $(this).children(".summary").last().children("td.time").eq(2).text() + '</span>');
+			$("span.currentTime").hide();
+			var time = $(this).children(".summary").last().children("td.time").eq(2).text();
+			$("span.currentTime").text(time);
 			if ($(this).children(".summary").last().children("td.time").eq(2).hasClass("negative"))
 			{
-				$("span.currentTime").addClass("accentColor");
+				$("span.currentTime").removeClass("greenColor").addClass("accentColor");
 			}
 			else
 			{
-				$("span.currentTime").addClass("greenColor");
+				$("span.currentTime").removeClass("accentColor").addClass("greenColor");
 			}
+			$("span.currentTime").fadeIn("slow");
 		}
 	);
 	
@@ -381,10 +368,73 @@ function CreateCommonMDLCard()
 	componentHandler.upgradeElement($(".mdl-card").get(0));	
 }
 
+function SetAllButtonsAndInputsToMDL()
+{
+	$("input[type=submit], input[type=button]").each(
+		function(index)
+		{	
+			ReplaceInput.apply(this);				
+		}
+	);
+		
+	$("button").each(
+		function(index)
+		{	
+			ChangeButtonsToMD.apply(this);				
+		}
+	);
+		
+	$('input[type=text]').not("#idReset").each(
+		function(index)
+		{
+			ChangeTextInputToMD.apply(this, [index]);
+		}
+	);
+		
+	$('form.nav2 input[type=text]')
+	.parent()
+	.css("width", "148px")
+	.before($('<i class="material-icons" style="float: left; margin-top:22px;">search</i>'));
+		
+	if (window.location.pathname == "/Notes")
+	{
+		$("label[for=Comment]").text("Текст заметки");
+	}
+			
+	SetRaisedForOnlyOneButton();
+	PutButtonsToTheOtherLineInNotes();
+}
+
+
+function SetRaisedForOnlyOneButton()
+{
+	var colorOfStatus = $("div.status-right > img").attr("src");
+	colorOfStatus = colorOfStatus.replace("/Content/ball_", "");
+	colorOfStatus = colorOfStatus.replace(".png", "");
+	switch(colorOfStatus)
+	{
+		case "blue":
+		case "green":
+			$("form[action='/Remote/Come']").children("button")
+				.removeClass("mdl-button--raised");
+			componentHandler.upgradeElement($("form[action='/Remote/Come']").children("button").get(0));			
+			$("form[action='/Remote/Leave']").show();
+			break;
+		case "yellow":
+		case "gray":		
+			$("form[action='/Remote/Come']").show();
+			$("form[action='/Remote/Leave']").children("button")
+				.removeClass("mdl-button--raised");
+			componentHandler.upgradeElement($("form[action='/Remote/Leave']").children("button").get(0));
+			break;
+	}
+}
+
 function PutButtonsToTheOtherLineInNotes()
 {
 	$("input#Comment").parent().after("<br><br>");
 }
+
 
 $(document).ready
 ( 
@@ -397,46 +447,13 @@ $(document).ready
 		//$(document).show();		
 		$(".status-bar").height("100px");
 		
-		
-		$("input[type=submit], input[type=button]").each(
-			function(index)
-			{	
-				ReplaceInput.apply(this);				
-			}
-		);
-		
-		$("button").each(
-			function(index)
-			{	
-				ChangeButtonsToMD.apply(this);				
-			}
-		);
-		
-		
-		$('input[type=text]').not("#idReset").each(
-			function(index)
-			{
-				ChangeTextInputToMD.apply(this, [index]);
-			}
-		);
-		
-		$('form.nav2 input[type=text]')
-		.parent()
-		.css("width", "148px")
-		.before($('<i class="material-icons" style="float: left; margin-top:22px;">search</i>'));
-		
-		if (window.location.pathname == "/Notes")
-		{
-			$("label[for=Comment]").text("Текст заметки");
-		}
-		
-		SetRaisedForOnlyOneButton();		
+		SetAllButtonsAndInputsToMDL();		
 		CreateFixedHeader();	
 		
 		ChangePicturesToMDLIcons();
 		CreateCommonMDLCard();
 		
-		PutButtonsToTheOtherLineInNotes();
+		
 		
 		$("div.status-right a, th.indicator a").click(
 			function()

@@ -811,6 +811,7 @@ function CreateSettings()
 	$("#settings").load("http://co-msk-app02/Preferences/Edit form", 
 		function()
 		{
+			$("#settings").hide();
 			// remove rus/eng switch from time settings
 			$("div.table-form").eq(0).remove();
 			$("#settings").prepend("<br><label><b>Настройки:</b></label><br><br>");
@@ -870,6 +871,8 @@ function CreateSettings()
 					
 				}
 			);
+			
+			$("#settings").fadeIn("slow");
 			
 			$("form[action='/Preferences/Edit'] button.inputReplaceButton").click(
 				function()

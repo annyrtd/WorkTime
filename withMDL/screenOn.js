@@ -1,2 +1,2 @@
-﻿$(document.body).fadeIn("fast");
-console.log("11");
+﻿//$(document.body).fadeIn("fast");
+//console.log("11");

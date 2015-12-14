@@ -738,6 +738,7 @@ function CreateSettingsForLang()
 	$("#settings").load("http://co-msk-app02/Preferences/Edit form", 
 		function()
 		{
+			$("#settings").hide();
 			$("#settings").prepend("<br><label><b>Настройки:</b></label><br><br>");
 			$("#ReturnTo").val("/" + window.location.search);
 			$("#settings a").hide();
@@ -755,7 +756,8 @@ function CreateSettingsForLang()
 			ChangeButtonsToMD.apply($("form[action='/Preferences/Edit'] button.inputReplaceButton").get(0));
 			
 			$("form[action='/Preferences/Edit'] button.inputReplaceButton").parent()
-			.css("width", "0px");				
+			.css("width", "0px");	
+			$("#settings").fadeIn("slow");
 		}
 	);
 }
