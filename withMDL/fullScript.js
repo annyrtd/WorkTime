@@ -394,7 +394,7 @@ $(document).ready
 		CreateMenu();
 		$("ul.nav2").hide();
 		$("div.version").hide();	
-		$(document).show();		
+		//$(document).show();		
 		$(".status-bar").height("100px");
 		
 		
@@ -425,6 +425,10 @@ $(document).ready
 		.css("width", "148px")
 		.before($('<i class="material-icons" style="float: left; margin-top:22px;">search</i>'));
 		
+		if (window.location.pathname == "/Notes")
+		{
+			$("label[for=Comment]").text("Текст заметки");
+		}
 		
 		SetRaisedForOnlyOneButton();		
 		CreateFixedHeader();	
@@ -432,7 +436,7 @@ $(document).ready
 		ChangePicturesToMDLIcons();
 		CreateCommonMDLCard();
 		
-		PutButtonsToTheOtherLineInNotes();Comment
+		PutButtonsToTheOtherLineInNotes();
 		
 		$("div.status-right a, th.indicator a").click(
 			function()
