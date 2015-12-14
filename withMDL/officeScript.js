@@ -708,7 +708,7 @@ function CreateMDLCard()
 function ResizeTableHeader()
 {
 	var $table = $('table.full-size'),
-		$bodyCells = $table.find('tbody tr:first').children(),
+		$bodyCells = $table.find('tbody tr').not("[style='display: none;']").first().children(),
 		colWidth;
 				
 	colWidth = $bodyCells.map(

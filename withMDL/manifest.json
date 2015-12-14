@@ -1,6 +1,6 @@
 ﻿{
 	"manifest_version": 2,
-	"name": "Work Time",
+	"name": "With MDL",
 	"version": "1.0",
 	"icons": {
 		"128": "images/clock.png"
@@ -13,7 +13,7 @@
 				"http://co-msk-app02/Preferences/Edit*",
 				"https://co-msk-app02/Preferences/Edit*"
 			],
-			"css": [ "fullStyle.css", "material.indigo-pink.min.css", "icon.css" ],
+			"css": [ "screenOff.css", "fullStyle.css", "material.indigo-pink.min.css", "icon.css" ],
 			"js": [ "jquery.js", "fullScript.js", "material.min.js" ],
 			"run_at": "document_start"
 		},
@@ -31,6 +31,11 @@
 			],
 			"js": [ "officeScript.js" ],
 			"css": [ "officeStyle.css" ]
+		},
+		{
+			"matches": [ "http://co-msk-app02/*", "https://co-msk-app02/*" ],
+			"js": [ "screenOn.js"],
+			"run_at": "document_end"
 		}
 	],
 	
