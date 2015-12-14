@@ -563,8 +563,22 @@ function SeparateStartAndFinish()
 			var tdFinish =  $("<td></td>", 
 			{
 				"class": "range text",
-			})
-			.append(finish);			
+			}).append(finish);
+			
+			if ($(this).children("span").hasClass("remote"))
+			{				
+				var tdSpanFinish = $("<span></span>",
+				{
+					"class": "remote",
+				}).append(tdFinish.text());
+				tdFinish.empty().append(tdSpanFinish);	
+
+				start = $("<span></span>",
+				{
+					"class": "remote",
+				}).append(start);				
+			}
+					
 			$(this).empty().append(start).after(tdFinish);		
 		}
 	);
@@ -817,6 +831,8 @@ function CreateSettings()
 	$("#settings").load("http://co-msk-app02/Preferences/Edit form", 
 		function()
 		{
+			// remove rus/eng switch from time settings
+			$("div.table-form").eq(0).remove();
 			$("#settings").prepend("<br><label><b>Настройки:</b></label><br><br>");
 			$("#ReturnTo").val("/Personal" + window.location.search);
 			$("#settings a").hide();

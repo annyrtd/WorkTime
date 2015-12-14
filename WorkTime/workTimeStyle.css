@@ -74,3 +74,9 @@ table.full-size th
 	font-weight: bold;
 	text-align: justify !important;
 }
+
+span.remote
+{
+	border-bottom: 0px solid blue !important;
+	color: blue;
+}
