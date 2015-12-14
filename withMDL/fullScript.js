@@ -419,6 +419,13 @@ $(document).ready
 				ChangeTextInputToMD.apply(this, [index]);
 			}
 		);
+		
+		$('form.nav2 input[type=text]')
+		.parent()
+		.css("width", "148px")
+		.before($('<i class="material-icons" style="float: left; margin-top:22px;">search</i>'));
+		
+		
 		SetRaisedForOnlyOneButton();		
 		CreateFixedHeader();	
 		

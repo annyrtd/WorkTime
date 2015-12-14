@@ -552,8 +552,22 @@ function SeparateStartAndFinish()
 			var tdFinish =  $("<td></td>", 
 			{
 				"class": "range text",
-			})
-			.append(finish);			
+			}).append(finish);
+			
+			if ($(this).children("span").hasClass("remote"))
+			{				
+				var tdSpanFinish = $("<span></span>",
+				{
+					"class": "remote",
+				}).append(tdFinish.text());
+				tdFinish.empty().append(tdSpanFinish);	
+
+				start = $("<span></span>",
+				{
+					"class": "remote",
+				}).append(start);				
+			}
+			
 			$(this).text(start).after(tdFinish);		
 		}
 	);
@@ -789,6 +803,8 @@ function CreateSettings()
 	$("#settings").load("http://co-msk-app02/Preferences/Edit form", 
 		function()
 		{
+			// remove rus/eng switch from time settings
+			$("div.table-form").eq(0).remove();
 			$("#settings").prepend("<br><label><b>Настройки:</b></label><br><br>");
 			$("#ReturnTo").val("/Personal" + window.location.search);
 			$("#settings a").hide();
@@ -821,7 +837,50 @@ function CreateSettings()
 			
 			
 			ReplaceInput.apply($("form[action='/Preferences/Edit'] input[type=submit]").get(0));
-			ChangeButtonsToMD.apply($("form[action='/Preferences/Edit'] button.inputReplaceButton").get(0));		
+			ChangeButtonsToMD.apply($("form[action='/Preferences/Edit'] button.inputReplaceButton").get(0));	
+
+			$("form[action='/Preferences/Edit'] button.inputReplaceButton").parent()
+			.css("width", "0px");
+
+			$("div.table-form select").each(
+				function()
+				{
+					var input = $('<input type="checkbox" id="checkbox_' + $(this).attr("id") + '" class="mdl-switch__input">');
+					var span = $('<span class="mdl-switch__label"></span>');
+					var label = $('<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="checkbox_' 
+						+ $(this).attr("id") + '">')
+						.append(input, span);
+						
+					$(this).after(label);
+					$(this).hide();
+					if ($(this).val() == "Yes")
+					{
+						input.attr("checked", "checked");
+					}
+					
+					componentHandler.upgradeElement(label.get(0));			
+					
+				}
+			);
+			
+			$("form[action='/Preferences/Edit'] button.inputReplaceButton").click(
+				function()
+				{
+					$("div.table-form select").each(
+						function()
+						{
+							if ($('#checkbox_' + $(this).attr("id")).parent().hasClass("is-checked"))
+							{
+								$(this).val("Yes");
+							}
+							else
+							{
+								$(this).val("No");
+							}
+						}
+					);
+				}
+			);
 		}
 	);
 }

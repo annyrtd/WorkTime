@@ -527,9 +527,14 @@ input[type="text"]:focus, select:focus
 	color: black !important;
 }
 
+input[type="text"]
+{	
+	height: 22px;
+}
+
 .mdl-textfield__label
 {	
 	color: gray !important;
     font-size: 12pt !important;
-	line-height: 11px !important;
+	line-height: 12pt !important;
 }

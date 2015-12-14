@@ -732,6 +732,34 @@ function ResizeTableHeader()
 	//$table.find('thead').width($table.find('tbody').width());
 }
 
+function CreateSettingsForLang()
+{
+	$("div.mdl-layout__drawer").append($("<div id=settings></div>"));
+	$("#settings").load("http://co-msk-app02/Preferences/Edit form", 
+		function()
+		{
+			$("#settings").prepend("<br><label><b>Настройки:</b></label><br><br>");
+			$("#ReturnTo").val("/" + window.location.search);
+			$("#settings a").hide();
+			$("#settings label").removeAttr("for");
+			$("#settings label").after("<br>");
+			$("div.table-form").last().next().css(
+			{
+				paddingTop: "2em"
+			});
+			
+			$("div.table-form").hide();
+			$("div.table-form").first().show();
+			
+			ReplaceInput.apply($("form[action='/Preferences/Edit'] input[type=submit]").get(0));
+			ChangeButtonsToMD.apply($("form[action='/Preferences/Edit'] button.inputReplaceButton").get(0));
+			
+			$("form[action='/Preferences/Edit'] button.inputReplaceButton").parent()
+			.css("width", "0px");				
+		}
+	);
+}
+
 
 
 
@@ -752,6 +780,7 @@ $(document).ready
 		AddResetFiltersButton();
 		
 		RemoveEmptyColumns();
+		CreateSettingsForLang();
 		CreateMDLCard();		
 		
 		$("button")
@@ -881,7 +910,6 @@ $(document).ready
 			{
 				ResizeTableHeader();
 			}
-		).resize(); // Trigger resize handler
-		
+		).resize(); // Trigger resize handler		
 	}		
 );
