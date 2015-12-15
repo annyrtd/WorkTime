@@ -7,6 +7,28 @@ jQuery.expr[':'].contains = function(a, i, m) {
 };
 
 
+function SetTimeToLocalStorage()
+{
+	var temp = $("<div></div>");
+	temp.load("http://co-msk-app02/Personal tr.summary",
+		function ()
+		{
+			localStorage["current_time"] = $(this).children(".summary").last().children("td.time").eq(2).text();
+			if ($(this).children(".summary").last().children("td.time").eq(2).hasClass("negative"))
+			{
+				localStorage["current_class"] =  "accentColor";
+				localStorage["removed_class"] = "greenColor";
+			}
+			else
+			{
+				localStorage["current_class"] =  "greenColor";
+				localStorage["removed_class"] = "accentColor";
+			}			
+		}
+	);
+	
+}
+
 function PutInfoToTheLeftPanel()
 {
 	var clearfix1 = $("<div></div>",
@@ -268,7 +290,16 @@ function CreateFixedHeader()
 	$(".mdl-layout-title").eq(1).append("Текущее время: ", 
 		'<span class="mdl-layout-title currentTime" style="display: inline">' 
 		+ '</span>');
-	
+	if (localStorage["current_time"] !== undefined)
+	{
+		$("span.currentTime").text(localStorage["current_time"]);
+	}
+	if (localStorage["current_class"] !== undefined && localStorage["removed_class"] !== undefined)
+	{
+		$("span.currentTime")
+		.removeClass(localStorage["removed_class"])
+		.addClass(localStorage["current_class"]);
+	}
 	
 	// screenOn: show Body
 	$(document.body).show();
@@ -277,20 +308,21 @@ function CreateFixedHeader()
 	temp.load("http://co-msk-app02/Personal tr.summary",
 		function ()
 		{
-			//$(".mdl-layout-title").eq(1).append("Текущее время: ", '<span class="mdl-layout-title currentTime" style="display: inline">' 
-			//	+ $(this).children(".summary").last().children("td.time").eq(2).text() + '</span>');
-			$("span.currentTime").hide();
 			var time = $(this).children(".summary").last().children("td.time").eq(2).text();
+			localStorage["current_time"] = time;
 			$("span.currentTime").text(time);
 			if ($(this).children(".summary").last().children("td.time").eq(2).hasClass("negative"))
 			{
+				localStorage["current_class"] = "accentColor";
+				localStorage["removed_class"] = "greenColor";
 				$("span.currentTime").removeClass("greenColor").addClass("accentColor");
 			}
 			else
 			{
+				localStorage["current_class"] = "greenColor";
+				localStorage["removed_class"] = "accentColor";
 				$("span.currentTime").removeClass("accentColor").addClass("greenColor");
 			}
-			$("span.currentTime").fadeIn("slow");
 		}
 	);
 	
@@ -440,11 +472,11 @@ $(document).ready
 ( 
 	function() 
 	{
+		SetTimeToLocalStorage();
 		PutInfoToTheLeftPanel();
 		CreateMenu();
 		$("ul.nav2").hide();
 		$("div.version").hide();	
-		//$(document).show();		
 		$(".status-bar").height("100px");
 		
 		SetAllButtonsAndInputsToMDL();		
