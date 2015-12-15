@@ -77,3 +77,24 @@ span.remote
 	border-bottom: 0px solid blue !important;
 	color: blue;
 }
+
+table.full-size tbody, table.full-size thead 
+{ 
+	display: block; 
+	background-color: white;
+}
+
+table.full-size th 
+{  
+	background-color: white !important;
+}
+
+table.full-size th { 
+    height: 30px;
+    line-height: 30px;
+}
+
+table.full-size tbody {
+    overflow-y: auto;
+    overflow-x: hidden;
+}

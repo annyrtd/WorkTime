@@ -136,9 +136,10 @@ function AddReportColumn()
 	$("tr[id]").not("[class=future]").each( 
 		function(index)
 		{
+			var newTime = DifferenceOfTime($(this).children("td.time").first().text(), "00:30");
 			var newCell = $("<td></td>",{
 				"class": "time",
-			}).append(DifferenceOfTime($(this).children("td.time").first().text(), "00:30"));
+			}).append(newTime);
 			$(this).children("td.time").last().after(newCell);
 		}
 	)
@@ -151,7 +152,8 @@ function AddReportColumn()
 // добавляет концовку с итогами по времени для месяца
 function AddConclusionForMonth()
 {		
-	var necessaryWidth = $("table.full-size").css("width");var currentTime = GetAlreadyWorkedTimeForMonth();	
+	var necessaryWidth = $("table.full-size").css("width");
+	var currentTime = GetAlreadyWorkedTimeForMonth();	
 	if ($("#NetTime") !== undefined)
 	{
 		if ($("#NetTime").children("option[selected]").val() == "Yes")
@@ -250,6 +252,11 @@ function GetAlreadyWorkedTimeForMonth()
 	return time;
 }
 
+function GetAlreadyWorkedTimeForMonth_ForStudent()
+{
+	return $(".summary").last().children(".time").first().text();
+}
+
 function GetTimeOfHolidays()
 {
 	var hours = 8 * $("tr.dayoff").length;
@@ -290,6 +297,26 @@ function GetSumReportTimeForMonth()
 		function(index)
 		{
 			sum = SumOfTime(sum, DifferenceOfTime($(this).children(".time").eq(1).text(), "00:30"));
+		}
+	)
+	
+	return sum;	
+}
+
+function GetSumReportTimeForMonth_ForStudent()
+{
+	var sum = "00:00";
+	$("tr.future > td.time").each(
+		function(index)
+		{
+			sum = SumOfTime(sum, $(this).text());			
+		}
+	);
+	
+	$("tr[id]").not("[class=future]").each(
+		function(index)
+		{
+			sum = SumOfTime(sum, $(this).children(".time").eq(1).text());
 		}
 	)
 	
@@ -381,6 +408,18 @@ function GetCurrentTimeForWeek()
 		function(index)
 		{
 			sum = SumOfTime(sum, DifferenceOfTime($(this).children(".time").first().text(), "00:30"));
+		}
+	)
+	return sum;
+}
+
+function GetCurrentTimeForWeek_ForStudent()
+{
+	var sum = "00:00";
+	$("tr[id]").not("[class=future]").not('[style="display: none;"]').each(
+		function(index)
+		{
+			sum = SumOfTime(sum, $(this).children(".time").first().text());
 		}
 	)
 	return sum;
@@ -828,7 +867,7 @@ function CreateSettings()
 			$("div.table-form").eq(0).children("label").text('Округлять "отчетное" время');
 			
 			$("div.table-form").eq(1).children("label").text('Учитывать отпуск в отработанном времени за месяц');
-			$("div.table-form").eq(2).hide();
+			$("div.table-form").eq(2).children("label").text('Я студент');
 			$("div.table-form").eq(3).hide();
 			
 			if($("div.table-form").eq(1)
@@ -842,6 +881,13 @@ function CreateSettings()
 			{
 				$("#currentTime").text(GetAlreadyWorkedTimeForMonth());				
 				$("#currentTime_week").text(GetCurrentTimeForWeek());
+			}
+			
+			if($("div.table-form").eq(2)
+				.children("select").first()
+				.children("option[selected]").val() == "Yes")
+			{
+				SetUpTimeForStudent();
 			}
 			
 			
@@ -896,6 +942,83 @@ function CreateSettings()
 	);
 }
 
+function SetUpTimeForStudent()
+{
+	$("tr[id]").not("[class=future]").each( 
+		function(index)
+		{
+			var newText = $(this).children("td.time").first().text();
+			$(this).children("td.time").last().text(newText);
+		}
+	);
+	
+	$("label#currentTime").text(GetAlreadyWorkedTimeForMonth_ForStudent());
+	$("label#reportTimeForMonth").text(GetSumReportTimeForMonth_ForStudent());	
+	$("label#currentTime_week").text(GetCurrentTimeForWeek_ForStudent());
+}
+
+function ResizeTableBody()
+{
+	var $table = $('table.full-size'),
+		$bodyCells = $table.find('tbody tr[id]').not("[style='display: none;']").first().children(),
+		$headCells = $table.find('thead tr').first().children(),
+		colWidth, colWidth2;
+				
+	colWidth = $bodyCells.map(
+		function() 
+		{
+			return $(this).width();
+		}
+	).get();
+	
+	colWidth2 = $headCells.map(
+		function() 
+		{
+			return $(this).width();
+		}
+	).get();
+		
+	// Set the width of thead columns
+	$table.find('th').first().width(colWidth[0] + colWidth[1] + 40);
+	
+	$table.find('tr[id]').each(
+		function()
+		{
+			$(this).children('td').each(
+				function(i, v) 
+				{
+					if (i == 0 || i == 1)
+					{
+						return true;
+					}
+					$(v).width(colWidth2[i - 1]);
+				}
+			);
+		}
+	)
+	
+	/*
+	$table.find('th').each(
+		function(i, v) 
+		{
+			$(v).width(colWidth[i]);
+		}
+	);  
+	*/
+	
+}
+
+function SetTableHeightForTime()
+{
+	if (isMonth)
+	{
+		$("table.full-size tbody").height($(window).height() - 480);
+	}
+	else
+	{
+		$("table.full-size tbody").height($(window).height() - 516);
+	}
+}
 
 $(document).ready
 ( 
@@ -913,11 +1036,21 @@ $(document).ready
 		SeparateStartAndFinish();		
 		RemoveUnnesessaryBlocks();
 		AddRowBetweenWeeksWithWeekNumber();
-		WriteFullNamesOfDays();		
-		AddConclusionForMonth();
+		WriteFullNamesOfDays();	
 		CreateSettings();
 		
 		var shouldBeHidden = false;
+		
+		$(window).resize(
+			function() 
+			{
+				SetTableHeightForTime();
+				ResizeTableBody();
+			}
+		).resize(); // Trigger resize handler
+		
+			
+		AddConclusionForMonth();
 		
 		$("tr.intervalRow").click(
 			function()
@@ -932,6 +1065,7 @@ $(document).ready
 					isMonth = true;
 					shouldBeHidden = false;
 					$(".buttonDiv").remove();
+					$(window).resize();
 					return;
 				}
 				$(this).prevAll().each(
@@ -975,7 +1109,9 @@ $(document).ready
 				
 				RemoveConclusionForMonth();
 				AddConclusionForWeek();	
-				isMonth = false;		
+				isMonth = false;
+				$(window).resize();
+				SetUpTimeForStudent();
 
 				$(".resetButton").click(
 					function()
@@ -990,6 +1126,7 @@ $(document).ready
 						isMonth = true;
 						shouldBeHidden = false;
 						$(".buttonDiv").remove();
+						$(window).resize();
 					}
 				);
 			}

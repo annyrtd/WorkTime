@@ -717,9 +717,6 @@ function ResizeTableHeader()
 			return $(this).width();
 		}
 	).get();
-	
-	
-	
 		
 	// Set the width of thead columns
 	$table.find('th').each(
@@ -728,8 +725,6 @@ function ResizeTableHeader()
 			$(v).width(colWidth[i]);
 		}
 	);  
-	
-	//$table.find('thead').width($table.find('tbody').width());
 }
 
 function CreateSettingsForLang()
@@ -762,10 +757,9 @@ function CreateSettingsForLang()
 	);
 }
 
-function SetTableHeight()
+function SetTableHeightForOffice()
 {
 	$("table.full-size tbody").height($(window).height() - 325);
-	console.log($(window).height());
 }
 
 
@@ -917,7 +911,7 @@ $(document).ready
 			function() 
 			{
 				ResizeTableHeader();
-				SetTableHeight();
+				SetTableHeightForOffice();
 			}
 		).resize(); // Trigger resize handler		
 	}		
