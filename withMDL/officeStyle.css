@@ -148,7 +148,6 @@ table.full-size th {
 }
 
 table.full-size tbody {
-    height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
 }

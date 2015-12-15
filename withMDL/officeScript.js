@@ -762,6 +762,12 @@ function CreateSettingsForLang()
 	);
 }
 
+function SetTableHeight()
+{
+	$("table.full-size tbody").height($(window).height() - 325);
+	console.log($(window).height());
+}
+
 
 
 
@@ -911,6 +917,7 @@ $(document).ready
 			function() 
 			{
 				ResizeTableHeader();
+				SetTableHeight();
 			}
 		).resize(); // Trigger resize handler		
 	}		
