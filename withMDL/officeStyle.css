@@ -65,6 +65,11 @@ th.room, td.room
 	min-width: 	100px !important;
 }
 
+th.workstate, td.workstate
+{
+	min-width: 	80px !important;
+}
+
 #workgroupSelect
 {
 	width: 115px !important;

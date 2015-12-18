@@ -150,31 +150,39 @@ function escapeHtml(text)
 function SetClassesOnColumns()
 {
 	var header = " header";
-	var newClass = $("th.text").first().attr("class") + " employee"; 
 	
-	$("th.text").first().attr("class", newClass + header);
+	
+	$("th.text").first().addClass("employee header");
 	$('tbody tr').each(
 		function(index)
 		{
-			$(this).children("td.text").first().attr("class", newClass);
+			$(this).children("td.text").first().addClass("employee");
 		}
 	);
 
-	newClass = $("th.text").eq(5).attr("class") + " workgroup"; 
-	$("th.text").eq(5).attr("class", newClass + header);
+	
+	$("th.text").eq(5).addClass("workgroup header");
 	$('tbody tr').each(
 		function(index)
 		{
-			$(this).children("td.text").eq(5).attr("class", newClass);
+			$(this).children("td.text").eq(5).addClass("workgroup");
 		}
 	);
 	
-	newClass = $("th.text").eq(6).attr("class") + " room"; 
-	$("th.text").eq(6).attr("class", newClass + header);
+	$("th.text").eq(6).addClass("room header");
 	$('tbody tr').each(
 		function(index)
 		{
-			$(this).children("td.text").eq(6).attr("class", newClass);
+			$(this).children("td.text").eq(6).addClass("room");
+		}
+	);
+	
+	
+	$("th.indicator").first().addClass("workstate header");
+	$('tbody tr').each(
+		function(index)
+		{
+			$(this).children("td.indicator").first().addClass("workstate");
 		}
 	);
 }	
@@ -512,6 +520,11 @@ function FilterWorkState()
 	
 	if (inputText == "")
 	{
+		$("select#workStateSelect").attr("title", "Выберите состояние");
+		$("th.workstate i")
+		.css("color", "white")
+		.attr("title", "Выберите состояние")
+		.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");
 		return;
 	}
 	
@@ -528,8 +541,25 @@ function FilterWorkState()
 			}
 		}
 	);
-	
-	$(this).attr("title", $("select#workStateSelect option").filter(":selected").attr("title"));
+	var newTitle = $("select#workStateSelect option").filter(":selected").attr("title");
+	var color = $("select#workStateSelect option").filter(":selected").attr("id").replace("option_ball_", "");
+	switch(color)
+	{
+		case "green":
+			color = "#8bc349";
+			break;
+		case "blue":
+			color = "rgb(63, 81, 181)";
+			break;
+		case "yellow":
+			color = "#ffeb3b";
+			break;
+	}
+	$("select#workStateSelect").attr("title", newTitle);
+	$("th.workstate i")
+	.css("color", color)
+	.attr("title", newTitle)
+	.css("textShadow", "none");
 }
 
 function FilterRoom()
@@ -752,7 +782,7 @@ function CreateSettingsForLang()
 			
 			$("form[action='/Preferences/Edit'] button.inputReplaceButton").parent()
 			.css("width", "0px");	
-			$("#settings").fadeIn("slow");
+			$("#settings").fadeIn("fast");
 		}
 	);
 }
@@ -796,6 +826,9 @@ $(document).ready
 			}
 		);
 		
+		
+		ShowTableFullSize();
+		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 
 			function() 
 			{		
@@ -804,7 +837,12 @@ $(document).ready
 				var cellsThatContainInputText = 'td.employee:contains("' + inputText + '")';
 				var cellsThatDoNotContainInputText = 'td.employee:contains("' + inputText + '")';
 				$(cellsThatContainInputText).parent().show();				
-				$('td.employee').not(cellsThatDoNotContainInputText).parent().hide();	
+				$('td.employee').not(cellsThatDoNotContainInputText).parent().hide();
+				$("th.workstate i")
+				.css("color", "white")
+				.attr("title", "Выберите состояние")
+				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");		
+				$("select#workStateSelect").attr("title", "Выберите состояние");				
 				ResizeTableHeader();				
 			}
 		);
@@ -886,6 +924,11 @@ $(document).ready
 				$("#workgroupSelect, #workStateSelect, #roomSelect").val("");
 				
 				$("#searchInput").val("").parent().removeClass("is-dirty");
+				$("th.workstate i")
+				.css("color", "white")
+				.attr("title", "Выберите состояние")
+				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");
+				$("select#workStateSelect").attr("title", "Выберите состояние");
 				ResizeTableHeader();
 			}
 		);

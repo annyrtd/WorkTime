@@ -6,6 +6,10 @@ jQuery.expr[':'].contains = function(a, i, m) {
       .indexOf(m[3].toUpperCase()) >= 0;
 };
 
+function ShowTableFullSize()
+{
+	$("table.full-size").fadeIn("fast");
+}
 
 function SetTimeToLocalStorage()
 {
@@ -274,8 +278,7 @@ function CreateFixedHeader()
 	componentHandler.upgradeElement(drawer.get(0));
 	
 	var mainContent = $('<main class="mdl-layout__content"></main>')
-	.append($(".status-center"), 
-	$(".main"));
+	.append($(".main"));
 	
 	componentHandler.upgradeElement(mainContent.get(0));
 	
@@ -370,7 +373,14 @@ function ChangePicturesToMDLIcons()
 		"fontSize": "20px"
 	});
 	
-	$("table.full-size i").first().hide();
+	$("table.full-size i").first().attr("title", "Выберите состояние")
+	.css(
+	{
+		"float": "left",
+		"marginTop": "3px",
+		"color": "white",
+		"textShadow": "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray"
+	});
 }
 
 
@@ -472,6 +482,10 @@ $(document).ready
 ( 
 	function() 
 	{
+		if (window.location.pathname == "/" || window.location.pathname == "/Personal")
+		{			
+			$("table.full-size").hide();
+		}
 		SetTimeToLocalStorage();
 		PutInfoToTheLeftPanel();
 		CreateMenu();
