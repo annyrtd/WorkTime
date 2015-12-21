@@ -528,3 +528,19 @@ input[type="text"]
     font-size: 12pt !important;
 	line-height: 12pt !important;
 }
+
+header, div.mdl-layout__drawer
+{
+	cursor: default;
+}
+
+div.mdl-switch__thumb, div.mdl-switch__track, span.mdl-switch__ripple-container
+{
+	cursor: pointer !important;
+}
+
+main.mdl-layout__content
+{
+	cursor: default;
+}
+

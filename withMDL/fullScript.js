@@ -477,6 +477,17 @@ function PutButtonsToTheOtherLineInNotes()
 	$("input#Comment").parent().after("<br><br>");
 }
 
+function RestyleTableForCalendar()
+{
+	if (window.location.pathname == "/Calendar")
+	{			
+		$("table.full-size").prepend($("<thead></thead>"));
+		$("table.full-size").addClass("mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp");
+		$("table.full-size td").addClass("mdl-data-table__cell--non-numeric");
+		componentHandler.upgradeElement($(".full-size").get(0));
+	}
+}
+
 
 $(document).ready
 ( 
@@ -498,6 +509,14 @@ $(document).ready
 		
 		ChangePicturesToMDLIcons();
 		CreateCommonMDLCard();
+		
+		//RestyleTableForCalendar();
+		
+		
+		//var $j = jQuery.noConflict();
+		//$j("#year_0").datepicker({
+		//	  changeMonth: true,//this option for allowing user to select month
+		//	});
 		
 		
 		

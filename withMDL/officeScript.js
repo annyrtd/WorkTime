@@ -33,7 +33,6 @@ function mergeSort(arrayToSort, compare)
 
 function merge(left, right, compare) 
 {
-
     var result = [];
 
     while (left.length > 0 || right.length > 0) {
@@ -72,11 +71,6 @@ function CreateSearchInput()
 	
 	$("th.text").eq(0).children().hide();
 	$("th.text").eq(0).append(input);
-	
-	
-	
-	
-	
 }
 
 function CreateSearchInput_withMD()
@@ -464,16 +458,25 @@ function AddResetFiltersButton()
 		"class": "buttonDiv"
 	}).append(button).css("width", "100%");
 	
-	$(".main").append(div);
+	//$(".main").append(div);
 
-	
-	
+	$("table.full-size colgroup").append('<col class="reset button">');
+	$("table.full-size thead tr").append('<th class="reset button"></th>');
 		
+	$('th.reset.button').append(div);
+	
+	$("table.full-size tbody tr").each(
+		function()
+		{
+			$(this).append('<td class="reset button">abc</td>');
+		}
+	)
+	
 	//var tooltip = $('<div class="mdl-tooltip" for="idReset">Сбросить<br>фильтры</div>');
 	//componentHandler.upgradeElement(tooltip.get(0));	
 	componentHandler.upgradeElement(button.get(0));
 	//$(".main").append(tooltip);
-	
+	$("button#idReset").hide();	
 }
 
 
@@ -792,8 +795,21 @@ function SetTableHeightForOffice()
 	$("table.full-size tbody").height($(window).height() - 325);
 }
 
-
-
+function CheckResetButton()
+{
+	if ($("#workgroupSelect").val() != "" ||
+	$("#workStateSelect").val() != "" ||
+	$("#roomSelect").val() != "" || 
+	$("#searchInput").val() != "")
+	{
+		$("button#idReset").show()
+	}
+	else
+	{
+		$("button#idReset").hide()
+	}
+		
+}
 
 $(document).ready
 ( 
@@ -831,7 +847,7 @@ $(document).ready
 		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 
 			function() 
-			{		
+			{						
 				$("#workgroupSelect, #workStateSelect, #roomSelect").val("");
 				var inputText = escapeHtml($(this).val());
 				var cellsThatContainInputText = 'td.employee:contains("' + inputText + '")';
@@ -843,7 +859,8 @@ $(document).ready
 				.attr("title", "Выберите состояние")
 				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");		
 				$("select#workStateSelect").attr("title", "Выберите состояние");				
-				ResizeTableHeader();				
+				ResizeTableHeader();	
+				CheckResetButton();						
 			}
 		);
 		
@@ -853,6 +870,7 @@ $(document).ready
 			{
 				SetFilters();
 				ResizeTableHeader();
+				CheckResetButton();
 			}
 		);
 		
@@ -930,6 +948,8 @@ $(document).ready
 				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");
 				$("select#workStateSelect").attr("title", "Выберите состояние");
 				ResizeTableHeader();
+				
+				$(this).hide();
 			}
 		);
 		
@@ -938,6 +958,7 @@ $(document).ready
 			{
 				SelectHomeRoom();
 				ResizeTableHeader();
+				CheckResetButton();
 			}
 		);
 		
@@ -946,6 +967,7 @@ $(document).ready
 			{
 				SelectHomeGroup();
 				ResizeTableHeader();
+				CheckResetButton();
 			}
 		);
 

@@ -70,6 +70,12 @@ th.workstate, td.workstate
 	min-width: 	80px !important;
 }
 
+td.reset.button
+{
+	min-width: 70px !important; 
+	color: white;
+}
+
 #workgroupSelect
 {
 	width: 115px !important;
