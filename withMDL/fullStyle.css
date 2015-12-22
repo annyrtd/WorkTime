@@ -139,10 +139,6 @@ input[type=text]:hover, select
 	cursor: pointer;
 }
 
-
-
-
-
 .inputReplaceButton
 {
 	width: 113px !important;
@@ -156,7 +152,6 @@ input[type=text]:hover, select
 	text-align: center !important;
 	margin: 0 auto;		
 	width: 140px !important;
-	height: 20px !important;
 	line-height: 20px !important;
 	outline: none;
 	padding: 0px 5px !important;
@@ -544,3 +539,7 @@ main.mdl-layout__content
 	cursor: default;
 }
 
+table.full-size tr
+{
+	height: 30px;
+}

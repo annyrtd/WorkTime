@@ -591,10 +591,13 @@ function SeparateStartAndFinish()
 			}
 			
 			positionCurrent = timeRange.indexOf("—");
-			startCurrent = timeRange.substr(0, positionCurrent);
-			finishCurrent = timeRange.substr(positionCurrent + 1);
-			start +=startCurrent;
-			finish += finishCurrent;
+			if (positionCurrent > -1)
+			{
+				startCurrent = timeRange.substr(0, positionCurrent);
+				finishCurrent = timeRange.substr(positionCurrent + 1);
+				start +=startCurrent;
+				finish += finishCurrent;
+			}
 			
 			var tdFinish =  $("<td></td>", 
 			{
@@ -918,7 +921,7 @@ function CreateSettings()
 				}
 			);
 			
-			$("#settings").fadeIn("slow");
+			$("#settings").fadeIn("fast");
 			
 			$("form[action='/Preferences/Edit'] button.inputReplaceButton").click(
 				function()
@@ -1016,7 +1019,7 @@ function SetTableHeightForTime()
 	}
 	else
 	{
-		$("table.full-size tbody").height($(window).height() - 516);
+		$("table.full-size tbody").height($(window).height() - 532);
 	}
 }
 
@@ -1038,6 +1041,7 @@ $(document).ready
 		AddRowBetweenWeeksWithWeekNumber();
 		WriteFullNamesOfDays();	
 		CreateSettings();
+		ShowTableFullSize();
 		
 		var shouldBeHidden = false;
 		

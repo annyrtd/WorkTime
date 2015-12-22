@@ -67,12 +67,12 @@ th.room, td.room
 
 th.workstate, td.workstate
 {
-	min-width: 	80px !important;
+	min-width: 50px !important;
 }
 
 td.reset.button
 {
-	min-width: 70px !important; 
+	min-width: 50px !important; 
 	color: white;
 }
 
