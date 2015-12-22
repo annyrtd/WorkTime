@@ -480,8 +480,8 @@ function PutButtonsToTheOtherLineInNotes()
 function RestyleTableForCalendar()
 {
 	//$("table.full-size").prepend($("<thead></thead>"));
-	$("table.full-size").addClass("mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp");
-	$("table.full-size td").addClass("mdl-data-table__cell--non-numeric");
+	$("table.full-size").addClass("mdl-shadow--2dp");
+	//$("table.full-size td").addClass("mdl-data-table__cell--non-numeric");
 	componentHandler.upgradeElement($(".full-size").get(0));
 }
 
@@ -507,13 +507,20 @@ $(document).ready
 		ChangePicturesToMDLIcons();
 		CreateCommonMDLCard();
 		
-		//RestyleTableForCalendar();
+		RestyleTableForCalendar();
 		
 		
-		//var $j = jQuery.noConflict();
-		//$j("#year_0").datepicker({
-		//	  changeMonth: true,//this option for allowing user to select month
-		//	});
+		
+		$("#year_0").datepicker({
+			changeMonth: false,
+			changeYear: true,
+			dateFormat: 'yy',
+			onClose: function(dateText, inst) { 
+				var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+				$(this).datepicker('setDate', new Date(year, 1, 1));
+				$("form.nav2").submit();
+			}
+        });
 		
 		
 		
