@@ -574,30 +574,34 @@ function SeparateStartAndFinish()
 	$("td.range.text").each(
 		function()
 		{
-			var timeRange = $(this).children("span").text();
-			var position = timeRange.indexOf(";");
 			var start = "", finish = "", positionCurrent, startCurrent = "", finishCurrent = "";
+			var timeRange = "";
 			
-			while(position > -1)
-			{
-				var current = timeRange.substr(0, position);
-				positionCurrent = current.indexOf("—");
-				startCurrent = current.substr(0, positionCurrent);
-				finishCurrent = current.substr(positionCurrent + 1);
-				start += startCurrent + "<br>";
-				finish += finishCurrent + "<br>";
-				timeRange = timeRange.substr(position + 2);
-				position = timeRange.indexOf(";");
-			}
-			
-			positionCurrent = timeRange.indexOf("—");
-			if (positionCurrent > -1)
-			{
-				startCurrent = timeRange.substr(0, positionCurrent);
-				finishCurrent = timeRange.substr(positionCurrent + 1);
-				start +=startCurrent;
-				finish += finishCurrent;
-			}
+			$(this).children("span").each(
+				function()
+				{
+					timeRange = $(this).text();
+					positionCurrent = timeRange.indexOf("—");
+					if (positionCurrent > -1)
+					{
+						startCurrent = timeRange.substr(0, positionCurrent);
+						finishCurrent = timeRange.substr(positionCurrent + 1);
+						start += startCurrent + "<br>";
+						finish += finishCurrent + "<br>";
+					}
+					if ($(this).text().indexOf("...") > -1)
+					{
+						if (finish == "<br>")
+						{
+							finish = "&nbsp;...&nbsp;";
+						}
+						else
+						{
+							finish += "&nbsp;...&nbsp;";
+						}
+					}
+				}
+			);
 			
 			var tdFinish =  $("<td></td>", 
 			{
@@ -653,7 +657,7 @@ function SeparateStartAndFinish()
 
 function AddWarningForEmptyTime(type)
 {
-	$(this).append('<i class="material-icons" style="float:left; margin-right: 8px; color: gray;" ' 
+	$(this).append('<i class="material-icons" style="color: gray;" ' 
 		+ 'title="Не зарегистрировано время ' 
 		+ type 
 		+ '">warning</i>');
