@@ -1138,7 +1138,6 @@ $(document).ready
 				AddConclusionForWeek();	
 				isMonth = false;
 				$(window).resize();
-				SetUpTimeForStudent();
 
 				$(".resetButton").click(
 					function()
