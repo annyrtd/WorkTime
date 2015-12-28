@@ -574,9 +574,9 @@ function SeparateStartAndFinish()
 	$("td.range.text").each(
 		function()
 		{
-			var timeRange = $(this).text();
+			var timeRange = $(this).children("span").text();
 			var position = timeRange.indexOf(";");
-			var start = "", finish = "", positionCurrent, startCurrent, finishCurrent;
+			var start = "", finish = "", positionCurrent, startCurrent = "", finishCurrent = "";
 			
 			while(position > -1)
 			{
@@ -619,6 +619,16 @@ function SeparateStartAndFinish()
 			}
 					
 			$(this).empty().append(start).after(tdFinish);
+			
+			if ($(this).text() == "")
+			{
+				AddWarningForEmptyTime.apply($(this).get(0), ["прихода"]);
+			}
+			
+			if ($(this).next().text() == "")
+			{
+				AddWarningForEmptyTime.apply($(this).next().get(0), ["ухода"]);
+			}
 		}
 	);
 	var size = ($("td.dayoff").attr("colspan"));
@@ -639,6 +649,14 @@ function SeparateStartAndFinish()
 			$(this).append(newItem);
 		}
 	)
+}
+
+function AddWarningForEmptyTime(type)
+{
+	$(this).append('<i class="material-icons" style="float:left; margin-right: 8px; color: gray;" ' 
+		+ 'title="Не зарегистрировано время ' 
+		+ type 
+		+ '">warning</i>');
 }
 
 function RemoveUnnesessaryBlocks()

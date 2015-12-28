@@ -538,9 +538,9 @@ function SeparateStartAndFinish()
 	$("td.range.text").each(
 		function()
 		{
-			var timeRange = $(this).text();
+			var timeRange = $(this).children("span").text();
 			var position = timeRange.indexOf(";");
-			var start = "", finish = "", positionCurrent, startCurrent, finishCurrent;
+			var start = "", finish = "", positionCurrent, startCurrent = "", finishCurrent = "";
 			
 			while(position > -1)
 			{
@@ -555,10 +555,13 @@ function SeparateStartAndFinish()
 			}
 			
 			positionCurrent = timeRange.indexOf("—");
-			startCurrent = timeRange.substr(0, positionCurrent);
-			finishCurrent = timeRange.substr(positionCurrent + 1);
-			start +=startCurrent;
-			finish += finishCurrent;
+			if (positionCurrent > -1)
+			{
+				startCurrent = timeRange.substr(0, positionCurrent);
+				finishCurrent = timeRange.substr(positionCurrent + 1);
+				start +=startCurrent;
+				finish += finishCurrent;
+			}
 			
 			var tdFinish =  $("<td></td>", 
 			{
@@ -579,7 +582,17 @@ function SeparateStartAndFinish()
 				}).append(start);				
 			}
 					
-			$(this).empty().append(start).after(tdFinish);		
+			$(this).empty().append(start).after(tdFinish);
+			
+			if ($(this).text() == "")
+			{
+				AddWarningForEmptyTime.apply($(this).get(0), ["прихода"]);
+			}
+			
+			if ($(this).next().text() == "")
+			{
+				AddWarningForEmptyTime.apply($(this).next().get(0), ["ухода"]);
+			}
 		}
 	);
 	var size = ($("td.dayoff").attr("colspan"));
@@ -600,6 +613,13 @@ function SeparateStartAndFinish()
 			$(this).append(newItem);
 		}
 	)
+}
+
+function AddWarningForEmptyTime(type)
+{
+	$(this).append('<img src="/Content/warning.png" style="float:left; margin-right: 8px;" title="Не зарегистрировано время ' + type + '">');
+	
+	
 }
 
 function RemoveUnnesessaryBlocks()
