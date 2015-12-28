@@ -6,9 +6,9 @@ jQuery.expr[':'].contains = function(a, i, m) {
       .indexOf(m[3].toUpperCase()) >= 0;
 };
 
-function ShowTableFullSize()
+function ShowTableFullSizeAndHolidayBox()
 {
-	$("table.full-size").fadeIn("fast");
+	$("table.full-size, div.holiday-box").fadeIn("fast");
 }
 
 function SetTimeToLocalStorage()
@@ -511,7 +511,7 @@ $(document).ready
 	{
 		if (window.location.pathname == "/" || window.location.pathname == "/Personal")
 		{			
-			$("table.full-size").hide();
+			$("table.full-size, div.holiday-box").hide();
 		}
 		SetTimeToLocalStorage();
 		PutInfoToTheLeftPanel();

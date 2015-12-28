@@ -1063,7 +1063,7 @@ $(document).ready
 		AddRowBetweenWeeksWithWeekNumber();
 		WriteFullNamesOfDays();	
 		CreateSettings();
-		ShowTableFullSize();
+		ShowTableFullSizeAndHolidayBox();
 		
 		var shouldBeHidden = false;
 		

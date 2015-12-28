@@ -544,6 +544,22 @@ table.full-size tr
 	height: 30px;
 }
 
+div.holiday-box
+{
+	border: 0px solid black !important;
+	height: 22px !important;
+	background-color: white !important;
+	color: rgb(255, 64, 129) !important;
+}
+
+
+div.content-wide div.mdl-card__title
+{
+	padding-bottom: 5px !important;
+}
+
+
+
 .ui-datepicker
 {
 	z-index:1000 !important;	

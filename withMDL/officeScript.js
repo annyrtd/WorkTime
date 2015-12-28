@@ -792,7 +792,7 @@ function CreateSettingsForLang()
 
 function SetTableHeightForOffice()
 {
-	$("table.full-size tbody").height($(window).height() - 325);
+	$("table.full-size tbody").height($(window).height() - 350);
 }
 
 function CheckResetButton()
@@ -802,11 +802,11 @@ function CheckResetButton()
 	$("#roomSelect").val() != "" || 
 	$("#searchInput").val() != "")
 	{
-		$("button#idReset").show()
+		$("button#idReset").fadeIn("fast");
 	}
 	else
 	{
-		$("button#idReset").hide()
+		$("button#idReset").fadeOut("fast");
 	}
 		
 }
@@ -841,8 +841,8 @@ $(document).ready
 				ChangeButtonsToMD.apply(this);				
 			}
 		);
-		
-		ShowTableFullSize();
+		$("table.full-size").before($("div.holiday-box"));
+		ShowTableFullSizeAndHolidayBox();
 		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 
 			function() 
@@ -948,7 +948,7 @@ $(document).ready
 				$("select#workStateSelect").attr("title", "Выберите состояние");
 				ResizeTableHeader();
 				
-				$(this).hide();
+				$(this).fadeOut("fast");
 			}
 		);
 		
