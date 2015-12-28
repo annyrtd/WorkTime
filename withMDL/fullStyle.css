@@ -585,3 +585,16 @@ a.ui-datepicker-prev, a.ui-datepicker-next
 	height: 24px;
 }
 
+select
+{
+	outline: none;
+	border: 1px solid rgb(202, 202, 202);
+	height: 32px !important;
+	line-height: 32px !important;	
+	font-weight: normal !important;
+}
+select *, select
+{
+	font-size: 14px !important;
+}
+

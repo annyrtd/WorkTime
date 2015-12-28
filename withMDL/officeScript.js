@@ -147,15 +147,56 @@ function SetClassesOnColumns()
 	
 	
 	$("th.text").first().addClass("employee header");
+	$("col.text").first().addClass("employee");
 	$('tbody tr').each(
 		function(index)
 		{
 			$(this).children("td.text").first().addClass("employee");
 		}
 	);
+	
+	$("th.text").eq(1).addClass("info");
+	$("col.text").eq(1).addClass("info");
+	$('tbody tr').each(
+		function(index)
+		{
+			$(this).children("td.text").eq(1).addClass("info");
+		}
+	);	
 
 	
+	
+	$("th.text.phone").first().addClass("first");
+	$("col.text.phone").first().addClass("first");
+	$('tbody tr').each(
+		function(index)
+		{
+			$(this).children("td.text.phone").first().addClass("first");
+		}
+	);	
+	
+	$("th.text.phone").eq(1).addClass("second");
+	$("col.text.phone").eq(1).addClass("second");
+	$('tbody tr').each(
+		function(index)
+		{
+			$(this).children("td.text.phone").eq(1).addClass("second");
+		}
+	);
+	
+	$("th.text.phone").eq(2).addClass("third");
+	$("col.text.phone").eq(2).addClass("third");
+	$('tbody tr').each(
+		function(index)
+		{
+			$(this).children("td.text.phone").eq(2).addClass("third");
+		}
+	);
+
+	
+	
 	$("th.text").eq(5).addClass("workgroup header");
+	$("col.text").eq(5).addClass("workgroup");
 	$('tbody tr').each(
 		function(index)
 		{
@@ -164,6 +205,7 @@ function SetClassesOnColumns()
 	);
 	
 	$("th.text").eq(6).addClass("room header");
+	$("col.text").eq(6).addClass("room");
 	$('tbody tr').each(
 		function(index)
 		{
@@ -173,10 +215,20 @@ function SetClassesOnColumns()
 	
 	
 	$("th.indicator").first().addClass("workstate header");
+	$("col.indicator").first().addClass("workstate");
 	$('tbody tr').each(
 		function(index)
 		{
 			$(this).children("td.indicator").first().addClass("workstate");
+		}
+	);
+	
+	$("th.indicator").last().addClass("mail");
+	$("col.indicator").last().addClass("mail");
+	$('tbody tr').each(
+		function(index)
+		{
+			$(this).children("td.indicator").last().addClass("mail");
 		}
 	);
 }	
@@ -811,6 +863,47 @@ function CheckResetButton()
 		
 }
 
+function ResizeTable()
+{
+	/*var $table = $('table.full-size'),
+		$bodyCells = $table.find('tbody tr').not("[style='display: none;']").first().children(),
+		colWidth,
+		totalWidth = 0;
+				
+	colWidth = $bodyCells.map(
+		function() 
+		{
+			return $(this).width();
+		}
+	).get();
+		
+		console.log($bodyCells);
+	// Set the width of thead columns
+	$table.find('th').each(
+		function(i, v) 
+		{
+			$(v).width(colWidth[i]);
+			totalWidth += colWidth[i];
+		}
+	);  
+	
+	$table.width(totalWidth);
+	*/
+	
+	
+}
+
+function AddBorderToStatusSelect()
+{
+	var span = $("<span></span>").css({
+		"display": "block",
+		"border": "1px solid rgb(202, 202, 202)",
+		"paddingLeft": "3px"
+	}).append($("th.indicator.workstate.header").children());
+	
+	$("th.indicator.workstate.header").append(span);
+}
+
 $(document).ready
 ( 
 	function() 
@@ -829,7 +922,10 @@ $(document).ready
 		
 		RemoveEmptyColumns();
 		CreateSettingsForLang();
-		CreateMDLCard();		
+		CreateMDLCard();	
+		
+		AddBorderToStatusSelect();
+		
 		
 		$("button")
 		.not("#idReset")
@@ -843,6 +939,7 @@ $(document).ready
 		);
 		$("table.full-size").before($("div.holiday-box"));
 		ShowTableFullSizeAndHolidayBox();
+		ResizeTable();
 		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 
 			function() 
@@ -858,7 +955,7 @@ $(document).ready
 				.attr("title", "Выберите состояние")
 				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");		
 				$("select#workStateSelect").attr("title", "Выберите состояние");				
-				ResizeTableHeader();	
+				//ResizeTableHeader();	
 				CheckResetButton();						
 			}
 		);
@@ -868,7 +965,7 @@ $(document).ready
 			function ()
 			{
 				SetFilters();
-				ResizeTableHeader();
+				//ResizeTableHeader();
 				CheckResetButton();
 			}
 		);
@@ -946,7 +1043,7 @@ $(document).ready
 				.attr("title", "Выберите состояние")
 				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");
 				$("select#workStateSelect").attr("title", "Выберите состояние");
-				ResizeTableHeader();
+				//ResizeTableHeader();
 				
 				$(this).fadeOut("fast");
 			}
@@ -956,7 +1053,7 @@ $(document).ready
 			function()
 			{
 				SelectHomeRoom();
-				ResizeTableHeader();
+				//ResizeTableHeader();
 				CheckResetButton();
 			}
 		);
@@ -965,7 +1062,7 @@ $(document).ready
 			function()
 			{
 				SelectHomeGroup();
-				ResizeTableHeader();
+				//ResizeTableHeader();
 				CheckResetButton();
 			}
 		);
@@ -974,7 +1071,7 @@ $(document).ready
 		$(window).resize(
 			function() 
 			{
-				ResizeTableHeader();
+				//ResizeTableHeader();
 				SetTableHeightForOffice();
 			}
 		).resize(); // Trigger resize handler		

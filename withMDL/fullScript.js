@@ -528,8 +528,6 @@ $(document).ready
 		
 		RestyleTableForCalendar();
 		
-		
-		
 		$("#year_0").datepicker({
 			changeMonth: false,
 			changeYear: true,

@@ -45,6 +45,90 @@ thead tr .headerSortDown
 }
 
 
+table.full-size
+{
+	width: 100% !important;
+	min-width: 1000px !important;
+}
+
+
+
+.indicator.workstate
+{
+	min-width: 6.5% !important;
+	width: 6.5% !important;
+}
+
+.text.employee
+{
+	min-width: 16%px !important;
+	width: 16% !important;
+}
+
+.text.info
+{
+	min-width: 6% !important;	
+	width: 6% !important;
+}
+
+.text.phone.first
+{
+	min-width: 3% !important;
+	width: 3% !important;
+}
+
+.text.phone.second
+{
+	min-width: 20% !important;
+	width: 20% !important;
+}
+
+.text.phone.third
+{
+	min-width: 8% !important;
+	width: 8% !important;
+}
+
+.indicator.mail
+{
+	min-width: 3% !important;
+	width: 3% !important;
+}
+
+.text.workgroup
+{
+	min-width: 18% !important;
+	width: 18% !important;
+}
+
+.text.room
+{
+	min-width: 12% !important;
+	width: 12% !important;
+	text-align: left;
+}
+
+.text.note
+{
+	min-width: 4% !important;
+	width: 4% !important;
+}
+
+th.reset.button
+{
+	min-width: 5% !important;
+	width: 5% !important;
+}
+
+td.reset.button
+{
+	min-width: 5% !important;
+	width: 5%;
+	color: white;
+}
+
+
+/*
 td.workgroup, td.employee, th.workgroup, th.employee
 {
 	padding-left: 18px;
@@ -65,34 +149,32 @@ th.room, td.room
 	min-width: 	100px !important;
 }
 
-th.workstate, td.workstate
-{
-	min-width: 50px !important;
-}
 
 td.reset.button
 {
 	min-width: 50px !important; 
 	color: white;
-}
+}*/
+
 
 #workgroupSelect
 {
 	width: 115px !important;
-	height: 30px !important;
+	height: 32px !important;
 }
 
 #workStateSelect
 {
 	width: 20px !important;
-	height: 30px !important;
+	height: 32px !important;
+	border: 0;
 }
 
 #roomSelect
 {	
 	width: 50px !important;
 	padding: 0px !important;
-	height: 30px !important;
+	height: 32px !important;
 }
 
 .arrowDiv
@@ -153,15 +235,19 @@ table.full-size tbody, table.full-size thead
 	background-color: white;
 }
 
-table.full-size th { 
-    height: 30px;
-    line-height: 30px;
-}
+
 
 table.full-size tbody {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+table.full-size th, table.full-size th *:not(i)
+{
+	font-weight: normal !important;
+	font-size: 14px !important;
+}
+
 
 
 /*version 2
