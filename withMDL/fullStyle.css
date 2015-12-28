@@ -11,8 +11,9 @@ rgb(255, 64, 129) - pink
 
 table.full-size 
 {
-    width: auto !important;	
+    	
 	margin: auto !important;	
+	width: auto !important;
 	/*margin-right: 70px !important;*/
 }
 

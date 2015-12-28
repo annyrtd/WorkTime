@@ -869,7 +869,9 @@ function CreateSettings()
 			
 			
 			$("div.table-form").eq(0).children("label").text('Округлять "отчетное" время');
-			$("div.table-form").eq(1).children("label").text('Учитывать отпуск в отработанном времени за месяц');
+			$("div.table-form").eq(1).children("label").text('Учитывать отпуск в отработанном времени за месяц');			
+			$("div.table-form").eq(4).children("label").text('Cчитать отчетное время до конца месяца');
+			
 			$("div.table-form").eq(2).hide();
 			$("div.table-form").eq(3).hide();
 			if($("div.table-form").eq(1)

@@ -893,6 +893,7 @@ function CreateSettings()
 			
 			$("div.table-form").eq(1).children("label").text('Учитывать отпуск в отработанном времени за месяц');
 			$("div.table-form").eq(2).children("label").text('Я студент');
+			$("div.table-form").eq(4).children("label").text('Cчитать отчетное время до конца месяца');
 			$("div.table-form").eq(3).hide();
 			
 			if($("div.table-form").eq(1)
