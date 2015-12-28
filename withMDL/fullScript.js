@@ -17,8 +17,15 @@ function SetTimeToLocalStorage()
 	temp.load("http://co-msk-app02/Personal tr.summary",
 		function ()
 		{
-			localStorage["current_time"] = $(this).children(".summary").last().children("td.time").eq(2).text();
-			if ($(this).children(".summary").last().children("td.time").eq(2).hasClass("negative"))
+			localStorage["current_time"] = $(this)
+				.children(".summary:contains('Итог')")
+				.not(":contains('за месяц')")
+				.last().children("td.time").eq(2).text();
+			if ($(this)
+				.children(".summary:contains('Итог')")
+				.not(":contains('за месяц')")
+				.last().children("td.time").eq(2).hasClass("negative")
+				)
 			{
 				localStorage["current_class"] =  "accentColor";
 				localStorage["removed_class"] = "greenColor";
@@ -311,10 +318,22 @@ function CreateFixedHeader()
 	temp.load("http://co-msk-app02/Personal tr.summary",
 		function ()
 		{
-			var time = $(this).children(".summary").last().children("td.time").eq(2).text();
+			var time = $(this)
+				.children(".summary:contains('Итог')")
+				.not(":contains('за месяц')")
+				.last()
+				.children("td.time").eq(2).text();
+				
 			localStorage["current_time"] = time;
 			$("span.currentTime").text(time);
-			if ($(this).children(".summary").last().children("td.time").eq(2).hasClass("negative"))
+			if ($(this)
+				.children(".summary:contains('Итог')")
+				.not(":contains('за месяц')")
+				.last()
+				.children("td.time")
+				.eq(2)
+				.hasClass("negative")
+			)
 			{
 				localStorage["current_class"] = "accentColor";
 				localStorage["removed_class"] = "greenColor";

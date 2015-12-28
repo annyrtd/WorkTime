@@ -842,7 +842,6 @@ $(document).ready
 			}
 		);
 		
-		
 		ShowTableFullSize();
 		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 

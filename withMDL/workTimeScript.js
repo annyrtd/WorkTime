@@ -267,7 +267,7 @@ function GetTimeOfHolidays()
 function GetCurrentTimeForCurrentDay()
 {	
 	//var temp = $("tr[id]").not("[class=future]").last().children(".time").eq(2).text();	
-	return $(".summary").last().children(".time").eq(2).text();
+	return $(".summary:contains('Итог')").not(":contains('за месяц')").last().children(".time").eq(2).text();
 }
 
 function GetTimeForMonthLeft()
