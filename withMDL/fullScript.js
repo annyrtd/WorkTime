@@ -504,6 +504,10 @@ function RestyleTableForCalendar()
 	componentHandler.upgradeElement($(".full-size").get(0));
 }
 
+function AddButtonToStopBlinking()
+{
+	$("body").append("<button class='mdl-button' style='z-index: -10;'><button>");
+}
 
 $(document).ready
 ( 
@@ -527,6 +531,8 @@ $(document).ready
 		CreateCommonMDLCard();
 		
 		RestyleTableForCalendar();
+		
+		AddButtonToStopBlinking();
 		
 		$("#year_0").datepicker({
 			changeMonth: false,
