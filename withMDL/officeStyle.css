@@ -45,18 +45,6 @@ thead tr .headerSortDown
 }
 
 
-table.full-size
-{
-	width: 100% !important;
-	min-width: 1000px !important;
-}
-
-
-.text.employee
-{
-	min-width: 160px !important;
-	width: 160px !important;
-}
 
 
 .indicator.workstate
@@ -65,10 +53,42 @@ table.full-size
 	width: 65px !important;
 }
 
+.text.employee
+{
+	min-width: 160px !important;
+	width: 160px !important;
+}
+
+
+.text.info
+{
+	min-width: 100px !important;	
+	width: 100px !important;
+}
+
 .text.phone.first
 {
 	min-width: 30px !important;
 	width: 30px !important;
+}
+
+
+.text.phone.second
+{
+	min-width: 86px !important;
+	width: 20% !important;
+}
+
+.text.phone.third
+{
+	min-width: 90px !important;
+	width: 90px !important;
+}
+
+.indicator.mail
+{
+	min-width: 24px !important;
+	width: 24px !important;
 }
 
 .text.workgroup
@@ -84,56 +104,16 @@ table.full-size
 	text-align: left;
 }
 
-/*
-
-
-
-
-.text.info
-{
-	min-width: 6% !important;	
-	width: 6% !important;
-}
-
-
-
-.text.phone.second
-{
-	min-width: 20% !important;
-	width: 20% !important;
-}
-
-.text.phone.third
-{
-	min-width: 8% !important;
-	width: 8% !important;
-}
-
-.indicator.mail
-{
-	min-width: 3% !important;
-	width: 3% !important;
-}
-
-
-
 .text.note
 {
-	min-width: 4% !important;
-	width: 4% !important;
+	min-width: 40px !important;
+	width: 40px !important;
 }
 
-th.reset.button
+.reset.button
 {
-	min-width: 5% !important;
-	width: 5% !important;
-}
-
-td.reset.button
-{
-	min-width: 5% !important;
-	width: 5%;
-	color: white;
+	min-width: 42px !important;
+	width: 42px !important;
 }
 
 
