@@ -62,8 +62,8 @@ thead tr .headerSortDown
 
 .text.info
 {
-	min-width: 100px !important;	
-	width: 100px !important;
+	min-width: 96px !important;	
+	width: 96px !important;
 }
 
 .text.phone.first
@@ -75,8 +75,8 @@ thead tr .headerSortDown
 
 .text.phone.second
 {
-	min-width: 86px !important;
-	width: 20% !important;
+	min-width: 90px !important;
+	width: 90px !important;
 }
 
 .text.phone.third
@@ -110,11 +110,18 @@ thead tr .headerSortDown
 	width: 40px !important;
 }
 
-.reset.button
+th.reset.button
 {
 	min-width: 42px !important;
 	width: 42px !important;
 }
+
+td.reset.button
+{
+	min-width: 25px !important;
+	width: 25px !important;
+}
+
 
 
 /*
