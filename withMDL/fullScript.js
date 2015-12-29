@@ -6,6 +6,10 @@ jQuery.expr[':'].contains = function(a, i, m) {
       .indexOf(m[3].toUpperCase()) >= 0;
 };
 
+String.prototype.replaceAll = function(search, replace){
+  return this.split(search).join(replace);
+}
+
 function ShowTableFullSizeAndHolidayBox()
 {
 	$("table.full-size, div.holiday-box").fadeIn("fast");
@@ -509,6 +513,40 @@ function AddButtonToStopBlinking()
 	$("body").append("<button class='mdl-button' style='z-index: -10;'><button>");
 }
 
+function SetUpCalendarTable()
+{
+	$("table.full-size tr").each(
+		function()
+		{
+			var current = $(this).children("td").first().text();
+			
+			current = current
+			.replaceAll("Пн", "Понедельник,")
+			.replaceAll("Вт", "Вторник,")
+			.replaceAll("Ср", "Среда,")
+			.replaceAll("Чт", "Четверг,")
+			.replaceAll("Пт", "Пятница,")
+			.replaceAll("Сб", "Суббота,")
+			.replaceAll("Вс", "Воскресенье,")
+			.replaceAll(".01", " Января")
+			.replaceAll(".02", " Февраля")
+			.replaceAll(".03", " Марта")
+			.replaceAll(".04", " Апреля")
+			.replaceAll(".05", " Мая")
+			.replaceAll(".06", " Июня")
+			.replaceAll(".07", " Июля")
+			.replaceAll(".08", " Августа")
+			.replaceAll(".09", " Сентября")
+			.replaceAll(".10", " Октября")
+			.replaceAll(".11", " Ноября")
+			.replaceAll(".12", " Декабря");
+			
+			$(this).children("td").first().text(current);
+		}
+	)
+}
+
+
 $(document).ready
 ( 
 	function() 
@@ -534,17 +572,14 @@ $(document).ready
 		
 		AddButtonToStopBlinking();
 		
-		$("#year_0").datepicker({
-			changeMonth: false,
-			changeYear: true,
-			dateFormat: 'yy',
-			onClose: function(dateText, inst) { 
-				var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-				$(this).datepicker('setDate', new Date(year, 1, 1));
-				$("form.nav2").submit();
-			}
+		$("#NoteDate").datepicker({
+			dateFormat: 'dd.mm.yy',
         });
 		
+		if (window.location.pathname == "/Calendar")
+		{			
+			SetUpCalendarTable();
+		}
 		
 		
 		$("div.status-right a, th.indicator a").click(
