@@ -52,18 +52,42 @@ table.full-size
 }
 
 
+.text.employee
+{
+	min-width: 160px !important;
+	width: 160px !important;
+}
+
 
 .indicator.workstate
 {
-	min-width: 6.5% !important;
-	width: 6.5% !important;
+	min-width: 65px !important;
+	width: 65px !important;
 }
 
-.text.employee
+.text.phone.first
 {
-	min-width: 16%px !important;
-	width: 16% !important;
+	min-width: 30px !important;
+	width: 30px !important;
 }
+
+.text.workgroup
+{
+	min-width: 160px !important;
+	width: 160px !important;
+}
+
+.text.room
+{
+	min-width: 120px !important;
+	width: 120px !important;
+	text-align: left;
+}
+
+/*
+
+
+
 
 .text.info
 {
@@ -71,11 +95,7 @@ table.full-size
 	width: 6% !important;
 }
 
-.text.phone.first
-{
-	min-width: 3% !important;
-	width: 3% !important;
-}
+
 
 .text.phone.second
 {
@@ -95,18 +115,7 @@ table.full-size
 	width: 3% !important;
 }
 
-.text.workgroup
-{
-	min-width: 18% !important;
-	width: 18% !important;
-}
 
-.text.room
-{
-	min-width: 12% !important;
-	width: 12% !important;
-	text-align: left;
-}
 
 .text.note
 {
@@ -247,6 +256,10 @@ table.full-size th, table.full-size th *:not(.mdl-tooltip):not(i)
 	font-size: 14px !important;
 }
 
+table.full-size   tr
+{
+	width: 100% !important;
+}
 
 /*version 2
 

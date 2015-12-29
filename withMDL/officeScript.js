@@ -520,7 +520,7 @@ function AddResetFiltersButton()
 	$("table.full-size tbody tr").each(
 		function()
 		{
-			$(this).append('<td class="reset button">abc</td>');
+			$(this).append('<td class="reset button"></td>');
 		}
 	)
 	
@@ -918,9 +918,10 @@ $(document).ready
 		PrepareEmployeeColumnForSort();
 		PrepareWorkgroupColumnForSort();		
 		PrepareRoomColumnForSort();
-		AddResetFiltersButton();
+		
 		
 		RemoveEmptyColumns();
+		AddResetFiltersButton();
 		CreateSettingsForLang();
 		CreateMDLCard();	
 		
@@ -939,7 +940,7 @@ $(document).ready
 		);
 		$("table.full-size").before($("div.holiday-box"));
 		ShowTableFullSizeAndHolidayBox();
-		ResizeTable();
+		ResizeTableHeader();
 		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 
 			function() 
@@ -955,7 +956,7 @@ $(document).ready
 				.attr("title", "Выберите состояние")
 				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");		
 				$("select#workStateSelect").attr("title", "Выберите состояние");				
-				//ResizeTableHeader();	
+				ResizeTableHeader();	
 				CheckResetButton();						
 			}
 		);
@@ -965,7 +966,7 @@ $(document).ready
 			function ()
 			{
 				SetFilters();
-				//ResizeTableHeader();
+				ResizeTableHeader();
 				CheckResetButton();
 			}
 		);
@@ -1043,7 +1044,7 @@ $(document).ready
 				.attr("title", "Выберите состояние")
 				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");
 				$("select#workStateSelect").attr("title", "Выберите состояние");
-				//ResizeTableHeader();
+				ResizeTableHeader();
 				
 				$(this).fadeOut("fast");
 			}
@@ -1053,7 +1054,7 @@ $(document).ready
 			function()
 			{
 				SelectHomeRoom();
-				//ResizeTableHeader();
+				ResizeTableHeader();
 				CheckResetButton();
 			}
 		);
@@ -1062,7 +1063,7 @@ $(document).ready
 			function()
 			{
 				SelectHomeGroup();
-				//ResizeTableHeader();
+				ResizeTableHeader();
 				CheckResetButton();
 			}
 		);
@@ -1071,7 +1072,7 @@ $(document).ready
 		$(window).resize(
 			function() 
 			{
-				//ResizeTableHeader();
+				ResizeTableHeader();
 				SetTableHeightForOffice();
 			}
 		).resize(); // Trigger resize handler		
