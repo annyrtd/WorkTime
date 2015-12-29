@@ -546,6 +546,23 @@ function SetUpCalendarTable()
 	)
 }
 
+function AddDatePickerToNotes()
+{
+	$("#NoteDate").datepicker({
+		dateFormat: 'dd.mm.yy',
+		onClose: function()
+		{
+			if ($("#NoteDate").val() != "")
+			{
+					$(this).parent().addClass("is-dirty");
+			}
+			else
+			{
+				$(this).parent().removeClass("is-dirty");
+			}
+		}
+	});	
+}
 
 $(document).ready
 ( 
@@ -571,10 +588,8 @@ $(document).ready
 		RestyleTableForCalendar();
 		
 		AddButtonToStopBlinking();
+		AddDatePickerToNotes();
 		
-		$("#NoteDate").datepicker({
-			dateFormat: 'dd.mm.yy',
-        });
 		
 		if (window.location.pathname == "/Calendar")
 		{			
