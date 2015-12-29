@@ -844,7 +844,7 @@ function CreateSettingsForLang()
 
 function SetTableHeightForOffice()
 {
-	$("table.full-size tbody").height($(window).height() - 350);
+	$("table.full-size tbody").height($(window).height() - 370);
 }
 
 function CheckResetButton()

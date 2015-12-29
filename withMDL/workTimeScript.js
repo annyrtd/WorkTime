@@ -1,4 +1,5 @@
 ﻿var isMonth = true;
+var isStudent = false;
 
 function IsReportOnPage()
 {
@@ -912,7 +913,8 @@ function CreateSettings()
 			if($("div.table-form").eq(2)
 				.children("select").first()
 				.children("option[selected]").val() == "Yes")
-			{
+			{				
+				isStudent = true;
 				SetUpTimeForStudent();
 			}
 			
@@ -970,17 +972,21 @@ function CreateSettings()
 
 function SetUpTimeForStudent()
 {
-	$("tr[id]").not("[class=future]").each( 
-		function(index)
-		{
-			var newText = $(this).children("td.time").first().text();
-			$(this).children("td.time").last().text(newText);
-		}
-	);
+	if (isStudent)
+	{
+		$("tr[id]").not("[class=future]").each( 
+			function(index)
+			{
+				var newText = $(this).children("td.time").first().text();
+				$(this).children("td.time").last().text(newText);
+			}
+		);
+		
+		$("label#currentTime").text(GetAlreadyWorkedTimeForMonth_ForStudent());
+		$("label#reportTimeForMonth").text(GetSumReportTimeForMonth_ForStudent());	
+		$("label#currentTime_week").text(GetCurrentTimeForWeek_ForStudent());
+	}
 	
-	$("label#currentTime").text(GetAlreadyWorkedTimeForMonth_ForStudent());
-	$("label#reportTimeForMonth").text(GetSumReportTimeForMonth_ForStudent());	
-	$("label#currentTime_week").text(GetCurrentTimeForWeek_ForStudent());
 }
 
 function ResizeTableBody()
@@ -1038,11 +1044,11 @@ function SetTableHeightForTime()
 {
 	if (isMonth)
 	{
-		$("table.full-size tbody").height($(window).height() - 480);
+		$("table.full-size tbody").height($(window).height() - 492);
 	}
 	else
 	{
-		$("table.full-size tbody").height($(window).height() - 532);
+		$("table.full-size tbody").height($(window).height() - 526);
 	}
 }
 
@@ -1072,11 +1078,12 @@ $(document).ready
 			function() 
 			{
 				SetTableHeightForTime();
-				ResizeTableBody();
+				//ResizeTableBody();
 			}
 		).resize(); // Trigger resize handler
 		
-			
+		$("table.full-size th").first().removeAttr("colspan").addClass("weekday").after("<th class='monthday number'>№</th>")
+		
 		AddConclusionForMonth();
 		
 		$("tr.intervalRow").click(
@@ -1093,6 +1100,7 @@ $(document).ready
 					shouldBeHidden = false;
 					$(".buttonDiv").remove();
 					$(window).resize();
+					SetUpTimeForStudent();
 					return;
 				}
 				$(this).prevAll().each(
@@ -1124,8 +1132,7 @@ $(document).ready
 				
 				var div = $("<div></div>", {
 					"class": "buttonDiv"
-				}).append("<br><br>", button)
-				.css("margin", "auto");
+				}).append("<br>", button);
 				
 				
 				
@@ -1138,6 +1145,7 @@ $(document).ready
 				AddConclusionForWeek();	
 				isMonth = false;
 				$(window).resize();
+				SetUpTimeForStudent();
 
 				$(".resetButton").click(
 					function()
@@ -1153,6 +1161,7 @@ $(document).ready
 						shouldBeHidden = false;
 						$(".buttonDiv").remove();
 						$(window).resize();
+						SetUpTimeForStudent();
 					}
 				);
 			}

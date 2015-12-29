@@ -166,7 +166,7 @@ td.reset.button
 #workStateSelect
 {
 	width: 20px !important;
-	height: 32px !important;
+	height: 30px !important;
 	border: 0;
 }
 
@@ -235,19 +235,17 @@ table.full-size tbody, table.full-size thead
 	background-color: white;
 }
 
-
-
-table.full-size tbody {
+table.full-size tbody 
+{
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-table.full-size th, table.full-size th *:not(i)
+table.full-size th, table.full-size th *:not(.mdl-tooltip):not(i)
 {
 	font-weight: normal !important;
 	font-size: 14px !important;
 }
-
 
 
 /*version 2

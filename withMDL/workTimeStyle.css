@@ -4,10 +4,15 @@
 }
 
 table.full-size th
+
 {	
 	padding: 6px 20px !important;
 	background-color: #DDDDDD   !important;
+	font-weight: normal !important;
+	font-size: 14px !important;
+	
 }
+
 
 table.full-size 
 {
@@ -27,7 +32,6 @@ table.full-size
 .conclusion
 {
 	width: 300px;	
-	margin: auto;
 	padding: 20px;
 }
 
@@ -97,4 +101,31 @@ table.full-size th {
 table.full-size tbody {
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+td.weekday, th.weekday
+{
+	width: 150px !important;
+}
+
+td.monthday.number, th.monthday.number
+{
+	width: 90px !important;
+}
+
+th.range.text, td.range.text
+{
+	width: 120px !important;
+}
+
+td.time, th.time
+{
+	width: 85px !important;
+}
+
+
+td.text.note, th.text.note
+{
+	width: 45px !important;
+    
 }

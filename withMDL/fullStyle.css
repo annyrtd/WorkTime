@@ -11,9 +11,9 @@ rgb(255, 64, 129) - pink
 
 table.full-size 
 {
-    	
-	margin: auto !important;	
+    		
 	width: auto !important;
+	/*margin: auto !important;
 	/*margin-right: 70px !important;*/
 }
 
@@ -564,26 +564,8 @@ div.content-wide div.mdl-card__title
 .ui-datepicker
 {
 	z-index:1000 !important;	
-	width: 150px !important;	
-	height: 34px !important;
 }
 
-select.ui-datepicker-year
-{
-	width: 49% !important;
-}
-
-span.ui-datepicker-month, table.ui-datepicker-calendar, 
-a.ui-datepicker-prev, a.ui-datepicker-next
-{
-	display: none !important;
-}
-
-.ui-datepicker-title
-{
-	margin: 0px !important;
-	height: 24px;
-}
 
 select
 {
@@ -597,4 +579,5 @@ select *, select
 {
 	font-size: 14px !important;
 }
+
 
