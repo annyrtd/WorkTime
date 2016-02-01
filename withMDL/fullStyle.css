@@ -497,6 +497,7 @@ div.is-small-header span.mdl-layout-title.notfixed
 	position: relative !important;
 }
 
+
 .content-wide
 {
 	height: calc(100% - 140px);
@@ -596,4 +597,32 @@ select *, select
 	border-top: 8px solid transparent;
 	border-bottom: 8px solid transparent;	
 	border-left: 8px solid gray;
+}
+
+/*for mdl cards from table*/
+
+.mdl-layout__content .mdl-layout-title
+{
+	margin: 16px;
+	margin-top: 32px;
+}
+	
+	
+table.full-size
+{
+	margin: 16px; 
+	margin-top: 32px;
+}
+
+form[action='/Notes']
+{
+	margin: 16px; 
+}
+
+.noteSaveAndCancelCard
+{
+	margin: 16px; 
+	margin-top: 32px;
+	display: block !important;
+	width: 650px !important; 	
 }

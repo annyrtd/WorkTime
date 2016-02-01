@@ -138,10 +138,7 @@ function CreateMenu()
 			$(this).attr("id", "menu_li" + index).addClass("drop");	
 			$(this).children("a").text($(this).children("a").text().toUpperCase());
 		}
-	);
-	
-	
-	
+	);	
 	
 	$("#menu_li0").append($("<ul id='menu_li0_submenu'><ul>"));
 	$("#menu_li0_submenu").load("/ ul.nav2 li", 
@@ -171,8 +168,7 @@ function CreateMenu()
 			);	
 			
 		}
-	);
-	
+	);	
 	
 	$("#menu_li2").append($("<ul id='menu_li2_submenu'><ul>"));
 	$("#menu_li2_submenu").load("/Notes ul.nav2 li",
@@ -187,8 +183,7 @@ function CreateMenu()
 			);	
 			
 		}
-	);
-	
+	);	
 	
 	$("#menu_li3").append($("<ul id='menu_li3_submenu'><ul>"));
 	$("#menu_li3_submenu").load("/Calendar ul.nav2 li",
@@ -288,7 +283,7 @@ function CreateFixedHeader()
 	.append($(".navbar form"));
 	componentHandler.upgradeElement(drawer.get(0));
 	
-	var mainContent = $('<main class="mdl-layout__content"></main>')
+	var mainContent = $('<main class="mdl-layout__content content-wide"></main>')
 	.append($(".main"));
 	
 	componentHandler.upgradeElement(mainContent.get(0));
@@ -300,7 +295,7 @@ function CreateFixedHeader()
 	$(".navbar").before(div);
 	
 	$(".mdl-layout-title").eq(2).prepend($(".status-right img"));	
-	
+	 
 	$(".mdl-layout-title").eq(1).append("Текущее время: ", 
 		'<span class="mdl-layout-title currentTime" style="display: inline">' 
 		+ '</span>');
@@ -410,26 +405,29 @@ function CreateCommonMDLCard()
 {
 	if (window.location.pathname == "/")
 		return;
-	
+
 	$(".status-center").hide();
 	$(".main").hide();
-	var classname = "content-wide";
 	
-	var title = $('<div class="mdl-card__title"></div>')
-	.append('<h2 class="mdl-card__title-text">'
-	+ $(".status-center").text()
-	+ '</h2>');
+	var header = $('<span></span>',
+	{
+		"class": "mdl-layout-title"
+	}).append($(".status-center").text());
 	
-	var supportingText = $('<div class="mdl-card__supporting-text"></div>')
-	.append($("table.full-size"), $("form[action='/Notes']"));
-	
-	var div = $('<div class="' + classname + ' mdl-card mdl-shadow--2dp">')
-	.append(title, supportingText);
-	
-	
+	$("table.full-size").addClass("mdl-shadow--2dp");	
+	$(".mdl-layout__content").append(header, $("table.full-size"));
+	if (window.location.pathname == "/Notes")
+	{
+		CreateCardForNotesSaving();
+	}
+}
+
+function CreateCardForNotesSaving()
+{	
+	var div = $('<div></div>', {
+		"class": "noteSaveAndCancelCard mdl-card mdl-shadow--2dp"
+	}).append($("form[action='/Notes']"));
 	$(".mdl-layout__content").append(div);
-	
-	componentHandler.upgradeElement($(".mdl-card").get(0));	
 }
 
 function SetAllButtonsAndInputsToMDL()
@@ -561,6 +559,7 @@ function AddDatePickerToNotes()
 	});	
 }
 
+
 $(document).ready
 ( 
 	function() 
@@ -568,7 +567,13 @@ $(document).ready
 		if (window.location.pathname == "/" || window.location.pathname == "/Personal")
 		{			
 			$("table.full-size, div.holiday-box").hide();
+		}	
+		
+		if (window.location.pathname == "/Notes")
+		{			
+			$('#NoteDate').removeAttr("autofocus");
 		}
+		
 		SetTimeToLocalStorage();
 		PutInfoToTheLeftPanel();
 		CreateMenu();
@@ -591,8 +596,7 @@ $(document).ready
 		if (window.location.pathname == "/Calendar")
 		{			
 			SetUpCalendarTable();
-		}
-		
+		}		
 		
 		$("div.status-right a, th.indicator a").click(
 			function()

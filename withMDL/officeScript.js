@@ -99,25 +99,6 @@ function CreateSearchInput_withMD()
 	$("th.text").eq(0).append(icon,div);
 	
 	componentHandler.upgradeElement($(".mdl-textfield.mdl-js-textfield").get(0));
-	
-	/*
-	<!-- Expandable Textfield -->
-
-	<button class="mdl-button mdl-js-button mdl-button--icon">
-		<i class="material-icons">mood</i>
-	</button>
-	
-	<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-		<label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
-			<i class="material-icons">search</i>
-		</label>
-		<div class="mdl-textfield__expandable-holder">
-			<input class="mdl-textfield__input" type="text" id="sample6">
-			<label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
-		</div>
-	</div>
-	*/
-
 }
 
 
@@ -503,7 +484,11 @@ function AddResetFiltersButton()
 		}
 	)
 	
+	var tooltip = $('<div class="mdl-tooltip" for="idReset">Сбросить<br>фильтры</div>');
+	
+	componentHandler.upgradeElement(tooltip.get(0));
 	componentHandler.upgradeElement(button.get(0));
+	$('th.reset.button').append(tooltip);
 	$("button#idReset").hide();	
 }
 
@@ -738,30 +723,14 @@ function CreateMDLCard()
 {
 	$(".status-center").hide();
 	$(".main").hide();
-	var classname = $("table.full-size").parent().attr("class");
 	
-	var title = $('<div class="mdl-card__title"></div>')
-	.append('<h2 class="mdl-card__title-text">'
-	+ $(".status-center").text()
-	+ '</h2>');
+	var header = $('<span></span>',
+	{
+		"class": "mdl-layout-title"
+	}).append($(".status-center").text());
 	
-	var supportingText = $('<div class="mdl-card__supporting-text"></div>')
-	.append($("table.full-size"));
-	
-	var button = $('<div class="mdl-card__menu"></div>').append($("#idReset"));
-	
-	var div = $('<div class="' + classname + ' mdl-card mdl-shadow--2dp">')
-	.append(title, supportingText, /*border, */button);
-	
-	
-	$(".mdl-layout__content").append(div);
-	
-	var tooltip = $('<div class="mdl-tooltip" for="idReset">Сбросить<br>фильтры</div>');
-	componentHandler.upgradeElement(tooltip.get(0));
-	componentHandler.upgradeElement($("#idReset").get(0));	
-	$(".mdl-card__menu").append(tooltip);
-	
-	componentHandler.upgradeElement($(".mdl-card").get(0));	
+	$("table.full-size").addClass("mdl-shadow--2dp");	
+	$(".mdl-layout__content").append(header, $("table.full-size"));
 }
 
 function ResizeTableHeader()

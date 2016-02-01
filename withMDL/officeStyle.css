@@ -218,12 +218,6 @@ input[type=text]
     font-size: 11pt !important;
 }
 
-
-
-/* scrollable table */
-
-
-
 table.full-size tbody, table.full-size thead 
 { 
 	display: block; 
@@ -246,43 +240,3 @@ table.full-size   tr
 {
 	width: 100% !important;
 }
-
-/*version 2
-
-.content-wide 
-{
-    height: 500px;
-}
-table.full-size 
-{
-    display: flex;
-    flex-flow: column;
-    height: 100%;
-    width: 100%;
-}
-table.full-size thead 
-{
-    /* head takes the height it requires, 
-    and it's not scaled when table is resized 
-    flex: 0 0 auto;
-    width: calc(100% - 0.9em);
-}
-table.full-size tbody 
-{
-    /* body takes all the remaining available space 
-    flex: 1 1 auto;
-    display: block;
-    overflow-y: scroll;
-}
-table.full-size tbody tr 
-{
-    width: 100%;
-}
-table.full-size thead,
-table.full-size tbody tr 
-{
-    display: table;
-    table-layout: fixed;
-}
-
-*/

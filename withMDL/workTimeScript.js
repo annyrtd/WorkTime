@@ -150,10 +150,22 @@ function AddReportColumn()
 }
 
 
+
+// создание flex box
+function CreateFlex()
+{
+	var flexParent = $("<div></div>",
+	{
+		"class": "flexParent"
+	}).append($("table.full-size"));
+	
+	$(".mdl-layout__content").append(flexParent);	
+}
+
+
 // добавляет концовку с итогами по времени для месяца
 function AddConclusionForMonth()
 {		
-	var necessaryWidth = $("table.full-size").css("width");
 	var currentTime = GetAlreadyWorkedTimeForMonth();	
 	if ($("#NetTime") !== undefined)
 	{
@@ -213,21 +225,16 @@ function AddConclusionForMonth()
 		id: "reportTimeForMonth"
 	}).append(reportTimeForMonth);
 	
-	var barrier = $("<div></div>", {
-		"class": "barrier",
-	});
-	
 	var conclusionDiv = $("<div></div>", {
-		"class": "conclusion month",
+		"class": "conclusion month mdl-card mdl-shadow--2dp",
 	})
-	
-	
-	.css("width", necessaryWidth)
+	.append('<div><b>Статистика:</b></div>')
 	.append(label2_1, label2_2)
 	.append("<br>", label3_1, label3_2)	
 	.append("<br>", "<br>", label1_1, label1_2)
 	.append("<br>", label4_1, label4_2, "<br>");
-	$(".content-wide").append(barrier, conclusionDiv);
+	
+	$(".flexParent").append(conclusionDiv);
 	
 	// проверяет, есть ли показ до конца месяца
 	if ($(".future").length == 0)
@@ -323,18 +330,18 @@ function GetSumReportTimeForMonth_ForStudent()
 	return sum;	
 }
 
+
 // убирает концовку для месяца
 function RemoveConclusionForMonth()
 {
-	$(".conclusion.month").prev(".barrier").remove();
+	$(".flexParent .barrier").remove();
 	$(".conclusion.month").remove();
 }
 
 
 // добавляет концовку с итогами по времени для недели
 function AddConclusionForWeek()
-{
-	var necessaryWidth = $("table.full-size").css("width");	
+{	
 	var currentTime = GetCurrentTimeForWeek();
 	
 	if ($("#NetTime") !== undefined)
@@ -386,19 +393,14 @@ function AddConclusionForWeek()
 		id: "timeForMonthOrWeekLeft_week"
 	}).append(timeForWeekLeft);
 	
-	
-	var barrier = $("<div></div>", {
-		"class": "barrier",
-	});
-	
 	var conclusionDiv = $("<div></div>", {
-		"class": "conclusion week",
+		"class": "conclusion week mdl-card mdl-shadow--2dp",
 	})	
-	.css("width", necessaryWidth)
+	.append('<div><b>Статистика:</b></div>')
 	.append(label2_1, label2_2)
 	.append("<br>", label3_1, label3_2)
 	.append("<br>", "<br>", label1_1, label1_2, "<br>");
-	$(".content-wide").append(barrier, conclusionDiv);
+	$(".flexParent").append(conclusionDiv);
 }
 
 function GetCurrentTimeForWeek()
@@ -450,7 +452,7 @@ function GetTimeForWeekLeft()
 // убирает концовку для недели
 function RemoveConclusionForWeek()
 {
-	$(".conclusion.week").prev(".barrier").remove();
+	$(".flexParent .barrier").remove();
 	$(".conclusion.week").remove();
 }
 
@@ -586,17 +588,13 @@ function SeparateStartAndFinish()
 						startCurrent = timeRange.substr(0, positionCurrent);
 						finishCurrent = timeRange.substr(positionCurrent + 1);
 						start += startCurrent + "<br>";
-						finish += finishCurrent + "<br>";
-					}
-					if ($(this).text().indexOf("...") > -1)
-					{
-						if (finish == "<br>")
+						if (finishCurrent == "")
 						{
-							finish = "&nbsp;...&nbsp;";
+							finish += "&nbsp;...&nbsp;" + "<br>";
 						}
 						else
 						{
-							finish += "&nbsp;...&nbsp;";
+							finish += finishCurrent + "<br>";
 						}
 					}
 				}
@@ -719,19 +717,32 @@ function DivideDayoffIntoParts()
 	$("tr.intervalRow").each(
 		function(index)
 		{
-			if ($(this).prev().attr("class") == "dayoff" && $(this).next().attr("class") == "dayoff")
+			if ($(this).prev().attr("class") == "dayoff" 
+				&& $(this).next().attr("class") == "dayoff" 
+				&& $(this).next().children("td.dayoff").length == 0)
 			{		
 				var newDayoff = $("td.dayoff").first().clone();
 				$(this).next().append(newDayoff);				
 			}
 		}
 	);
+	
+
 	$("td.dayoff").attr("colspan", "5").each(
 		function(index)
-		{
+		{			
 			var rowspan = 1;
-			rowspan += $(this).parent().nextUntil(".intervalRow").filter("tr.dayoff").length;
-			rowspan += $(this).parent().prevUntil(".intervalRow").filter("tr.dayoff").length;
+			$(this).parent().nextUntil(".intervalRow").filter("tr.dayoff").each(
+				function(index)
+				{
+					if ($(this).children("td.dayoff").length != 0)
+					{
+						return false;
+					}
+					rowspan++;
+				}
+			);
+			
 			$(this).attr("rowspan", rowspan);
 		}
 	);
@@ -931,8 +942,13 @@ $(document).ready
 			}
 		).resize(); // Trigger resize handler
 		
-		$("table.full-size th").first().removeAttr("colspan").addClass("weekday").after("<th class='monthday number'>№</th>")
+		$("table.full-size th")
+		.first()
+		.removeAttr("colspan")
+		.addClass("weekday")
+		.after("<th class='monthday number'>№</th>");
 		
+		CreateFlex();		
 		AddConclusionForMonth();
 		
 		$("tr.intervalRow").click(
@@ -971,6 +987,7 @@ $(document).ready
 						}
 					}
 				);
+				
 				var button = $("<button></button>", {
 					"class": "resetButton",
 					type: "button"
@@ -984,17 +1001,17 @@ $(document).ready
 				}).append("<br>", button);
 				
 				
-				
-				$("table.full-size").after(div);
-
-				var necessaryWidth = $("table.full-size").css("width");
-				$(".conclusion").css("width", necessaryWidth);
+				var barrier = $("<div></div>", {
+					"class": "barrier",
+				});
 				
 				RemoveConclusionForMonth();
 				AddConclusionForWeek();	
 				isMonth = false;
 				$(window).resize();
 				SetUpTimeForStudent();
+				
+				$("table.full-size").parent().append(barrier, div);
 
 				$(".resetButton").click(
 					function()

@@ -16,7 +16,7 @@ table.full-size th
 
 table.full-size 
 {
-	margin-top: 30px !important;
+	margin-top: 16px !important;
 }
 
 .time
@@ -31,14 +31,33 @@ table.full-size
 
 .conclusion
 {
-	width: 300px;	
-	padding: 20px;
+	width: 280px;
+	max-height: 170px; 
+	padding: 16px;	
+	margin: 16px;
+	margin-top: 16px !important;
+	margin-bottom: 0px !important;
+	display: block !important;
+	min-height: 0px !important;
+}
+
+.flexParent
+{
+	display: flex;
+	flex-flow: row wrap;
+	width: calc(100% - 240px);
+}
+
+.is-small-screen .flexParent
+{
+	width: 100%;
 }
 
 .barrier
 {
 	clear: both;
 	height: 20px;
+	width: 100%;
 }
 
 .intervalRow
@@ -129,3 +148,9 @@ td.text.note, th.text.note
 	width: 45px !important;
     
 }
+
+.mdl-layout__content .buttonDiv
+{
+	padding-left: 16px;
+}
+
