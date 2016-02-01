@@ -80,7 +80,6 @@ function CreateSearchInput_withMD()
 		"class": "mdl-textfield__input",
 		id: "searchInput",
 		title: "Введите фамилию или имя сотрудника",
-		//placeholder: "Сотрудник"
 	});
 	
 	var labelForInput = $("<label></label>", {
@@ -305,9 +304,6 @@ function CreateSelectOnWorkState()
 	.append("<option id='option_ball_yellow' value='/Content/ball_yellow.png' title='Закончил работу'>Закончил работу</option>")
 	.append("<option id='option_ball_gray' value='/Content/ball_gray.png' title='Отсутствует'>Отсутствует</option>");
 	
-	
-	
-	//$("th.indicator").eq(0).children().hide();
 	$("th.indicator").eq(0).append(select);
 }
 
@@ -380,22 +376,7 @@ function IsMyHomeOffice()
 
 // добавляют стрелочки для сортировки
 function PrepareEmployeeColumnForSort()
-{	
-/*
-	$("#searchInput").css("float", "left");
-	var cell1 = $("<td></td>").append($("#searchInput").parent());
-	
-	var arrowDiv = $("<div></div>",
-	{
-		"class": "arrowDiv"
-	}).css("float", "right");
-	var cell2 = $("<td></td>").append(arrowDiv);
-	var row = $("<tr></tr>").append(cell1, cell2);
-	
-	var table = $("<table></table>").append(row);
-	
-	$("th.text").first().append(table);
-	*/
+{
 	var arrowDiv = $("<div></div>",
 	{
 		"class": "arrowDiv"
@@ -509,8 +490,6 @@ function AddResetFiltersButton()
 	{
 		"class": "buttonDiv"
 	}).append(button).css("width", "100%");
-	
-	//$(".main").append(div);
 
 	$("table.full-size colgroup").append('<col class="reset button">');
 	$("table.full-size thead tr").append('<th class="reset button"></th>');
@@ -524,10 +503,7 @@ function AddResetFiltersButton()
 		}
 	)
 	
-	//var tooltip = $('<div class="mdl-tooltip" for="idReset">Сбросить<br>фильтры</div>');
-	//componentHandler.upgradeElement(tooltip.get(0));	
 	componentHandler.upgradeElement(button.get(0));
-	//$(".main").append(tooltip);
 	$("button#idReset").hide();	
 }
 
@@ -772,8 +748,6 @@ function CreateMDLCard()
 	var supportingText = $('<div class="mdl-card__supporting-text"></div>')
 	.append($("table.full-size"));
 	
-	//var border = $('<div class="mdl-card__actions mdl-card--border"></div>')
-	
 	var button = $('<div class="mdl-card__menu"></div>').append($("#idReset"));
 	
 	var div = $('<div class="' + classname + ' mdl-card mdl-shadow--2dp">')
@@ -863,35 +837,6 @@ function CheckResetButton()
 		
 }
 
-function ResizeTable()
-{
-	/*var $table = $('table.full-size'),
-		$bodyCells = $table.find('tbody tr').not("[style='display: none;']").first().children(),
-		colWidth,
-		totalWidth = 0;
-				
-	colWidth = $bodyCells.map(
-		function() 
-		{
-			return $(this).width();
-		}
-	).get();
-		
-		console.log($bodyCells);
-	// Set the width of thead columns
-	$table.find('th').each(
-		function(i, v) 
-		{
-			$(v).width(colWidth[i]);
-			totalWidth += colWidth[i];
-		}
-	);  
-	
-	$table.width(totalWidth);
-	*/
-	
-	
-}
 
 function AddBorderToStatusSelect()
 {
@@ -975,7 +920,7 @@ $(document).ready
 		$(".arrowDiv").click(		
 			function ()
 			{
-				//определяем колонку сортировки
+				// determine column for sort
 				var classToSort = GetColumnToSort($(this).parent());
 				var arrayToSort = $("table.full-size > tbody > tr");
 				if ($(this).hasClass("headerSortUp"))

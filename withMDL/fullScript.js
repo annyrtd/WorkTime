@@ -406,7 +406,6 @@ function ChangePicturesToMDLIcons()
 	});
 }
 
-
 function CreateCommonMDLCard()
 {
 	if (window.location.pathname == "/")
@@ -502,9 +501,7 @@ function PutButtonsToTheOtherLineInNotes()
 
 function RestyleTableForCalendar()
 {
-	//$("table.full-size").prepend($("<thead></thead>"));
 	$("table.full-size").addClass("mdl-shadow--2dp");
-	//$("table.full-size td").addClass("mdl-data-table__cell--non-numeric");
 	componentHandler.upgradeElement($(".full-size").get(0));
 }
 

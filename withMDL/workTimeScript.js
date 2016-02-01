@@ -267,7 +267,6 @@ function GetTimeOfHolidays()
 
 function GetCurrentTimeForCurrentDay()
 {	
-	//var temp = $("tr[id]").not("[class=future]").last().children(".time").eq(2).text();	
 	return $(".summary:contains('Итог')").not(":contains('за месяц')").last().children(".time").eq(2).text();
 }
 
@@ -442,7 +441,6 @@ function GetTimeForWeekLeft()
 		{
 			sumRealTime = SumOfTime(sumRealTime, $(this).children(".time").first().text());
 			sumNormal = SumOfTime(sumNormal, $(this).children(".time").eq(1).text());
-			//console.log(sumRealTime, sumNormal);
 		}
 	)	
 	return DifferenceOfTime(sumRealTime, sumNormal);
@@ -774,102 +772,6 @@ function WriteFullNamesOfDays()
 	)
 }
 
-
-function TestTimeArithmetics()
-{
-	console.log(SumOfTime("00:00", "00:00"), "00:00");
-	console.log(SumOfTime("00:05", "00:05"), "00:10");
-	console.log(SumOfTime("-00:05", "-00:05"), "-00:10");
-	console.log(SumOfTime("00:05", "-00:05"), "00:00");	
-	console.log(SumOfTime("-00:05", "00:05"), "00:00");
-	
-	console.log(SumOfTime("00:05", "00:06"), "00:11");
-	console.log(SumOfTime("00:06", "00:05"), "00:11");
-	console.log(SumOfTime("-00:05", "-00:06"), "-00:11");
-	console.log(SumOfTime("-00:06", "-00:05"), "-00:11");
-	console.log(SumOfTime("-00:05", "00:06"), "00:01", "/*!!!*/"); /*!!!*/
-	console.log(SumOfTime("-00:06", "00:05"), "-00:01");
-	console.log(SumOfTime("00:05", "-00:06"), "-00:01");
-	console.log(SumOfTime("00:06", "-00:05"), "00:01", "/*!!!*/"); /*!!!*/
-	
-	console.log(SumOfTime("01:05", "02:05"), "03:10");
-	console.log(SumOfTime("02:05", "01:05"), "03:10");
-	console.log(SumOfTime("-01:05", "-02:05"), "-03:10");
-	console.log(SumOfTime("-02:05", "-01:05"), "-03:10");	
-	console.log(SumOfTime("-01:05", "02:05"), "01:00");
-	console.log(SumOfTime("-02:05", "01:05"), "-01:00");
-	console.log(SumOfTime("01:05", "-02:05"), "-01:00");
-	console.log(SumOfTime("02:05", "-01:05"), "01:00");
-	
-	console.log(SumOfTime("01:05", "02:06"), "03:11");
-	console.log(SumOfTime("01:06", "02:05"), "03:11");
-	console.log(SumOfTime("02:05", "01:06"), "03:11");
-	console.log(SumOfTime("02:06", "01:05"), "03:11");
-	
-	console.log(SumOfTime("-01:05", "-02:06"), "-03:11");
-	console.log(SumOfTime("-01:06", "-02:05"), "-03:11");
-	console.log(SumOfTime("-02:05", "-01:06"), "-03:11");
-	console.log(SumOfTime("-02:06", "-01:05"), "-03:11");
-	
-	console.log(SumOfTime("-01:05", "02:06"), "01:01");
-	console.log(SumOfTime("-01:06", "02:05"), "00:59");
-	console.log(SumOfTime("-02:05", "01:06"), "-00:59");
-	console.log(SumOfTime("-02:06", "01:05"), "-01:01");
-	
-	console.log(SumOfTime("01:05", "-02:06"), "-01:01");
-	console.log(SumOfTime("01:06", "-02:05"), "-00:59");
-	console.log(SumOfTime("02:05", "-01:06"), "00:59");
-	console.log(SumOfTime("02:06", "-01:05"), "01:01");
-	
-	
-	
-	
-	console.log(DifferenceOfTime("00:00", "00:00"), "00:00");
-	console.log(DifferenceOfTime("00:05", "00:05"), "00:00");
-	console.log(DifferenceOfTime("-00:05", "-00:05"), "00:00");
-	console.log(DifferenceOfTime("00:05", "-00:05"), "00:10");	
-	console.log(DifferenceOfTime("-00:05", "00:05"), "-00:10");
-	
-	console.log(DifferenceOfTime("00:05", "00:06"), "-00:01");
-	console.log(DifferenceOfTime("00:06", "00:05"), "00:01", "/*!!!*/"); /*!!!*/
-	console.log(DifferenceOfTime("-00:05", "-00:06"), "00:01", "/*!!!*/"); /*!!!*/
-	console.log(DifferenceOfTime("-00:06", "-00:05"), "-00:01");
-	console.log(DifferenceOfTime("-00:05", "00:06"), "-00:11");
-	console.log(DifferenceOfTime("-00:06", "00:05"), "-00:11");
-	console.log(DifferenceOfTime("00:05", "-00:06"), "00:11");
-	console.log(DifferenceOfTime("00:06", "-00:05"), "00:11");
-	
-	console.log(DifferenceOfTime("01:05", "02:05"), "-01:00");
-	console.log(DifferenceOfTime("02:05", "01:05"), "01:00");
-	console.log(DifferenceOfTime("-01:05", "-02:05"), "01:00");
-	console.log(DifferenceOfTime("-02:05", "-01:05"), "-01:00");	
-	console.log(DifferenceOfTime("-01:05", "02:05"), "-03:10");
-	console.log(DifferenceOfTime("-02:05", "01:05"), "-03:10");
-	console.log(DifferenceOfTime("01:05", "-02:05"), "03:10");
-	console.log(DifferenceOfTime("02:05", "-01:05"), "03:10");
-	
-	console.log(DifferenceOfTime("01:05", "02:06"), "-01:01");
-	console.log(DifferenceOfTime("01:06", "02:05"), "-00:59");
-	console.log(DifferenceOfTime("02:05", "01:06"), "00:59");
-	console.log(DifferenceOfTime("02:06", "01:05"), "01:01");
-	
-	console.log(DifferenceOfTime("-01:05", "-02:06"), "01:01");
-	console.log(DifferenceOfTime("-01:06", "-02:05"), "00:59");
-	console.log(DifferenceOfTime("-02:05", "-01:06"), "-00:59");
-	console.log(DifferenceOfTime("-02:06", "-01:05"), "-01:01");
-	
-	console.log(DifferenceOfTime("-01:05", "02:06"), "-03:11");
-	console.log(DifferenceOfTime("-01:06", "02:05"), "-03:11");
-	console.log(DifferenceOfTime("-02:05", "01:06"), "-03:11");
-	console.log(DifferenceOfTime("-02:06", "01:05"), "-03:11");
-	
-	console.log(DifferenceOfTime("01:05", "-02:06"), "03:11");
-	console.log(DifferenceOfTime("01:06", "-02:05"), "03:11");
-	console.log(DifferenceOfTime("02:05", "-01:06"), "03:11");
-	console.log(DifferenceOfTime("02:06", "-01:05"), "03:11");
-}
-
-
 function CreateSettings()
 {
 	$("div.mdl-layout__drawer").append($("<div id=settings></div>"));
@@ -989,57 +891,6 @@ function SetUpTimeForStudent()
 	
 }
 
-function ResizeTableBody()
-{
-	var $table = $('table.full-size'),
-		$bodyCells = $table.find('tbody tr[id]').not("[style='display: none;']").first().children(),
-		$headCells = $table.find('thead tr').first().children(),
-		colWidth, colWidth2;
-				
-	colWidth = $bodyCells.map(
-		function() 
-		{
-			return $(this).width();
-		}
-	).get();
-	
-	colWidth2 = $headCells.map(
-		function() 
-		{
-			return $(this).width();
-		}
-	).get();
-		
-	// Set the width of thead columns
-	$table.find('th').first().width(colWidth[0] + colWidth[1] + 40);
-	
-	$table.find('tr[id]').each(
-		function()
-		{
-			$(this).children('td').each(
-				function(i, v) 
-				{
-					if (i == 0 || i == 1)
-					{
-						return true;
-					}
-					$(v).width(colWidth2[i - 1]);
-				}
-			);
-		}
-	)
-	
-	/*
-	$table.find('th').each(
-		function(i, v) 
-		{
-			$(v).width(colWidth[i]);
-		}
-	);  
-	*/
-	
-}
-
 function SetTableHeightForTime()
 {
 	if (isMonth)
@@ -1056,7 +907,6 @@ $(document).ready
 ( 
 	function() 
 	{
-		//TestTimeArithmetics();
 		if(IsReportOnPage())
 		{
 			RemoveColumnsWhenReportIsOnPage();
@@ -1078,7 +928,6 @@ $(document).ready
 			function() 
 			{
 				SetTableHeightForTime();
-				//ResizeTableBody();
 			}
 		).resize(); // Trigger resize handler
 		
