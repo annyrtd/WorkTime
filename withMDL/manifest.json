@@ -31,11 +31,6 @@
 			],
 			"js": [ "officeScript.js" ],
 			"css": [ "officeStyle.css" ]
-		},
-		{
-			"matches": [ "http://co-msk-app02/*", "https://co-msk-app02/*" ],
-			"js": [ "screenOn.js"],
-			"run_at": "document_end"
 		}
 	],
 	

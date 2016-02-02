@@ -523,8 +523,10 @@ function DifferenceOfTime(time1, time2)
 	{
 		differenceHours = +(hours2 - hours1) + Math.floor((minutes2 - minutes1)/60);
 		differenceMinutes = +(minutes2 - minutes1);
-		if (minutes2 < minutes1)		
+		if (minutes2 < minutes1)	
+		{			
 			differenceMinutes += 60;
+		}
 		if (differenceHours.toString().indexOf("-") > -1)
 		{
 			differenceHours = differenceHours.toString().substr(1);
@@ -532,17 +534,21 @@ function DifferenceOfTime(time1, time2)
 		else
 		{
 			if (!(differenceHours == 0 && differenceMinutes == 0))
+			{
 				differenceHours = "-" + differenceHours;
+			}
 		} 		
-	}		
-	else
+	}
+	if (hours1 >= hours2)
 	{
 		if (hours1 > hours2)
 		{
 			differenceHours = +(hours1 - hours2) + Math.floor((minutes1 - minutes2)/60);
 			differenceMinutes = +(minutes1 - minutes2);
-			if (minutes1 < minutes2)		
-				differenceMinutes += 60;	
+			if (minutes1 < minutes2)
+			{				
+				differenceMinutes += 60;
+			}				
 		}
 		else
 		{
@@ -557,8 +563,9 @@ function DifferenceOfTime(time1, time2)
 				differenceMinutes = +(minutes2 - minutes1);
 			}
 		}
-	}		
-	return Pad(differenceHours,2) + ":" + Pad(differenceMinutes,2);
+	}
+	var ret = Pad(differenceHours,2) + ":" + Pad(differenceMinutes,2);
+	return ret;
 }
 
 
