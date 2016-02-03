@@ -16,8 +16,6 @@ table.full-size
 {
     		
 	width: auto !important;
-	/*margin: auto !important;
-	/*margin-right: 70px !important;*/
 }
 
 table.full-size td.text
@@ -30,25 +28,17 @@ table.full-size td.text.phone
 	white-space: nowrap;
 }
 
+table.full-size tr
+{
+	border-top-width: 0px !important;
+}
+
 body
 {
 	background-color: white !important;
 	color: rgb(38, 47, 74) !important;
 }
 
-/*
-th
-{	
-	padding: 6px 10px !important;
-	background-color: #DDDDDD !important;
-}
-
-th.indicator
-{
-    padding-left: 2px !important;
-    padding-right: 2px !important;
-}
-*/
 .navbar
 {
 	min-height: 370px !important;	
@@ -164,9 +154,6 @@ input[type=text]:hover, select
 #idReset
 {
 	outline: none;
-	/*position: fixed;
-	top: 170px;
-	right: 32px;*/
 }
 
 .resetFilters
@@ -186,7 +173,6 @@ input[type=text]:hover, select
 .buttonDiv
 {
 	width: 130px;
-	/*margin: 0 auto;*/
 }
 
 
@@ -443,7 +429,7 @@ div.status-right:hover a
 
 .accentColor
 {
-	color: rgb(255,171,64);
+	color: #CC0000;
 }
 
 .greenColor
@@ -563,13 +549,10 @@ div.content-wide div.mdl-card__title
 	padding-bottom: 5px !important;
 }
 
-
-
 .ui-datepicker
 {
 	z-index:1000 !important;	
 }
-
 
 select
 {
@@ -579,6 +562,7 @@ select
 	line-height: 32px !important;	
 	font-weight: normal !important;
 }
+
 select *, select
 {
 	font-size: 14px !important;
