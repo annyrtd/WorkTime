@@ -13,7 +13,7 @@
 				"http://co-msk-app02/Preferences/Edit*",
 				"https://co-msk-app02/Preferences/Edit*"
 			],
-			"css": [ "screenOff.css", "fullStyle.css", "material.indigo-pink.min.css", "icon.css", "jquery-ui-1.10.4.custom.css" ],
+			"css": [ "screenOff.css", "fullStyle.css", "material.blue_grey-orange.min.css", "icon.css", "jquery-ui-1.10.4.custom.css" ],
 			"js": [ "jquery.js", "jquery-ui-1.10.4.custom.js", "fullScript.js", "material.min.js" ],
 			"run_at": "document_start"
 		},

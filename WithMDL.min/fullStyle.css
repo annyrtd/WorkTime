@@ -1,6 +1,9 @@
 ﻿/*
 rgb(63, 81, 181) - indigo
 rgb(255, 64, 129) - pink
+
+rgb(96,125,139) - blue gray
+rgb(255,171,64) - orange
 */
 
 
@@ -305,8 +308,8 @@ div.status-right:hover a
 #menu > li.current > a
 {
 	background-color: transparent !important;
-	border-bottom: 3px solid rgb(255, 64, 129) !important;	
-	color: rgb(255, 64, 129) !important;
+	border-bottom: 3px solid rgb(255,171,64) !important;	
+	color: rgb(255,171,64) !important;
 	opacity: 1;
 	
 }
@@ -428,7 +431,7 @@ div.status-right:hover a
 
 .mdl-layout__drawer 
 {
-	padding-left: 30px; 
+	padding: 30px; 
 	padding-right: 20px;
 }
 
@@ -440,7 +443,7 @@ div.status-right:hover a
 
 .accentColor
 {
-	color: rgb(255, 64, 129);
+	color: rgb(255,171,64);
 }
 
 .greenColor
@@ -551,7 +554,7 @@ div.holiday-box
 	border: 0px solid black !important;
 	height: 22px !important;
 	background-color: white !important;
-	color: rgb(255, 64, 129) !important;
+	color: rgb(255,171,64) !important;
 }
 
 
