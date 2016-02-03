@@ -418,7 +418,10 @@ function CreateCommonMDLCard()
 	$(".mdl-layout__content").append(header, $("table.full-size"));
 	if (window.location.pathname == "/Notes")
 	{
-		CreateCardForNotesSaving();
+		if ($("form[action='/Notes']").length > 0)
+		{
+			CreateCardForNotesSaving();
+		}		
 	}
 }
 
