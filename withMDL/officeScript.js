@@ -762,7 +762,7 @@ function CreateSettingsForLang()
 		function()
 		{
 			$("#settings").hide();
-			$("#settings").prepend("<br><label><b>Настройки:</b></label><br><br>");
+			$("#settings").prepend("<br><br><label><b>Настройки:</b></label><br>");
 			$("#ReturnTo").val("/" + window.location.search);
 			$("#settings a").hide();
 			$("#settings label").removeAttr("for");

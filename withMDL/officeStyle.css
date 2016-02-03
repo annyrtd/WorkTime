@@ -177,7 +177,7 @@ td.reset.button
 	width: 8px;
 	height: 23px;
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: 50% 70%;
 	cursor: pointer;
 }
 

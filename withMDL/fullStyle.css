@@ -428,7 +428,7 @@ div.status-right:hover a
 
 .mdl-layout__drawer 
 {
-	padding-left: 30px; 
+	padding: 30px; 
 	padding-right: 20px;
 }
 

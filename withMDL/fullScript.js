@@ -279,7 +279,6 @@ function CreateFixedHeader()
 	componentHandler.upgradeElement(header.get(0));
 	
 	var drawer = $('<div class="mdl-layout__drawer"></div>')
-	.append('<span class="mdl-layout-title">Настройки</span>')
 	.append($(".navbar form"));
 	componentHandler.upgradeElement(drawer.get(0));
 	
