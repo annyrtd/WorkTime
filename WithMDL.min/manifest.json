@@ -1,6 +1,6 @@
 ﻿{
 	"manifest_version": 2,
-	"name": "With MDL",
+	"name": "With MDL Minified",
 	"version": "1.0",
 	"icons": {
 		"128": "images/clock.png"
