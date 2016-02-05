@@ -578,12 +578,15 @@ function AddTooltips_fullScrip()
 {
 	$("input[type=text]").each(
 		function(index)
-		{
+		{			
+			if ($(this).attr("title") === undefined)
+			{
+				return true;
+			}
 			ChangeTitleToMDTooltip($(this).attr("id"), $(this).attr("title"));
 			$(this).removeAttr("title");
 		}
 	);
-	
 	
 	$("li.drop").removeAttr("title");
 }

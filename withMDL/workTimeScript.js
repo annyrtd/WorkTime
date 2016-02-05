@@ -771,7 +771,8 @@ function DivideDayoffIntoParts()
 			$(this).parent().nextUntil(".intervalRow").filter("tr.dayoff").each(
 				function(index)
 				{
-					if ($(this).children("td.dayoff").length != 0)
+					if ($(this).children("td.dayoff").length != 0
+						|| $(this).children("td.time").length != 0)
 					{
 						return false;
 					}
