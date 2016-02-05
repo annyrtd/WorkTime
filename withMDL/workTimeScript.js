@@ -268,7 +268,7 @@ function GetAlreadyWorkedTimeForMonth_ForStudent()
 function GetTimeOfHolidays()
 {
 	var hours = 8 * $("tr.dayoff").length;
-	return Pad(hours, 2) + ":00";
+	return hours + ":00";
 }
 
 
@@ -342,18 +342,7 @@ function RemoveConclusionForMonth()
 // добавляет концовку с итогами по времени для недели
 function AddConclusionForWeek()
 {	
-	var currentTime = GetCurrentTimeForWeek();
-	
-	if ($("#NetTime") !== undefined)
-	{
-		if ($("#NetTime").children("option[selected]").val() == "Yes")
-		{
-			currentTime = SumOfTime(currentTime, GetTimeOfHolidaysForWeek());
-		}
-	}
 	var thisDayLeft = GetCurrentTimeForCurrentDay();
-	var timeForWeekLeft = GetTimeForWeekLeft();
-	
 	var currentTimeClass;
 	
 	if (thisDayLeft.indexOf("-") > -1)
@@ -364,16 +353,19 @@ function AddConclusionForWeek()
 	{
 		currentTimeClass = "enoughWorkTime";
 	}
+		
+	var timeForWeekLeft = GetTimeForWeekLeft();
 	
-	var label1_1 = $("<label></label>", {
-		id: "text_currentTime_week"
-	}).append("Отработанное время за неделю: ");
+	var currentTime = GetCurrentTimeForWeek();
 	
-	var label1_2 = $("<label></label>", {
-		id: "currentTime_week"
-	}).append(currentTime);
-	
-	
+	if ($("#NetTime") !== undefined)
+	{
+		if ($("#NetTime").children("option[selected]").val() == "Yes")
+		{
+			currentTime = SumOfTime(currentTime, GetTimeOfHolidaysForWeek());
+		}
+	}
+		
 	var label2_1 = $("<label></label>", {
 		id: "text_thisDayLeft_week",
 		"class": currentTimeClass
@@ -393,6 +385,16 @@ function AddConclusionForWeek()
 		id: "timeForMonthOrWeekLeft_week"
 	}).append(timeForWeekLeft);
 	
+	
+	var label1_1 = $("<label></label>", {
+		id: "text_currentTime_week"
+	}).append("Отработанное время за неделю: ");
+	
+	var label1_2 = $("<label></label>", {
+		id: "currentTime_week"
+	}).append(currentTime);	
+
+	
 	var conclusionDiv = $("<div></div>", {
 		"class": "conclusion week mdl-card mdl-shadow--2dp",
 	})	
@@ -401,6 +403,35 @@ function AddConclusionForWeek()
 	.append("<br>", label3_1, label3_2)
 	.append("<br>", "<br>", label1_1, label1_2, "<br>");
 	$(".flexParent").append(conclusionDiv);
+}
+
+function GetTimeForWeekLeft()
+{	
+	var sumNormal = "00:00";
+	var sumRealTime = "00:00";
+	
+	$("tr.intervalRow")
+	.not('[style="display: none;"]')
+	.first()
+	.nextAll()
+	.each(
+		function()
+		{
+			if ($(this).hasClass("intervalRow"))
+			{
+				return false;
+			}
+			if ($(this)[0].hasAttribute("id"))
+			{	
+				sumNormal = SumOfTime(sumNormal, $(this).children(".time").eq(1).text());
+				if (!($(this).hasClass("future")))
+				{
+					sumRealTime = SumOfTime(sumRealTime, $(this).children(".time").first().text());
+				}
+			}				
+		}
+	);
+	return DifferenceOfTime(sumRealTime, sumNormal);
 }
 
 function GetCurrentTimeForWeek()
@@ -430,22 +461,7 @@ function GetCurrentTimeForWeek_ForStudent()
 function GetTimeOfHolidaysForWeek()
 {	
 	var hours = 8 * $("tr.dayoff").not('[style="display: none;"]').length;
-	return Pad(hours, 2) + ":00";
-}
-
-
-function GetTimeForWeekLeft()
-{	
-	var sumNormal = "00:00";
-	var sumRealTime = "00:00";
-	$("tr[id]").not("[class=future]").not('[style="display: none;"]').each(
-		function(index)
-		{
-			sumRealTime = SumOfTime(sumRealTime, $(this).children(".time").first().text());
-			sumNormal = SumOfTime(sumNormal, $(this).children(".time").eq(1).text());
-		}
-	)	
-	return DifferenceOfTime(sumRealTime, sumNormal);
+	return hours + ":00";
 }
 
 
@@ -484,7 +500,7 @@ function SumOfTime(time1, time2)
 	var minutes2 = +time2.substr(position2 + 1);
 	var sumHours = +(hours1 + hours2) + Math.floor((minutes1 + minutes2)/60);
 	var sumMinutes = +(minutes1 + minutes2) % 60;
-	return Pad(sumHours, 2) + ":" + Pad(sumMinutes,2);
+	return sumHours + ":" + Pad(sumMinutes,2);
 }
 
 function Pad(num, size) 
@@ -564,7 +580,7 @@ function DifferenceOfTime(time1, time2)
 			}
 		}
 	}
-	var ret = Pad(differenceHours,2) + ":" + Pad(differenceMinutes,2);
+	var ret = differenceHours + ":" + Pad(differenceMinutes,2);
 	return ret;
 }
 
@@ -678,7 +694,8 @@ function AddRowBetweenWeeksWithWeekNumber()
 	var length = +$("th").not("[style='display: none;']").length + 1;
 	AddFirstRowBetweenWeeks(length);
 	var numberOfWeek = 2;
-	$("tr[id], tr.dayoff").not("[class=future]").each(
+	$("tr[id], tr.dayoff")
+	.each(
 		function(index)
 		{
 			if ($(this).children().first().text() == "Пн")
@@ -696,8 +713,13 @@ function AddRowBetweenWeeksWithWeekNumber()
 					var row = $("<tr></tr>",
 					{
 						"class": "intervalRow",
-					}).append(cell);
-					$(this).before(row);					
+					}).append(cell);					
+					$(this).before(row);
+					if($(this).hasClass("future"))
+					{
+						row.addClass("future");
+						row.hide();
+					}						
 				}
 			}			
 		}
@@ -964,6 +986,7 @@ $(document).ready
 				if (!isMonth)
 				{
 					$(".intervalRow").show();
+					$(".intervalRow.future").hide();
 					$("tr[id]").not("[class=future]").show();
 					$(".dayoff").show();	
 					RemoveConclusionForWeek();
@@ -1025,7 +1048,9 @@ $(document).ready
 					{
 						if (isMonth)
 							return;
+						
 						$(".intervalRow").show();
+						$(".intervalRow.future").hide();						
 						$("tr[id]").not("[class=future]").show();
 						$(".dayoff").show();	
 						RemoveConclusionForWeek();
