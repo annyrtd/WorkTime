@@ -403,6 +403,16 @@ function AddConclusionForWeek()
 	.append("<br>", label3_1, label3_2)
 	.append("<br>", "<br>", label1_1, label1_2, "<br>");
 	$(".flexParent").append(conclusionDiv);
+	
+	// проверяет, есть ли показ до конца месяца
+	if ($(".future").length == 0)
+	{
+		$("#text_timeForMonthOrWeekLeft_week").hide();
+		$("#timeForMonthOrWeekLeft_week").hide();
+		$("#timeForMonthOrWeekLeft_week").next().hide();
+	}
+	
+	
 }
 
 function GetTimeForWeekLeft()
