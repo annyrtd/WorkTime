@@ -390,13 +390,14 @@ function ChangePicturesToMDLIcons()
 		"fontSize": "20px"
 	});
 	
-	$("table.full-size i").first().attr("title", "Выберите состояние")
+	$("table.full-size i").first()
 	.css(
 	{
 		"float": "left",
 		"marginTop": "3px",
 		"color": "white",
-		"textShadow": "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray"
+		"textShadow": "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray",
+		"cursor": "default"
 	});
 }
 
@@ -561,6 +562,32 @@ function AddDatePickerToNotes()
 	});	
 }
 
+function ChangeTitleToMDTooltip(id, title)
+{
+	var tooltip = $('<div class="mdl-tooltip" for="' 
+		+ id 
+		+ '">'
+		+ title
+		+'</div>');
+	$("#" + id).after(tooltip);
+	//componentHandler.upgradeElement($("#" + id).get(0));
+	componentHandler.upgradeElement(tooltip.get(0));	
+}
+
+function AddTooltips_fullScrip()
+{
+	$("input[type=text]").each(
+		function(index)
+		{
+			ChangeTitleToMDTooltip($(this).attr("id"), $(this).attr("title"));
+			$(this).removeAttr("title");
+		}
+	);
+	
+	
+	$("li.drop").removeAttr("title");
+}
+
 
 $(document).ready
 ( 
@@ -594,6 +621,7 @@ $(document).ready
 		AddButtonToStopBlinking();
 		AddDatePickerToNotes();
 		
+		AddTooltips_fullScrip();
 		
 		if (window.location.pathname == "/Calendar")
 		{			

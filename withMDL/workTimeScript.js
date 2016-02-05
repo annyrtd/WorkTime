@@ -595,6 +595,8 @@ function SeparateStartAndFinish()
 	.append("Окончание");
 	$("th.text.range").text("Начало").after(thFinish);
 	
+	var timeOfLeavingSpan_title, timeOfLeavingSpan_id = "timeOfLeavingSpan";
+	
 	$("td.range.text").each(
 		function()
 		{
@@ -605,17 +607,20 @@ function SeparateStartAndFinish()
 				function()
 				{
 					timeRange = $(this).text();
+					if (timeRange == " ... ")
+					{
+						timeOfLeavingSpan_title = $(this).attr("title");
+						finish += "<span id='" + timeOfLeavingSpan_id + "'>...</span>"
+						+ "<br>";
+					}
+					
 					positionCurrent = timeRange.indexOf("—");
 					if (positionCurrent > -1)
 					{
 						startCurrent = timeRange.substr(0, positionCurrent);
 						finishCurrent = timeRange.substr(positionCurrent + 1);
 						start += startCurrent + "<br>";
-						if (finishCurrent == "")
-						{
-							finish += "&nbsp;...&nbsp;" + "<br>";
-						}
-						else
+						if (finishCurrent != "")
 						{
 							finish += finishCurrent + "<br>";
 						}
@@ -673,12 +678,14 @@ function SeparateStartAndFinish()
 			$(this).append(newItem);
 		}
 	)
+	
+	ChangeTitleToMDTooltip(timeOfLeavingSpan_id, timeOfLeavingSpan_title);
 }
 
 function AddWarningForEmptyTime(type)
 {
 	$(this).append('<i class="material-icons" style="color: gray;" ' 
-		+ 'title="Не зарегистрировано время ' 
+		+ 'title="Не зарегистрировано <br> время ' 
 		+ type 
 		+ '">warning</i>');
 }
@@ -943,6 +950,24 @@ function SetTableHeightForTime()
 	}
 }
 
+function AddTooltips_workScript()
+{
+	$("i:contains('warning')").each(
+		function(index)
+		{			
+			if ($(this).attr("title") === undefined)
+			{
+				return true;
+			}
+			var id = "i_warning_" + index;
+			var title = $(this).attr("title");
+			$(this).removeAttr("title");
+			$(this).attr("id", id);
+			ChangeTitleToMDTooltip(id, title);			
+		}
+	);
+}
+
 $(document).ready
 ( 
 	function() 
@@ -979,6 +1004,8 @@ $(document).ready
 		
 		CreateFlex();		
 		AddConclusionForMonth();
+		
+		AddTooltips_workScript();
 		
 		$("tr.intervalRow").click(
 			function()

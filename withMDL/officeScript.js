@@ -60,26 +60,12 @@ function merge(left, right, compare)
 
 
 // Добавляет поле для ввода для поиска по имени
-function CreateSearchInput()
-{
-	var input = $("<input>", {
-		type: "text",
-		id: "searchInput",
-		title: "Введите фамилию или имя сотрудника",
-		placeholder: "Сотрудник"
-	}).css("width", "100px");
-	
-	$("th.text").eq(0).children().hide();
-	$("th.text").eq(0).append(input);
-}
-
 function CreateSearchInput_withMD()
 {
 	var input = $("<input>", {
 		type: "text",
 		"class": "mdl-textfield__input",
-		id: "searchInput",
-		title: "Введите фамилию или имя сотрудника",
+		id: "searchInput"
 	});
 	
 	var labelForInput = $("<label></label>", {
@@ -99,6 +85,9 @@ function CreateSearchInput_withMD()
 	$("th.text").eq(0).append(icon,div);
 	
 	componentHandler.upgradeElement($(".mdl-textfield.mdl-js-textfield").get(0));
+	
+	ChangeTitleToMDTooltip("searchInput", 
+		"Введите фамилию <br>или имя сотрудника");
 }
 
 
@@ -280,10 +269,10 @@ function CreateSelectOnWorkState()
 		title: 'Выберите состояние'
 	})
 	.append("<option value='' title='Выберите состояние'></option>")	
-	.append("<option id='option_ball_green' value='/Content/ball_green.png' title='На работе'>На работе</option>")
-	.append("<option id='option_ball_blue' value='/Content/ball_blue.png' title='Работает удаленно'>Работает удаленно</option>")
-	.append("<option id='option_ball_yellow' value='/Content/ball_yellow.png' title='Закончил работу'>Закончил работу</option>")
-	.append("<option id='option_ball_gray' value='/Content/ball_gray.png' title='Отсутствует'>Отсутствует</option>");
+	.append("<option id='option_ball_green' value='/Content/ball_green.png'>На работе</option>")
+	.append("<option id='option_ball_blue' value='/Content/ball_blue.png'>Работает удаленно</option>")
+	.append("<option id='option_ball_yellow' value='/Content/ball_yellow.png'>Закончил работу</option>")
+	.append("<option id='option_ball_gray' value='/Content/ball_gray.png'>Отсутствует</option>");
 	
 	$("th.indicator").eq(0).append(select);
 }
@@ -806,7 +795,6 @@ function CheckResetButton()
 		
 }
 
-
 function AddBorderToStatusSelect()
 {
 	var span = $("<span></span>").css({
@@ -816,6 +804,55 @@ function AddBorderToStatusSelect()
 	}).append($("th.indicator.workstate.header").children());
 	
 	$("th.indicator.workstate.header").append(span);
+}
+
+
+function AddTooltips_officeScript()
+{
+	$("tbody i:contains('email')").each(
+		function(index)
+		{			
+			if ($(this).attr("title") === undefined)
+			{
+				return true;
+			}
+			var id = "i_email_" + index;
+			var title = $(this).attr("title");
+			$(this).removeAttr("title");
+			$(this).attr("id", id);
+			ChangeTitleToMDTooltip(id, title);			
+		}
+	);
+	
+	$("tbody i:contains('lens')").each(
+		function(index)
+		{			
+			if ($(this).attr("title") === undefined)
+			{
+				return true;
+			}
+			var id = "i_lens_" + index;
+			var title = $(this).attr("title");
+			$(this).removeAttr("title");
+			$(this).attr("id", id);
+			ChangeTitleToMDTooltip(id, title);			
+		}
+	);
+	
+	$("select").each(
+		function(index)
+		{
+			if ($(this).attr("title") === undefined)
+			{
+				return true;
+			}
+			var id = $(this).attr("id");
+			var title = $(this).attr("title");
+			$(this).removeAttr("title");
+			ChangeTitleToMDTooltip(id, title);			
+		}
+	);
+	
 }
 
 $(document).ready
@@ -840,7 +877,7 @@ $(document).ready
 		CreateMDLCard();	
 		
 		AddBorderToStatusSelect();
-		
+		AddTooltips_officeScript();
 		
 		$("button")
 		.not("#idReset")

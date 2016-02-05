@@ -62,8 +62,8 @@ thead tr .headerSortDown
 
 .text.info
 {
-	min-width: 96px !important;	
-	width: 96px !important;
+	min-width: 100px !important;	
+	width: 100px !important;
 }
 
 .text.phone.first
