@@ -268,7 +268,7 @@ function CreateSelectOnWorkState()
 		id: "workStateSelect",
 		title: 'Выберите состояние'
 	})
-	.append("<option value='' title='Выберите состояние'></option>")	
+	.append("<option value=''></option>")	
 	.append("<option id='option_ball_green' value='/Content/ball_green.png'>На работе</option>")
 	.append("<option id='option_ball_blue' value='/Content/ball_blue.png'>Работает удаленно</option>")
 	.append("<option id='option_ball_yellow' value='/Content/ball_yellow.png'>Закончил работу</option>")

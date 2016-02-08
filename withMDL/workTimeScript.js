@@ -431,12 +431,16 @@ function GetTimeForWeekLeft()
 			{
 				return false;
 			}
-			if ($(this)[0].hasAttribute("id"))
+			if ($(this).attr("id") !== undefined)
 			{	
-				sumNormal = SumOfTime(sumNormal, $(this).children(".time").eq(1).text());
-				if (!($(this).hasClass("future")))
+				if (($(this).hasClass("future")))
 				{
-					sumRealTime = SumOfTime(sumRealTime, $(this).children(".time").first().text());
+					sumNormal = SumOfTime(sumNormal, $(this).children(".time").first().text());
+				}
+				else
+				{
+					sumNormal = SumOfTime(sumNormal, $(this).children(".time").eq(1).text());
+					sumRealTime = SumOfTime(sumRealTime, $(this).children(".time").first().text());				
 				}
 			}				
 		}
