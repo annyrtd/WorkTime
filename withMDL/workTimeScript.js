@@ -410,9 +410,7 @@ function AddConclusionForWeek()
 		$("#text_timeForMonthOrWeekLeft_week").hide();
 		$("#timeForMonthOrWeekLeft_week").hide();
 		$("#timeForMonthOrWeekLeft_week").next().hide();
-	}
-	
-	
+	}	
 }
 
 function GetTimeForWeekLeft()
@@ -652,7 +650,7 @@ function SeparateStartAndFinish()
 				var tdSpanFinish = $("<span></span>",
 				{
 					"class": "remote",
-				}).append(tdFinish.text());
+				}).append(tdFinish.html());
 				tdFinish.empty().append(tdSpanFinish);	
 
 				start = $("<span></span>",
