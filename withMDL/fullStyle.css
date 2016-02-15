@@ -537,6 +537,7 @@ table.full-size tr
 
 div.holiday-box
 {
+	padding: 2px 16px !important;	
 	border: 0px solid black !important;
 	height: 22px !important;
 	background-color: white !important;
