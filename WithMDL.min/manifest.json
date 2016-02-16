@@ -5,6 +5,9 @@
 	"icons": {
 		"128": "images/clock.png"
 	},
+	"background" : {
+		"scripts" : ["background.js"]
+	},
 	"content_scripts": [
 		{
 			"matches": [ "http://co-msk-app02/*", "https://co-msk-app02/*" ],

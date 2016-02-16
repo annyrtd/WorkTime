@@ -1,0 +1,1 @@
+chrome.browserAction.onClicked.addListener(function(a){var b="http://co-msk-app02/";chrome.tabs.create({url:b})});

@@ -1,5 +1,7 @@
 ﻿var isMonth = true;
 var isStudent = false;
+var usualTime = [];
+var decimalTime = [];
 
 function IsReportOnPage()
 {
@@ -877,8 +879,7 @@ function CreateSettings()
 				.children("option[selected]").val() == "Yes")
 			{				
 				isStudent = true;
-				SetUpTimeForStudent();
-				AddSpansForDifferentTypesOfTime();			
+				SetUpTimeForStudent();		
 			}
 			
 			ReplaceInput.apply($("form[action='/Preferences/Edit'] input[type=submit]").get(0));
@@ -940,7 +941,7 @@ function SetUpTimeForStudent()
 			function(index)
 			{
 				var newText = $(this).children("td.time").first().text();
-				$(this).children("td.time").last().text(newText);
+				$(this).children("td.time").last().empty().text(newText);
 			}
 		);
 		
@@ -981,69 +982,6 @@ function AddTooltips_workScript()
 	);
 }
 
-function AddButtonToShowTimeInDecimals()
-{	
-	var id = 'timeChangeToDecimalButton';
-	var title = 'Показвать время<br>в дробях';
-	var button = $('<button id="' + id + '" class="mdl-button mdl-js-button mdl-button--icon' 
-			+' mdl-js-ripple-effect"><i class="material-icons">alarm</i></button>');
-	
-	$('th.time:contains("Отчет")').append(button);
-	componentHandler.upgradeElement(button.get(0));
-	
-	
-	var tooltip = $('<div class="mdl-tooltip" for="' 
-		+ id 
-		+ '">'
-		+ title
-		+'</div>');
-	$("#" + id).after(tooltip);
-	componentHandler.upgradeElement(tooltip.get(0));
-}
-
-function AddSpansForDifferentTypesOfTime()
-{	
-	$('table.full-size tbody tr[id]').each(
-		function()
-		{
-			var time = $(this).children('td.time').last().text();
-			console.log(time);
-			var span1 = $('<span></span>',
-			{
-				"class": "usualTime"
-			}).append(time);;	
-
-			var position = +time.indexOf(":");
-			var hours = +time.substr(0, position);
-			var minutes = +time.substr(position + 1);
-			var decimaMinutes = +(+ minutes/60).toFixed(2);
-			var decimalTime = +hours + decimaMinutes;	
-
-			var span2 = $('<span></span>',
-			{
-				"class": "decimalTime"
-			})
-			.css('display', 'none')
-			.append(decimalTime);
-			
-			$(this).children('td.time').last().empty().append(span1,span2);	
-		}
-	);
-}
-
-function TurnOnDecimals()
-{
-	$('span.usualTime').hide();
-	$('span.decimalTime').show();	
-}
-
-function TurnOffDecimals()
-{
-	$('span.usualTime').show();
-	$('span.decimalTime').hide();
-}
-
-
 $(document).ready
 ( 
 	function() 
@@ -1082,26 +1020,6 @@ $(document).ready
 		AddConclusionForMonth();
 		
 		AddTooltips_workScript();
-		AddButtonToShowTimeInDecimals();
-		AddSpansForDifferentTypesOfTime();
-		
-		$('#timeChangeToDecimalButton').click(
-			function()
-			{
-				if ($(this).hasClass('mdl-button--accent'))
-				{
-					$(this).removeClass('mdl-button--accent');
-					$('div.mdl-tooltip[for=timeChangeToDecimalButton]').html('Показвать время<br>в дробях');
-					TurnOffDecimals();
-				}
-				else
-				{
-					$(this).addClass('mdl-button--accent')					
-					$('div.mdl-tooltip[for=timeChangeToDecimalButton]').html('Показвать время<br>в часах/минутах');
-					TurnOnDecimals();
-				}
-			}
-		);
 		
 		$("tr.intervalRow").click(
 			function()
