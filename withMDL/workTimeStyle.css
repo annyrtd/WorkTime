@@ -149,8 +149,27 @@ td.text.note, th.text.note
     
 }
 
+td.dayoff
+{
+	width: 615px !important;
+}
+
 .mdl-layout__content .buttonDiv
 {
 	padding-left: 16px;
 }
 
+#timeChangeToDecimalButton
+{
+	margin: 0px 5px;
+}
+
+.conclusion 
+{
+	overflow: visible;
+}
+
+.conclusion *
+{
+	outline: none;
+}

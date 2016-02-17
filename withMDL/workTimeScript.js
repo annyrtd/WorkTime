@@ -225,14 +225,19 @@ function AddConclusionForMonth()
 		id: "reportTimeForMonth"
 	}).append(reportTimeForMonth);
 	
+	var span1 = $('<span id="conclusionFirstPart"></span>')
+	.append(label2_1, label2_2)
+	.append("<br>", label3_1, label3_2);
+	
+	var span2 = $('<span id="conclusionSecondPart"></span>')
+	.append(label1_1, label1_2)
+	.append("<br>", label4_1, label4_2, "<br>");
+	
 	var conclusionDiv = $("<div></div>", {
 		"class": "conclusion month mdl-card mdl-shadow--2dp",
 	})
 	.append('<div><b>Статистика:</b></div>')
-	.append(label2_1, label2_2)
-	.append("<br>", label3_1, label3_2)	
-	.append("<br>", "<br>", label1_1, label1_2)
-	.append("<br>", label4_1, label4_2, "<br>");
+	.append(span1, "<br>", "<br>", span2, "<br>");
 	
 	$(".flexParent").append(conclusionDiv);
 	
@@ -246,6 +251,18 @@ function AddConclusionForMonth()
 		$("#reportTimeForMonth").hide();			
 		$("#reportTimeForMonth").next().hide();
 	}
+	
+	AddTooltipAbout30Minutes();
+}
+
+function AddTooltipAbout30Minutes()
+{
+	if (isStudent)
+	{
+		return;
+	}
+	ChangeTitleToMDTooltip('conclusionFirstPart', 'С учетом <br>30 минут обеда');
+	ChangeTitleToMDTooltip('conclusionSecondPart', 'Без учета <br>30 минут обеда');		
 }
 
 function GetAlreadyWorkedTimeForMonth()
@@ -394,15 +411,21 @@ function AddConclusionForWeek()
 		id: "currentTime_week"
 	}).append(currentTime);	
 
+	var span1 = $('<span id="conclusionFirstPart"></span>')
+	.append(label2_1, label2_2)
+	.append("<br>", label3_1, label3_2);
+	
+	var span2 = $('<span id="conclusionSecondPart"></span>')
+	.append(label1_1, label1_2);
 	
 	var conclusionDiv = $("<div></div>", {
 		"class": "conclusion week mdl-card mdl-shadow--2dp",
-	})	
+	})
 	.append('<div><b>Статистика:</b></div>')
-	.append(label2_1, label2_2)
-	.append("<br>", label3_1, label3_2)
-	.append("<br>", "<br>", label1_1, label1_2, "<br>");
+	.append(span1, "<br>", "<br>", span2, "<br>");
+	
 	$(".flexParent").append(conclusionDiv);
+	
 	
 	// проверяет, есть ли показ до конца месяца
 	if ($(".future").length == 0)
@@ -410,7 +433,9 @@ function AddConclusionForWeek()
 		$("#text_timeForMonthOrWeekLeft_week").hide();
 		$("#timeForMonthOrWeekLeft_week").hide();
 		$("#timeForMonthOrWeekLeft_week").next().hide();
-	}	
+	}
+
+	AddTooltipAbout30Minutes();
 }
 
 function GetTimeForWeekLeft()
@@ -947,6 +972,7 @@ function SetUpTimeForStudent()
 		$("label#reportTimeForMonth").text(GetSumReportTimeForMonth_ForStudent());	
 		$("label#currentTime_week").text(GetCurrentTimeForWeek_ForStudent());
 		AddSpansForDifferentTypesOfTime();
+		$('.conclusion div.mdl-tooltip').remove();
 	}
 	
 }
@@ -1090,7 +1116,8 @@ $(document).ready
 		
 		AddTooltips_workScript();
 		AddButtonToShowTimeInDecimals();
-		AddSpansForDifferentTypesOfTime();
+		AddSpansForDifferentTypesOfTime();	
+		
 		
 		$('#timeChangeToDecimalButton').click(
 			function()
