@@ -1,5 +1,13 @@
 ﻿var isMonth = true;
 var isStudent = false;
+var orderOfDays = [];
+orderOfDays['Пн'] = 1;
+orderOfDays['Вт'] = 2;
+orderOfDays['Ср'] = 3;
+orderOfDays['Чт'] = 4;
+orderOfDays['Пт'] = 5;
+orderOfDays['Сб'] = 6;
+orderOfDays['Вс'] = 7;
 
 function IsReportOnPage()
 {
@@ -738,13 +746,15 @@ function AddRowBetweenWeeksWithWeekNumber()
 	var length = +$("th").not("[style='display: none;']").length + 1;
 	AddFirstRowBetweenWeeks(length);
 	var numberOfWeek = 2;
+	var previousDay = $("tr[id], tr.dayoff").first();
+	
 	$("tr[id], tr.dayoff")
 	.each(
 		function(index)
 		{
-			if ($(this).children().first().text() == "Пн")
+			if ($(this).prev().attr("class") != "intervalRow")
 			{
-				if ($(this).prev().attr("class") != "intervalRow")
+				if (orderOfDays[$(this).children().first().text()]  <= orderOfDays[previousDay.children().first().text()])
 				{		
 					titleOfWeek = numberOfWeek + "-я неделя."
 					
@@ -765,7 +775,8 @@ function AddRowBetweenWeeksWithWeekNumber()
 						row.hide();
 					}						
 				}
-			}			
+			}	
+			previousDay = $(this);
 		}
 	);
 	DivideDayoffIntoParts();
@@ -974,7 +985,6 @@ function SetUpTimeForStudent()
 		AddSpansForDifferentTypesOfTime();
 		$('.conclusion div.mdl-tooltip').remove();
 	}
-	
 }
 
 function SetTableHeightForTime()
@@ -1033,7 +1043,6 @@ function AddSpansForDifferentTypesOfTime()
 		function()
 		{
 			var time = $(this).children('td.time').last().text();
-			console.log(time);
 			var span1 = $('<span></span>',
 			{
 				"class": "usualTime"
@@ -1118,7 +1127,6 @@ $(document).ready
 		AddButtonToShowTimeInDecimals();
 		AddSpansForDifferentTypesOfTime();	
 		
-		
 		$('#timeChangeToDecimalButton').click(
 			function()
 			{
@@ -1136,6 +1144,8 @@ $(document).ready
 				}
 			}
 		);
+		
+		
 		
 		$("tr.intervalRow").click(
 			function()
