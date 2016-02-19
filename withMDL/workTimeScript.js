@@ -259,9 +259,18 @@ function AddConclusionForMonth()
 		$("#text_timeForMonthOrWeekLeft").hide();
 		$("#timeForMonthOrWeekLeft").hide();
 		$("#timeForMonthOrWeekLeft").next().hide();
-		$("#text_reportTimeForMonth").hide();
-		$("#reportTimeForMonth").hide();			
-		$("#reportTimeForMonth").next().hide();
+		
+		var today = new Date();		
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+		today = '?date=' + mm + '.' + yyyy;
+		
+		if (window.location.search == '' || window.location.search == today)
+		{
+			$("#text_reportTimeForMonth").hide();
+			$("#reportTimeForMonth").hide();			
+			$("#reportTimeForMonth").next().hide();	
+		}
 	}
 	
 	AddTooltipAbout30Minutes();
@@ -476,13 +485,25 @@ function AddConclusionForWeek()
 	
 	$(".flexParent").append(conclusionDiv);
 	
+	var today = new Date();		
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	today = '?date=' + mm + '.' + yyyy;
+	
+	var isLastWeek = ($('tr.intervalRow')
+	.not('[style="display: none;"]')
+	.nextAll()
+	.filter('tr.intervalRow').length == 0);
 	
 	// проверяет, есть ли показ до конца месяца
-	if ($(".future").length == 0)
+	if ($(".future").length == 0 && (window.location.search == '' || window.location.search == today) && isLastWeek)
 	{
 		$("#text_timeForMonthOrWeekLeft_week").hide();
 		$("#timeForMonthOrWeekLeft_week").hide();
 		$("#timeForMonthOrWeekLeft_week").next().hide();
+		$("#text_reportTimeForWeek_week").hide();
+		$("#reportTimeForWeek_week").hide();
+		$("#reportTimeForWeek_week").next().hide();
 	}
 
 	AddTooltipAbout30Minutes();
@@ -986,6 +1007,16 @@ function CreateSettings()
 			$("div.table-form").eq(2).children("label").text('Я студент');
 			$("div.table-form").eq(4).children("label").text('Cчитать отчетное время до конца месяца');
 			$("div.table-form").eq(3).hide();
+			
+			var today = new Date();		
+			var mm = today.getMonth()+1; //January is 0!
+			var yyyy = today.getFullYear();
+			today = '?date=' + mm + '.' + yyyy;
+			
+			if (!(window.location.search == '' || window.location.search == today))
+			{
+				$("div.table-form").eq(4).hide();
+			}
 			
 			if($("div.table-form").eq(1)
 				.children("select").first()
