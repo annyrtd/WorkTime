@@ -179,3 +179,10 @@ td.dayoff
 	font-size: 10px;
 	font-weight: 500;
 }
+
+.timeStatisticsSpan
+{
+	min-width: 248px;
+	width: 248px important;
+	display: block;
+}

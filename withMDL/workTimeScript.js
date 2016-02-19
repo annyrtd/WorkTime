@@ -233,23 +233,23 @@ function AddConclusionForMonth()
 		id: "reportTimeForMonth"
 	}).append(reportTimeForMonth);
 	
-	var span1 = $('<span id="span_thisDayLeft"></span>')
+	var span1 = $('<span class="timeStatisticsSpan" id="span_thisDayLeft"></span>')
 	.append(label2_1, label2_2);
 	
-	var span2 = $('<span id="span_timeForMonthOrWeekLeft"></span>')
+	var span2 = $('<span class="timeStatisticsSpan" id="span_timeForMonthOrWeekLeft"></span>')
 	.append(label3_1, label3_2);
 	
-	var span3 = $('<span id="span_currentTime"></span>')
+	var span3 = $('<span class="timeStatisticsSpan" id="span_currentTime"></span>')
 	.append(label1_1, label1_2);
 	
-	var span4 = $('<span id="span_reportTimeForMonth"></span>')
+	var span4 = $('<span class="timeStatisticsSpan" id="span_reportTimeForMonth"></span>')
 	.append(label4_1, label4_2);
 	
 	var conclusionDiv = $("<div></div>", {
 		"class": "conclusion month mdl-card mdl-shadow--2dp",
 	})
 	.append('<div><b>Статистика:</b></div>')
-	.append(span1, "<br>", span2, "<br>", "<br>", span3, "<br>", span4, "<br>");
+	.append(span1, span2, "<br>", span3, span4);
 	
 	$(".flexParent").append(conclusionDiv);
 	
@@ -465,23 +465,23 @@ function AddConclusionForWeek()
 		id: "reportTimeForWeek_week"
 	}).append(reportTimeForWeek);	
 
-	var span1 = $('<span id="span_thisDayLeft_week"></span>')
+	var span1 = $('<span class="timeStatisticsSpan" id="span_thisDayLeft_week"></span>')
 	.append(label2_1, label2_2);
 	
-	var span2 = $('<span id="span_timeForMonthOrWeekLeft_week"></span>')
+	var span2 = $('<span class="timeStatisticsSpan" id="span_timeForMonthOrWeekLeft_week"></span>')
 	.append(label3_1, label3_2);
 	
-	var span3 = $('<span id="span_currentTime_week"></span>')
+	var span3 = $('<span class="timeStatisticsSpan" id="span_currentTime_week"></span>')
 	.append(label1_1, label1_2);
 	
-	var span4 = $('<span id="span_reportTimeForWeek_week"></span>')
+	var span4 = $('<span class="timeStatisticsSpan" id="span_reportTimeForWeek_week"></span>')
 	.append(label4_1, label4_2);
 	
 	var conclusionDiv = $("<div></div>", {
 		"class": "conclusion week mdl-card mdl-shadow--2dp",
 	})
 	.append('<div><b>Статистика:</b></div>')
-	.append(span1, "<br>", span2, "<br>", "<br>", span3, "<br>", span4, "<br>");
+	.append(span1, span2, "<br>", span3, span4);
 	
 	$(".flexParent").append(conclusionDiv);
 	
@@ -490,20 +490,13 @@ function AddConclusionForWeek()
 	var yyyy = today.getFullYear();
 	today = '?date=' + mm + '.' + yyyy;
 	
-	var isLastWeek = ($('tr.intervalRow')
-	.not('[style="display: none;"]')
-	.nextAll()
-	.filter('tr.intervalRow').length == 0);
-	
 	// проверяет, есть ли показ до конца месяца
-	if ($(".future").length == 0 && (window.location.search == '' || window.location.search == today) && isLastWeek)
+	if ($(".future").length == 0 && (window.location.search == '' || window.location.search == today))
 	{
 		$("#text_timeForMonthOrWeekLeft_week").hide();
 		$("#timeForMonthOrWeekLeft_week").hide();
-		$("#timeForMonthOrWeekLeft_week").next().hide();
 		$("#text_reportTimeForWeek_week").hide();
 		$("#reportTimeForWeek_week").hide();
-		$("#reportTimeForWeek_week").next().hide();
 	}
 
 	AddTooltipAbout30Minutes();
@@ -1005,7 +998,7 @@ function CreateSettings()
 			
 			$("div.table-form").eq(1).children("label").text('Учитывать отпуск в отработанном времени за месяц');
 			$("div.table-form").eq(2).children("label").text('Я студент');
-			$("div.table-form").eq(4).children("label").text('Cчитать отчетное время до конца месяца');
+			$("div.table-form").eq(4).children("label").text('Cчитать остаток и норму до конца месяца/недели');
 			$("div.table-form").eq(3).hide();
 			
 			var today = new Date();		
@@ -1013,7 +1006,10 @@ function CreateSettings()
 			var yyyy = today.getFullYear();
 			today = '?date=' + mm + '.' + yyyy;
 			
-			if (!(window.location.search == '' || window.location.search == today))
+			if (!(window.location.search == '' || window.location.search == today) 
+				|| ((window.location.search == '' || window.location.search == today)
+					&& $('.future').length == 0 
+					&& $("div.table-form").eq(4).children('select').first().children('option[selected]').val() == 'Yes'))
 			{
 				$("div.table-form").eq(4).hide();
 			}
@@ -1107,7 +1103,6 @@ function SetUpTimeForStudent()
 		$("label#currentTime_week").text(GetCurrentTimeForWeek_ForStudent());
 		$("label#reportTimeForWeek_week").text(GetSumReportTimeForWeek_ForStudent());
 		AddSpansForDifferentTypesOfTime();
-		//&&&&&&&&&&
 		$('.conclusion div.mdl-tooltip span.lunchTimeSpan').remove();
 	}
 }
