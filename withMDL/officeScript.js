@@ -776,7 +776,12 @@ function CreateSettingsForLang()
 
 function SetTableHeightForOffice()
 {
-	$("table.full-size tbody").height($(window).height() - 370);
+	var tbody = $("table.full-size tbody");
+	tbody.height($(window).height() - 370);
+	if (tbody.get(0).scrollHeight <= tbody.get(0).clientHeight)
+	{
+		tbody.css('height', 'auto');
+	}
 }
 
 function CheckResetButton()
@@ -892,6 +897,7 @@ $(document).ready
 		$("table.full-size").before($("div.holiday-box"));
 		ShowTableFullSizeAndHolidayBox();
 		ResizeTableHeader();
+		SetTableHeightForOffice();
 		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 
 			function() 
@@ -907,7 +913,8 @@ $(document).ready
 				.attr("title", "Выберите состояние")
 				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");		
 				$("select#workStateSelect").attr("title", "Выберите состояние");				
-				ResizeTableHeader();	
+				ResizeTableHeader();
+				SetTableHeightForOffice();			
 				CheckResetButton();						
 			}
 		);
@@ -918,6 +925,7 @@ $(document).ready
 			{
 				SetFilters();
 				ResizeTableHeader();
+				SetTableHeightForOffice();
 				CheckResetButton();
 			}
 		);
@@ -996,6 +1004,7 @@ $(document).ready
 				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");
 				$("select#workStateSelect").attr("title", "Выберите состояние");
 				ResizeTableHeader();
+				SetTableHeightForOffice();
 				
 				$(this).fadeOut("fast");
 			}
@@ -1006,6 +1015,7 @@ $(document).ready
 			{
 				SelectHomeRoom();
 				ResizeTableHeader();
+				SetTableHeightForOffice();
 				CheckResetButton();
 			}
 		);
@@ -1015,6 +1025,7 @@ $(document).ready
 			{
 				SelectHomeGroup();
 				ResizeTableHeader();
+				SetTableHeightForOffice();
 				CheckResetButton();
 			}
 		);

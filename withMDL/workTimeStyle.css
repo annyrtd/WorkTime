@@ -173,3 +173,9 @@ td.dayoff
 {
 	outline: none;
 }
+
+.lunchTimeSpan
+{
+	font-size: 10px;
+	font-weight: 500;
+}

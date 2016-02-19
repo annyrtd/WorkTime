@@ -227,25 +227,29 @@ function AddConclusionForMonth()
 	
 	var label4_1 = $("<label></label>", {
 		id: "text_reportTimeForMonth"
-	}).append("Нужно отработать за месяц: ");	
+	}).append("Норма за этот месяц: ");	
 	
 	var label4_2 = $("<label></label>", {
 		id: "reportTimeForMonth"
 	}).append(reportTimeForMonth);
 	
-	var span1 = $('<span id="conclusionFirstPart"></span>')
-	.append(label2_1, label2_2)
-	.append("<br>", label3_1, label3_2);
+	var span1 = $('<span id="span_thisDayLeft"></span>')
+	.append(label2_1, label2_2);
 	
-	var span2 = $('<span id="conclusionSecondPart"></span>')
-	.append(label1_1, label1_2)
-	.append("<br>", label4_1, label4_2, "<br>");
+	var span2 = $('<span id="span_timeForMonthOrWeekLeft"></span>')
+	.append(label3_1, label3_2);
+	
+	var span3 = $('<span id="span_currentTime"></span>')
+	.append(label1_1, label1_2);
+	
+	var span4 = $('<span id="span_reportTimeForMonth"></span>')
+	.append(label4_1, label4_2);
 	
 	var conclusionDiv = $("<div></div>", {
 		"class": "conclusion month mdl-card mdl-shadow--2dp",
 	})
 	.append('<div><b>Статистика:</b></div>')
-	.append(span1, "<br>", "<br>", span2, "<br>");
+	.append(span1, "<br>", span2, "<br>", "<br>", span3, "<br>", span4, "<br>");
 	
 	$(".flexParent").append(conclusionDiv);
 	
@@ -263,14 +267,37 @@ function AddConclusionForMonth()
 	AddTooltipAbout30Minutes();
 }
 
+function AddStringWhenLunch(title)
+{
+	return title + '<span class="lunchTimeSpan"><br>(с учетом 30 минут обеда)</span>';
+}
+
+function AddStringWhenThereIsNoLunch(title)
+{
+	return title + '<span class="lunchTimeSpan"><br>(без учета 30 минут обеда)</span>'
+}
+
 function AddTooltipAbout30Minutes()
 {
-	if (isStudent)
-	{
-		return;
-	}
-	ChangeTitleToMDTooltip('conclusionFirstPart', 'С учетом <br>30 минут обеда');
-	ChangeTitleToMDTooltip('conclusionSecondPart', 'Без учета <br>30 минут обеда');		
+	var title1_month = AddStringWhenLunch('Время, которое осталось отработать сегодня');
+	var title2_month = AddStringWhenLunch('Время, которое осталось отработать до выполнения <br>нормы за месяц');
+	var title3_month = AddStringWhenThereIsNoLunch('Сколько времени Вы отработали <br>в этом месяце');
+	var title4_month = AddStringWhenThereIsNoLunch('Сколько всего времени нужно отработать в этом месяце');
+	
+	var title2_week = AddStringWhenLunch('Время, которое осталось отработать до выполнения <br>нормы за неделю');
+	var title3_week = AddStringWhenThereIsNoLunch('Сколько времени Вы отработали <br>на этой неделе');
+	var title4_week = AddStringWhenThereIsNoLunch('Сколько всего времени нужно отработать на этой неделе');
+	
+	
+	ChangeTitleToMDTooltip('span_thisDayLeft', title1_month);
+	ChangeTitleToMDTooltip('span_timeForMonthOrWeekLeft', title2_month);
+	ChangeTitleToMDTooltip('span_currentTime', title3_month);
+	ChangeTitleToMDTooltip('span_reportTimeForMonth', title4_month);
+	
+	ChangeTitleToMDTooltip('span_thisDayLeft_week', title1_month);
+	ChangeTitleToMDTooltip('span_timeForMonthOrWeekLeft_week', title2_week);
+	ChangeTitleToMDTooltip('span_currentTime_week', title3_week);	
+	ChangeTitleToMDTooltip('span_reportTimeForWeek_week', title4_week);
 }
 
 function GetAlreadyWorkedTimeForMonth()
@@ -390,7 +417,9 @@ function AddConclusionForWeek()
 			currentTime = SumOfTime(currentTime, GetTimeOfHolidaysForWeek());
 		}
 	}
-		
+	
+	var reportTimeForWeek = GetSumReportTimeForWeek();
+	
 	var label2_1 = $("<label></label>", {
 		id: "text_thisDayLeft_week",
 		"class": currentTimeClass
@@ -418,19 +447,32 @@ function AddConclusionForWeek()
 	var label1_2 = $("<label></label>", {
 		id: "currentTime_week"
 	}).append(currentTime);	
-
-	var span1 = $('<span id="conclusionFirstPart"></span>')
-	.append(label2_1, label2_2)
-	.append("<br>", label3_1, label3_2);
 	
-	var span2 = $('<span id="conclusionSecondPart"></span>')
+	var label4_1 = $("<label></label>", {
+		id: "text_reportTimeForWeek_week"
+	}).append("Норма за неделю: ");	
+	
+	var label4_2 = $("<label></label>", {
+		id: "reportTimeForWeek_week"
+	}).append(reportTimeForWeek);	
+
+	var span1 = $('<span id="span_thisDayLeft_week"></span>')
+	.append(label2_1, label2_2);
+	
+	var span2 = $('<span id="span_timeForMonthOrWeekLeft_week"></span>')
+	.append(label3_1, label3_2);
+	
+	var span3 = $('<span id="span_currentTime_week"></span>')
 	.append(label1_1, label1_2);
+	
+	var span4 = $('<span id="span_reportTimeForWeek_week"></span>')
+	.append(label4_1, label4_2);
 	
 	var conclusionDiv = $("<div></div>", {
 		"class": "conclusion week mdl-card mdl-shadow--2dp",
 	})
 	.append('<div><b>Статистика:</b></div>')
-	.append(span1, "<br>", "<br>", span2, "<br>");
+	.append(span1, "<br>", span2, "<br>", "<br>", span3, "<br>", span4, "<br>");
 	
 	$(".flexParent").append(conclusionDiv);
 	
@@ -476,7 +518,7 @@ function GetTimeForWeekLeft()
 			}				
 		}
 	);
-	return DifferenceOfTime(sumRealTime, sumNormal);
+	return DifferenceOfTime(sumNormal, sumRealTime);
 }
 
 function GetCurrentTimeForWeek()
@@ -507,6 +549,56 @@ function GetTimeOfHolidaysForWeek()
 {	
 	var hours = 8 * $("tr.dayoff").not('[style="display: none;"]').length;
 	return hours + ":00";
+}
+
+function GetSumReportTimeForWeek()
+{
+	var sum = "00:00";
+	$('tr.intervalRow')
+	.not('[style="display: none;"]')
+	.first()
+	.nextUntil('tr.intervalRow')
+	.filter('tr[id]')
+	.each(
+		function(index)
+		{
+			if ($(this).hasClass('future'))
+			{				
+				sum = SumOfTime(sum, DifferenceOfTime($(this).children('td.time').text(), "00:30"));
+			}
+			else
+			{
+				sum = SumOfTime(sum, DifferenceOfTime($(this).children("td.time").eq(1).text(), "00:30"));
+			}					
+		}
+	);
+	
+	return sum;	
+}
+
+function GetSumReportTimeForWeek_ForStudent()
+{
+	var sum = "00:00";
+	$('tr.intervalRow')
+	.not('[style="display: none;"]')
+	.first()
+	.nextUntil('tr.intervalRow')
+	.filter('tr[id]')
+	.each(
+		function(index)
+		{
+			if ($(this).hasClass('future'))
+			{				
+				sum = SumOfTime(sum, $(this).children('td.time').text());
+			}
+			else
+			{
+				sum = SumOfTime(sum, $(this).children("td.time").eq(1).text());
+			}					
+		}
+	);
+	
+	return sum;	
 }
 
 
@@ -982,20 +1074,28 @@ function SetUpTimeForStudent()
 		$("label#currentTime").text(GetAlreadyWorkedTimeForMonth_ForStudent());
 		$("label#reportTimeForMonth").text(GetSumReportTimeForMonth_ForStudent());	
 		$("label#currentTime_week").text(GetCurrentTimeForWeek_ForStudent());
+		$("label#reportTimeForWeek_week").text(GetSumReportTimeForWeek_ForStudent());
 		AddSpansForDifferentTypesOfTime();
-		$('.conclusion div.mdl-tooltip').remove();
+		//&&&&&&&&&&
+		$('.conclusion div.mdl-tooltip span.lunchTimeSpan').remove();
 	}
 }
 
 function SetTableHeightForTime()
 {
+	var tbody = $("table.full-size tbody");
+
 	if (isMonth)
 	{
-		$("table.full-size tbody").height($(window).height() - 492);
+		tbody.height($(window).height() - 500);
 	}
 	else
 	{
-		$("table.full-size tbody").height($(window).height() - 526);
+		tbody.height($(window).height() - 558);
+	}
+	if (tbody.get(0).scrollHeight <= tbody.get(0).clientHeight)
+	{
+		tbody.css('height', 'auto');
 	}
 }
 
