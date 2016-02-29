@@ -263,9 +263,9 @@ function AddConclusionForMonth()
 		var today = new Date();		
 		var mm = today.getMonth()+1; //January is 0!
 		var yyyy = today.getFullYear();
-		today = '?date=' + mm + '.' + yyyy;
+		today = '?date=' + mm + '.' + yyyy;		
 		
-		if (window.location.search == '' || window.location.search == today)
+		if ((window.location.search == '' || window.location.search == today) && !isLastDayOfMonth())
 		{
 			$("#text_reportTimeForMonth").hide();
 			$("#reportTimeForMonth").hide();			
@@ -274,6 +274,15 @@ function AddConclusionForMonth()
 	}
 	
 	AddTooltipAbout30Minutes();
+}
+
+function isLastDayOfMonth()
+{
+	var today = new Date();	
+	var test = new Date(today.getTime()), 
+		month = test.getMonth();
+	test.setDate(test.getDate() + 1);
+	return test.getMonth() !== month;
 }
 
 function AddStringWhenLunch(title)
@@ -491,7 +500,7 @@ function AddConclusionForWeek()
 	today = '?date=' + mm + '.' + yyyy;
 	
 	// проверяет, есть ли показ до конца месяца
-	if ($(".future").length == 0 && (window.location.search == '' || window.location.search == today))
+	if ($(".future").length == 0 && (window.location.search == '' || window.location.search == today) && !isLastDayOfMonth())
 	{
 		$("#text_timeForMonthOrWeekLeft_week").hide();
 		$("#timeForMonthOrWeekLeft_week").hide();
