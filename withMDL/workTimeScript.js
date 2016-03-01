@@ -1288,9 +1288,9 @@ $(document).ready
 				if (!isMonth)
 				{
 					$(".intervalRow").show();
-					$(".intervalRow.future").hide();
-					$("tr[id]").not("[class=future]").show();
-					$(".dayoff").show();	
+					$("tr[id]").show();
+					$(".future").hide();
+					$(".dayoff").show();
 					RemoveConclusionForWeek();
 					AddConclusionForMonth();
 					isMonth = true;
@@ -1350,11 +1350,10 @@ $(document).ready
 					{
 						if (isMonth)
 							return;
-						
 						$(".intervalRow").show();
-						$(".intervalRow.future").hide();						
-						$("tr[id]").not("[class=future]").show();
-						$(".dayoff").show();	
+						$("tr[id]").show();
+						$(".future").hide();
+						$(".dayoff").show();
 						RemoveConclusionForWeek();
 						AddConclusionForMonth();
 						isMonth = true;
