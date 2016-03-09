@@ -31,16 +31,16 @@ table.full-size
 
 .conclusion
 {
-	width: 280px;
-	max-height: 170px; 
+	width: 290px;
+	max-height: 170px;
 	padding: 16px;	
 	margin: 16px;
 	margin-top: 16px !important;
 	margin-bottom: 0px !important;
 	display: block !important;
 	min-height: 0px !important;
+	overflow: visible;
 }
-
 .flexParent
 {
 	display: flex;
@@ -162,11 +162,6 @@ td.dayoff
 #timeChangeToDecimalButton
 {
 	margin: 0px 5px;
-}
-
-.conclusion 
-{
-	overflow: visible;
 }
 
 .conclusion *
