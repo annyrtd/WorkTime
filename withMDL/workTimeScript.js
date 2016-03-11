@@ -858,6 +858,25 @@ function RemoveUnnesessaryBlocks()
 
 function AddRowBetweenWeeksWithWeekNumber()
 {
+	var day = new Date();		
+	var d = day.getDate();
+	var mm = day.getMonth() + 1; //January is 0!
+	var yyyy = day.getFullYear();
+	var today = '?date=' + mm + '.' + yyyy;
+	
+	$("tr[id], tr.dayoff")
+	.each(
+		function(index)
+		{
+			if ((window.location.search == '' || window.location.search == today) 
+				&& parseInt($(this).children('td.monthday.number').text()) > parseInt(d) )
+			{
+				$(this).addClass("future");
+				$(this).hide();
+			}
+		}
+	);	
+	
 	var length = +$("th").not("[style='display: none;']").length + 1;
 	AddFirstRowBetweenWeeks(length);
 	var numberOfWeek = 2;
@@ -918,7 +937,8 @@ function DivideDayoffIntoParts()
 		{
 			if ($(this).prev().attr("class") == "dayoff" 
 				&& $(this).next().attr("class") == "dayoff" 
-				&& $(this).next().children("td.dayoff").length == 0)
+				&& $(this).next().children("td.dayoff").length == 0
+				&& $(this).next().children('td.time').length == 0)
 			{		
 				var newDayoff = $("td.dayoff").first().clone();
 				$(this).next().append(newDayoff);				
@@ -1289,8 +1309,8 @@ $(document).ready
 				{
 					$(".intervalRow").show();
 					$("tr[id]").show();
-					$(".future").hide();
 					$(".dayoff").show();
+					$(".future").hide();
 					RemoveConclusionForWeek();
 					AddConclusionForMonth();
 					isMonth = true;
@@ -1352,8 +1372,8 @@ $(document).ready
 							return;
 						$(".intervalRow").show();
 						$("tr[id]").show();
-						$(".future").hide();
 						$(".dayoff").show();
+						$(".future").hide();
 						RemoveConclusionForWeek();
 						AddConclusionForMonth();
 						isMonth = true;
