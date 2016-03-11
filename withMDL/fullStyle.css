@@ -614,3 +614,8 @@ form[action='/Notes']
 	display: block !important;
 	width: 650px !important; 	
 }
+
+.mdl-button.mdl-button--raised.mdl-js-button.mdl-button--accent.mdl-js-ripple-effect
+{
+	color: white;
+}

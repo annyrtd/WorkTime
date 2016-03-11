@@ -858,6 +858,22 @@ function AddTooltips_officeScript()
 		}
 	);
 	
+	$('span.hidden-text')
+	.each(
+		function(index)
+		{
+			if ($(this).attr("title") === undefined)
+			{
+				return true;
+			}
+			var id = "span_hidden-text_" + index;
+			var title = $(this).attr("title");
+			$(this).removeAttr("title");
+			$(this).attr("id", id);
+			ChangeTitleToMDTooltip(id, title);			
+		}
+	);
+	
 }
 
 $(document).ready

@@ -767,6 +767,11 @@ function SeparateStartAndFinish()
 				function()
 				{
 					timeRange = $(this).text();
+					if (timeRange == 'Англ')
+					{
+						$(this).parent().nextAll('td.note.text').first().prepend('Англ.<br>');
+					}
+					
 					if (timeRange == " ... ")
 					{
 						timeOfLeavingSpan_title = $(this).attr("title");
