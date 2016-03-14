@@ -337,7 +337,7 @@ function GetAlreadyWorkedTimeForMonth_ForStudent()
 
 function GetTimeOfHolidays()
 {
-	var hours = 8 * $("tr.dayoff").length;
+	var hours = 8 * $("tr.dayoff").not('tr[id]').length;
 	return hours + ":00";
 }
 
@@ -570,7 +570,7 @@ function GetCurrentTimeForWeek_ForStudent()
 
 function GetTimeOfHolidaysForWeek()
 {	
-	var hours = 8 * $("tr.dayoff").not('[style="display: none;"]').length;
+	var hours = 8 * $("tr.dayoff").not('tr[id]').not('[style="display: none;"]').length;
 	return hours + ":00";
 }
 
