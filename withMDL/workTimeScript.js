@@ -862,26 +862,7 @@ function RemoveUnnesessaryBlocks()
 }
 
 function AddRowBetweenWeeksWithWeekNumber()
-{
-	var day = new Date();		
-	var d = day.getDate();
-	var mm = day.getMonth() + 1; //January is 0!
-	var yyyy = day.getFullYear();
-	var today = '?date=' + mm + '.' + yyyy;
-	
-	$("tr[id], tr.dayoff")
-	.each(
-		function(index)
-		{
-			if ((window.location.search == '' || window.location.search == today) 
-				&& parseInt($(this).children('td.monthday.number').text()) > parseInt(d) )
-			{
-				$(this).addClass("future");
-				$(this).hide();
-			}
-		}
-	);	
-	
+{	
 	var length = +$("th").not("[style='display: none;']").length + 1;
 	AddFirstRowBetweenWeeks(length);
 	var numberOfWeek = 2;
