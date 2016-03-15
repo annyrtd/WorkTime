@@ -337,7 +337,19 @@ function GetAlreadyWorkedTimeForMonth_ForStudent()
 
 function GetTimeOfHolidays()
 {
-	var hours = 8 * $("tr.dayoff").not('tr[id]').length;
+	var day = new Date();		
+	var d = day.getDate();
+	var times = 0;
+	$("tr.dayoff").not('tr[id]').each(
+		function()
+		{
+			if (parseInt($(this).children('td.monthday.number').text()) <= parseInt(d))
+			{
+				times++;
+			}
+		}
+	);
+	var hours = 8 * times;
 	return hours + ":00";
 }
 
