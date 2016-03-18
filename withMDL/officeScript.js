@@ -805,7 +805,8 @@ function AddBorderToStatusSelect()
 	var span = $("<span></span>").css({
 		"display": "block",
 		"border": "1px solid rgb(202, 202, 202)",
-		"paddingLeft": "3px"
+		"paddingLeft": "3px",
+		"borderRadius": "2px"
 	}).append($("th.indicator.workstate.header").children());
 	
 	$("th.indicator.workstate.header").append(span);
@@ -876,6 +877,17 @@ function AddTooltips_officeScript()
 	
 }
 
+function ResetTableParametres()
+{
+	$("table.full-size > tbody > tr").show();
+	$("#workgroupSelect, #workStateSelect, #roomSelect").val("");
+				
+	$("#searchInput").val("").parent().removeClass("is-dirty");
+	$("th.workstate i")
+	.css("color", "white")
+	.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");
+}
+
 $(document).ready
 ( 
 	function() 
@@ -917,7 +929,7 @@ $(document).ready
 		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 
 			function() 
-			{						
+			{			
 				$("#workgroupSelect, #workStateSelect, #roomSelect").val("");
 				var inputText = escapeHtml($(this).val());
 				var cellsThatContainInputText = 'td.employee:contains("' + inputText + '")';
@@ -926,9 +938,7 @@ $(document).ready
 				$('td.employee').not(cellsThatDoNotContainInputText).parent().hide();
 				$("th.workstate i")
 				.css("color", "white")
-				.attr("title", "Выберите состояние")
-				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");		
-				$("select#workStateSelect").attr("title", "Выберите состояние");				
+				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");				
 				ResizeTableHeader();
 				SetTableHeightForOffice();			
 				CheckResetButton();						
@@ -1009,16 +1019,8 @@ $(document).ready
 		
 		$("button#idReset").on("click", 
 			function()
-			{				
-				$("table.full-size > tbody > tr").show();
-				$("#workgroupSelect, #workStateSelect, #roomSelect").val("");
-				
-				$("#searchInput").val("").parent().removeClass("is-dirty");
-				$("th.workstate i")
-				.css("color", "white")
-				.attr("title", "Выберите состояние")
-				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");
-				$("select#workStateSelect").attr("title", "Выберите состояние");
+			{			
+				ResetTableParametres();			
 				ResizeTableHeader();
 				SetTableHeightForOffice();
 				
@@ -1029,6 +1031,7 @@ $(document).ready
 		$("#roomSelectButton").click(
 			function()
 			{
+				ResetTableParametres();
 				SelectHomeRoom();
 				ResizeTableHeader();
 				SetTableHeightForOffice();
@@ -1039,6 +1042,7 @@ $(document).ready
 		$("#groupSelectButton").click(
 			function()
 			{
+				ResetTableParametres();
 				SelectHomeGroup();
 				ResizeTableHeader();
 				SetTableHeightForOffice();
