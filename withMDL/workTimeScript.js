@@ -142,7 +142,7 @@ function AddReportColumn()
 	}).append("Отчет");
 	$("th.time").last().after(newHeader);
 	
-	$("tr[id]").not("[class=future]").each( 
+	$("tr[id]").not(".future").each( 
 		function(index)
 		{
 			var newTime = DifferenceOfTime($(this).children("td.time").first().text(), "00:30");
