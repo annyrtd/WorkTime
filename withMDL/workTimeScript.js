@@ -520,7 +520,7 @@ function AddConclusionForWeek()
 		$("#reportTimeForWeek_week").hide();
 	}
 
-	AddTooltipAbout30Minutes();
+	AddTooltipAbout30Minutes();	
 }
 
 function GetTimeForWeekLeft()
@@ -1137,15 +1137,24 @@ function SetUpTimeForStudent()
 function SetTableHeightForTime()
 {
 	var tbody = $("table.full-size tbody");
+	var height = $(window).height()
+		- $('header.mdl-layout__header').outerHeight(true)
+		- $('main.mdl-layout__content.content-wide span.mdl-layout-title').outerHeight(true)
+		- $('table.full-size thead').outerHeight(true)
+		- 40;
 
-	if (isMonth)
+	if (tbody.parent().outerWidth(true) + $('div.conclusion').outerWidth(true) > $('div.flexParent').width())
 	{
-		tbody.height($(window).height() - 500);
+		height = height - $('div.conclusion').outerHeight(true) - 60;
 	}
-	else
+	
+	if (!isMonth)
 	{
-		tbody.height($(window).height() - 558);
+		height = height - $('div.buttonDiv').outerHeight(true);
 	}
+		
+	tbody.outerHeight(height);
+	
 	if (tbody.get(0).scrollHeight <= tbody.get(0).clientHeight)
 	{
 		tbody.css('height', 'auto');
@@ -1260,12 +1269,7 @@ $(document).ready
 		
 		var shouldBeHidden = false;
 		
-		$(window).resize(
-			function() 
-			{
-				SetTableHeightForTime();
-			}
-		).resize(); // Trigger resize handler
+		
 		
 		$("table.full-size th")
 		.first()
@@ -1279,6 +1283,13 @@ $(document).ready
 		AddTooltips_workScript();
 		AddButtonToShowTimeInDecimals();
 		AddSpansForDifferentTypesOfTime();	
+		
+		$(window).resize(
+			function() 
+			{
+				SetTableHeightForTime();
+			}
+		).resize(); // Trigger resize handler
 		
 		$('#timeChangeToDecimalButton').click(
 			function()
@@ -1316,6 +1327,7 @@ $(document).ready
 					$(".buttonDiv").remove();
 					$(window).resize();
 					SetUpTimeForStudent();
+					SetTableHeightForTime();
 					return;
 				}
 				$(this).prevAll().each(
@@ -1362,12 +1374,16 @@ $(document).ready
 				SetUpTimeForStudent();
 				
 				$("table.full-size").parent().append(barrier, div);
+				SetTableHeightForTime();
 
 				$(".resetButton").click(
 					function()
 					{
 						if (isMonth)
+						{
+							SetTableHeightForTime();
 							return;
+						}
 						$(".intervalRow").show();
 						$("tr[id]").show();
 						$(".dayoff").show();
@@ -1379,6 +1395,7 @@ $(document).ready
 						$(".buttonDiv").remove();
 						$(window).resize();
 						SetUpTimeForStudent();
+						SetTableHeightForTime();
 					}
 				);
 			}
