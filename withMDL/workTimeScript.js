@@ -256,9 +256,7 @@ function AddConclusionForMonth()
 	// проверяет, есть ли показ до конца месяца
 	if ($(".future").length == 0)
 	{
-		$("#text_timeForMonthOrWeekLeft").hide();
-		$("#timeForMonthOrWeekLeft").hide();
-		$("#timeForMonthOrWeekLeft").next().hide();
+		$("#span_timeForMonthOrWeekLeft").hide();
 		
 		var today = new Date();		
 		var mm = today.getMonth()+1; //January is 0!
@@ -267,13 +265,12 @@ function AddConclusionForMonth()
 		
 		if ((window.location.search == '' || window.location.search == today) && !isLastDayOfMonth())
 		{
-			$("#text_reportTimeForMonth").hide();
-			$("#reportTimeForMonth").hide();			
-			$("#reportTimeForMonth").next().hide();	
+			$("#span_reportTimeForMonth").hide();
 		}
 	}
 	
 	AddTooltipAbout30Minutes();
+	SetConclusionHeight();
 }
 
 function isLastDayOfMonth()
@@ -514,13 +511,12 @@ function AddConclusionForWeek()
 	// проверяет, есть ли показ до конца месяца
 	if ($(".future").length == 0 && (window.location.search == '' || window.location.search == today) && !isLastDayOfMonth())
 	{
-		$("#text_timeForMonthOrWeekLeft_week").hide();
-		$("#timeForMonthOrWeekLeft_week").hide();
-		$("#text_reportTimeForWeek_week").hide();
-		$("#reportTimeForWeek_week").hide();
+		$("#span_timeForMonthOrWeekLeft_week").hide();
+		$("#span_reportTimeForWeek_week").hide();
 	}
 
-	AddTooltipAbout30Minutes();	
+	AddTooltipAbout30Minutes();
+	SetConclusionHeight();	
 }
 
 function GetTimeForWeekLeft()
@@ -1141,11 +1137,11 @@ function SetTableHeightForTime()
 		- $('header.mdl-layout__header').outerHeight(true)
 		- $('main.mdl-layout__content.content-wide span.mdl-layout-title').outerHeight(true)
 		- $('table.full-size thead').outerHeight(true)
-		- 40;
+		- 50;
 
 	if (tbody.parent().outerWidth(true) + $('div.conclusion').outerWidth(true) > $('div.flexParent').width())
 	{
-		height = height - $('div.conclusion').outerHeight(true) - 60;
+		height = height - $('div.conclusion').outerHeight(true) - 45;
 	}
 	
 	if (!isMonth)
@@ -1159,6 +1155,13 @@ function SetTableHeightForTime()
 	{
 		tbody.css('height', 'auto');
 	}
+}
+
+function SetConclusionHeight()
+{
+	console.log($('div.conclusion span.timeStatisticsSpan').not('[style="display: none;"]'));
+	var conclusionHeight = 20 * ($('div.conclusion span.timeStatisticsSpan').not('[style="display: none;"]').length + 2);
+	$('div.conclusion').height(conclusionHeight);
 }
 
 function AddTooltips_workScript()

@@ -777,7 +777,12 @@ function CreateSettingsForLang()
 function SetTableHeightForOffice()
 {
 	var tbody = $("table.full-size tbody");
-	tbody.height($(window).height() - 370);
+	var height = $(window).height()
+		- $('header.mdl-layout__header').outerHeight(true)
+		- $('main.mdl-layout__content.content-wide span.mdl-layout-title').outerHeight(true)
+		- $('table.full-size thead').outerHeight(true)
+		- 50; 
+	tbody.height(height);
 	if (tbody.get(0).scrollHeight <= tbody.get(0).clientHeight)
 	{
 		tbody.css('height', 'auto');
