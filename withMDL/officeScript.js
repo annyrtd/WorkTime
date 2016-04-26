@@ -781,7 +781,9 @@ function SetTableHeightForOffice()
 		- $('header.mdl-layout__header').outerHeight(true)
 		- $('main.mdl-layout__content.content-wide span.mdl-layout-title').outerHeight(true)
 		- $('table.full-size thead').outerHeight(true)
+		- $('.holiday-box').outerHeight(true)
 		- 50; 
+	
 	tbody.height(height);
 	if (tbody.get(0).scrollHeight <= tbody.get(0).clientHeight)
 	{
