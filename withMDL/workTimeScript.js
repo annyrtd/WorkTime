@@ -318,7 +318,7 @@ function AddTooltipAbout30Minutes()
 function GetAlreadyWorkedTimeForMonth()
 {
 	var time = $(".summary").last().children(".time").first().text();
-	$("tr[id]").not("[class=future]").each(
+	$("tr[id]").not(".future").each(
 		function (index)
 		{
 			time = DifferenceOfTime(time, "00:30")
@@ -1159,7 +1159,6 @@ function SetTableHeightForTime()
 
 function SetConclusionHeight()
 {
-	console.log($('div.conclusion span.timeStatisticsSpan').not('[style="display: none;"]'));
 	var conclusionHeight = 20 * ($('div.conclusion span.timeStatisticsSpan').not('[style="display: none;"]').length + 2);
 	$('div.conclusion').height(conclusionHeight);
 }
