@@ -7,6 +7,13 @@ rgb(255,171,64) - orange
 */
 
 
+.blink  {
+	position: absolute !important; 
+	top: -5000 !important; 
+	left: -5000 !important;
+	display: none !important;
+}
+
 *:not(i)
 {
 	font-family: Roboto, sans-serif !important;
@@ -265,7 +272,7 @@ div.status-right:hover a
 {
 	width: 120px;
 	list-style-type: none;
-	margin: 0px 10px;
+	margin: 0px 16px;
 	text-align: center;	
 	height: 50px;
 	border: 0px solid white !important;
@@ -618,4 +625,9 @@ form[action='/Notes']
 .mdl-button.mdl-button--raised.mdl-js-button.mdl-button--accent.mdl-js-ripple-effect
 {
 	color: white;
+}
+
+select 
+{
+	border-radius: 2px !important;
 }

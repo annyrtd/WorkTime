@@ -412,9 +412,11 @@ function CreateCommonMDLCard()
 	var header = $('<span></span>',
 	{
 		"class": "mdl-layout-title"
-	}).append($(".status-center").text());
+	})
+	.append($(".status-center").text());
 	
-	$("table.full-size").addClass("mdl-shadow--2dp");	
+	$("table.full-size")
+	.addClass("mdl-shadow--2dp");	
 	$(".mdl-layout__content").append(header, $("table.full-size"));
 	if (window.location.pathname == "/Notes")
 	{
@@ -508,7 +510,7 @@ function RestyleTableForCalendar()
 
 function AddButtonToStopBlinking()
 {
-	$("body").append("<button class='mdl-button' style='z-index: -10;'><button>");
+	$("body").append("<button class='blink mdl-button' style='z-index: -10;'></button>");
 }
 
 function SetUpCalendarTable()
@@ -562,16 +564,18 @@ function AddDatePickerToNotes()
 	});	
 }
 
-function ChangeTitleToMDTooltip(id, title)
+function ChangeTitleToMDTooltip(id, title, className)
 {
-	var tooltip = $('<div class="mdl-tooltip" for="' 
+	var tooltip = $('<div class="mdl-tooltip ' + (className ? className : "") + '" for="' 
 		+ id 
 		+ '">'
 		+ title
 		+'</div>');
+	
 	$("#" + id).after(tooltip);
 	//componentHandler.upgradeElement($("#" + id).get(0));
 	componentHandler.upgradeElement(tooltip.get(0));	
+	
 }
 
 function AddTooltips_fullScrip()

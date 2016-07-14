@@ -4,6 +4,7 @@ jQuery.expr[':'].contains = function(a, i, m) {
 		.indexOf(m[3].toUpperCase()) >= 0;
 };
 
+
 // для сортировки колонок
 function mergeSort(arrayToSort, compare) 
 {
@@ -225,7 +226,7 @@ function CreateSelectForGroups()
 	if (IsMyHomeOffice())
 	{
 		button = $('<button style="float: left;" id="groupSelectButton" class="mdl-button mdl-js-button mdl-button--icon' 
-			+'  mdl-button--accent mdl-js-ripple-effect"><i class="material-icons">home</i></button>')
+			+'  mdl-button--accent mdl-js-ripple-effect"><i class="material-icons">group</i></button>')
 		tooltip = $('<div class="mdl-tooltip" for="groupSelectButton">Моя группа</div>');	
 	}
 	
@@ -298,7 +299,7 @@ function CreateSelectOnRoom()
 	if (IsMyHomeOffice())
 	{
 		button = $('<button style="float: left;" id="roomSelectButton" class="mdl-button mdl-js-button mdl-button--icon' 
-			+'  mdl-button--accent mdl-js-ripple-effect"><i class="material-icons">home</i></button>')
+			+'  mdl-button--accent mdl-js-ripple-effect"><i class="material-icons">weekend</i></button>')
 		tooltip = $('<div class="mdl-tooltip" for="roomSelectButton">Моя комната</div>');	
 	}
 	
@@ -486,7 +487,10 @@ function AddResetFiltersButton()
 function SetFilters()
 {
 	$("table.full-size > tbody > tr").show();
+	$("div.card-square").show();
+	
 	$("#searchInput").val("");
+	$("#card-searchInput").val("");
 	FilterGroup();
 	FilterWorkState();
 	FilterRoom();
@@ -600,7 +604,9 @@ function FilterRoom()
 function SelectHomeGroup()
 {
 	$("table.full-size > tbody > tr").show();
+	$("div.card-square").show();
 	$("#searchInput").val("");
+	$("#card-searchInput").val("");
 	
 	var inputText = GetMyGroupName();	
 	$("#workgroupSelect").val(inputText);
@@ -627,6 +633,18 @@ function SelectHomeGroup()
 	$(cellsThatContainInputText).parent().not('[style="display: none;"]').show();				
 	$('td.workgroup').not(cellsThatContainInputText).parent().hide();	
 	
+	$('.card-square').each(
+		function()
+		{
+			if ($(this)
+					.children('div.mdl-card__supporting-text').first()
+					.children('span.workgroup').first().text()				
+					!= inputText) 
+			{
+				$(this).hide();
+			}
+		}
+	);	
 }
 
 function GetMyGroupName()
@@ -662,7 +680,9 @@ function GetMyName()
 function SelectHomeRoom()
 {
 	$("table.full-size > tbody > tr").show();
+	$("div.card-square").show();
 	$("#searchInput").val("");
+	$("#card-searchInput").val("");
 	
 	var inputText = GetMyRoomNumber();
 	$("#roomSelect").val(inputText);
@@ -777,11 +797,13 @@ function CreateSettingsForLang()
 function SetTableHeightForOffice()
 {
 	var tbody = $("table.full-size tbody");
+	
 	var height = $(window).height()
 		- $('header.mdl-layout__header').outerHeight(true)
 		- $('main.mdl-layout__content.content-wide span.mdl-layout-title').outerHeight(true)
 		- $('table.full-size thead').outerHeight(true)
 		- $('.holiday-box').outerHeight(true)
+		//- $('div.toggle').outerHeight(true)
 		- 50; 
 	
 	tbody.height(height);
@@ -799,12 +821,14 @@ function CheckResetButton()
 	$("#searchInput").val() != "")
 	{
 		$("button#idReset").fadeIn("fast");
+		$("button#card-idReset").fadeIn("fast");
 	}
 	else
 	{
 		$("button#idReset").fadeOut("fast");
+		$("button#card-idReset").fadeOut("fast");
 	}
-		
+
 }
 
 function AddBorderToStatusSelect()
@@ -886,13 +910,340 @@ function AddTooltips_officeScript()
 
 function ResetTableParametres()
 {
+	$('.card-square').show();
 	$("table.full-size > tbody > tr").show();
 	$("#workgroupSelect, #workStateSelect, #roomSelect").val("");
 				
 	$("#searchInput").val("").parent().removeClass("is-dirty");
+	$("#card-searchInput").val("").parent().removeClass("is-dirty");
+	
 	$("th.workstate i")
 	.css("color", "white")
 	.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");
+}
+
+
+
+function AddToggleButtonTableAndCards()
+{
+	var icon1 = $('<i id="table-icon" class="material-icons">list</i>');
+	var icon2 = $('<i id="card-icon" class="material-icons">apps</i>');
+	
+	var button1 = $('<button></button>', {
+		id: 'table-button',
+		'class': 'mdl-button mdl-js-button mdl-button--icon mdl-button--accent mdl-button--fab mdl-js-ripple-effect'
+	}).append(icon1); 
+	
+	var button2 = $('<button></button>', {
+		id: 'card-button',
+		'class': 'mdl-button mdl-js-button mdl-button--icon mdl-button--accent mdl-js-ripple-effect'
+	}).append(icon2); 
+	
+	var div = $('<div id="toggle-div" class="toggle"></div>')
+	.append(button1, button2);
+	
+	$('main > span.mdl-layout-title')
+	.css({ 
+		display: 'flex',
+		alignItems: 'center',
+		height: '65px'
+	})
+	.append(div);
+	
+	var tooltip1 = $('<div id="toggle-tooltip" class="mdl-tooltip" for="table-button">Отображать <br>таблицей</div>');
+	var tooltip2 = $('<div id="toggle-tooltip" class="mdl-tooltip" for="card-button">Отображать <br>карточками</div>');
+	
+	
+	componentHandler.upgradeElement(button1.get(0));
+	componentHandler.upgradeElement(button2.get(0));
+	componentHandler.upgradeElement(tooltip1.get(0));
+	componentHandler.upgradeElement(tooltip2.get(0));
+	
+	div.append(tooltip1, tooltip2);
+}
+
+function SetWorkerCards()
+{
+	var div = $('<div></div>', {
+		'class': 'card-box'
+	});
+	var card;
+	var trs = $('table.full-size tbody tr').each(
+		function(index)
+		{
+			card = getMDLCard($(this), index);			
+			div.append(card);
+		}
+	);
+	
+	$('table.full-size').after(div);
+	
+	div.hide();
+	
+	$('div.card-box div.mdl-tooltip').each(
+		function() {
+			var id = $(this).attr('for');
+			var text = $(this).text();
+			var toTheLeft = !$(this).parent().hasClass('mdl-card__supporting-text');
+			$(this).remove();
+			ChangeTitleToMDTooltip(id, text, ( toTheLeft ? 'mdl-tooltip--left' : ''));
+		}
+	);
+}
+
+function getMDLCard(tr, index)
+{	
+	var imagediv = $('<div id="person-image' + index + '" class="circular" ></div><br><br>');
+	
+	var h2 = $('<h2 class="mdl-card__title-text"></h2>')
+	.css({
+		alignSelf: 'flex-start'
+	})
+	.append(tr.children('td.text.employee').html());
+	
+	var color = tr.children('td.indicator.workstate').children('i').first().css('color').replace('rgb', 'rgba');
+	color = color.substr(0, color.length - 1);
+	color += ',0.5)';
+	
+	var title = $('<div></div>', {
+		'class': 'mdl-card__title mdl-card--expand'
+	})
+	.css({
+		backgroundColor: color,
+		flexDirection: 'column'
+	})
+	.append(imagediv, h2);
+	
+	var workgroup = tr.children('td.text.workgroup').text();
+	var room = tr.children('td.text.room').text();
+	var info = tr.children('td.text.info').first();
+	var phonefirst = tr.children('td.text.phone.first').text();
+	var phonesecond = tr.children('td.text.phone.second').text();
+	var phonethird = tr.children('td.text.phone.third').text();
+	
+	
+	var supportingtext = $('<div></div>', {
+		'class': 'mdl-card__supporting-text'
+	})
+	.append(workgroup ? '<span class="bold workgroup">' + workgroup + '</span><br>' : '<br>')
+	.append(room ? '<span class="room">' + room + '</span><br><br>' : '<br><br>')
+	.append(info ? info.html() + '<br><br>' : '<br><br>')
+	.append(phonefirst ? 'Tел.: <span class="phone first">' + phonefirst + '</span><br>' : '<br>')
+	.append(phonesecond ? 'Моб.тел.: <span class="phone second">' + phonesecond + '</span><br>' : '<br>')
+	.append(phonethird ? 'Дом.тел.: <span class="phone third">' + phonethird + '</span><br>' : '<br>')
+	
+	
+	var menu = $('<div></div>', {
+		'class': 'mdl-card__menu'
+	})
+	.append(tr.children('td.indicator.workstate').html())
+	.append(tr.children('td.indicator.mail').html())
+	
+	var idstatus = 'card-' + menu.children('i').first().attr('id');
+	var tooltip1 = menu.children('div.mdl-tooltip').first();
+	var icon1 = menu.children('i').first();
+	icon1.attr('id', idstatus);
+	tooltip1.attr('for', idstatus);
+	tooltip1.removeAttr('data-upgraded');
+	
+	var idemail = 'card-' + menu.children('a').first().children('i').first().attr('id');
+	var tooltip2 = menu.children('a').first().children('div.mdl-tooltip').first();
+	var icon2 = menu.children('a').first().children('i').first()
+	icon2.attr('id', idemail);
+	tooltip2.attr('for', idemail);	
+	tooltip2.removeAttr('data-upgraded');
+	
+	if (info.children('span.hidden-text').length > 0)
+	{
+		info.children('span.hidden-text').each(
+			function()
+			{
+				var id = 'card-' + $(this).attr('id');
+				var tooltip = info.children('div.mdl-tooltip[for=' + $(this).attr('id') + ']').first();
+				$(this).attr('id', id);
+				tooltip.attr('for', id);	
+				tooltip.removeAttr('data-upgraded');	
+			}
+		);		
+	}
+	
+	var maindiv = $('<div></div>', {
+		'class': 'card-square mdl-card mdl-shadow--2dp'
+	})
+	.css({
+		'order': index
+	})
+	.append(title, supportingtext, menu);	
+	
+	return maindiv;	
+}
+
+function AddSortingMenuForCards()
+{
+	var div = $('<div></div>', {
+		'class': 'card-sorting-menu toggle'
+	})
+	
+	var homeGroupButton, tooltipHomeGroupButton	
+	var homeRoomButton, tooltipHomeRoomButton;
+	if (IsMyHomeOffice())
+	{
+		homeGroupButton = $('<button style="float: left;" id="card-groupSelectButton" class="mdl-button mdl-js-button mdl-button--icon' 
+			+'  mdl-button--accent mdl-js-ripple-effect"><i class="material-icons">group</i></button>')
+		tooltipHomeGroupButton = $('<div class="mdl-tooltip" for="card-groupSelectButton">Моя группа</div>');	
+		
+		homeRoomButton = $('<button style="float: left;" id="card-roomSelectButton" class="mdl-button mdl-js-button mdl-button--icon' 
+			+'  mdl-button--accent mdl-js-ripple-effect"><i class="material-icons">weekend</i></button>')
+		tooltipHomeRoomButton = $('<div class="mdl-tooltip" for="card-roomSelectButton">Моя комната</div>');	
+	}
+	var resetIcon = $('<i class="material-icons">clear</i>');
+	var resetButton = $('<button></button>', {
+		"id": "card-idReset",
+		"class": "mdl-button mdl-js-button  mdl-button--fab mdl-button--icon mdl-button--accent  mdl-js-ripple-effect",
+		type: "button"
+	}).append(resetIcon);	
+	
+	var tooltipResetButton = $('<div class="mdl-tooltip" for="card-idReset">Сбросить<br>фильтры</div>');
+	
+	$('#toggle-div').after(div);	
+	
+	
+	CreateCardSearchInput();
+		
+	if (homeGroupButton !== undefined && tooltipHomeGroupButton !== undefined && $('div.card-square span.workgroup').length > 0)
+	{
+		div.append(homeGroupButton, tooltipHomeGroupButton);
+		componentHandler.upgradeElement(homeGroupButton.get(0));
+		componentHandler.upgradeElement(tooltipHomeGroupButton.get(0));	
+	}	
+	
+	if (homeRoomButton !== undefined && tooltipHomeRoomButton !== undefined && $('div.card-square span.room').length > 0)
+	{
+		div.append(homeRoomButton, tooltipHomeRoomButton);
+		componentHandler.upgradeElement(homeRoomButton.get(0));
+		componentHandler.upgradeElement(tooltipHomeRoomButton.get(0));	
+	}	
+	
+	div.append(resetButton, tooltipResetButton)
+	componentHandler.upgradeElement(resetButton.get(0));
+	componentHandler.upgradeElement(tooltipResetButton.get(0));
+	
+	
+	resetButton.hide();	
+	div.hide();	
+}
+
+// Добавляет поле для ввода для поиска по имени
+function CreateCardSearchInput()
+{
+	var input = $("<input>", {
+		type: "text",
+		"class": "mdl-textfield__input",
+		id: "card-searchInput"
+	});
+	
+	var labelForInput = $("<label></label>", {
+		"class": "mdl-textfield__label",
+		"for": "card-searchInput",
+		"style": "line-height: 12pt !important;"
+	}).append('Сотрудник');	
+	
+	var icon = $('<i class="material-icons" style="float: left; margin-top: 22px;">search</i>');
+	
+	var div = $("<div></div>", {
+		"class": "mdl-textfield mdl-js-textfield"
+	}).append(input, labelForInput);
+	
+	var div2 = $("<div class='toggle'></div>").append(icon,div);
+	
+	$('div.card-sorting-menu').append(div2);
+	
+	componentHandler.upgradeElement(div.get(0));
+	
+	ChangeTitleToMDTooltip("card-searchInput", 
+		"Введите фамилию <br>или имя сотрудника");
+}
+
+function FilterPeople(inputText)
+{
+	var cells = 'td.employee';
+	var cellsThatContainInputText = cells + ':contains("' + inputText + '")';
+	$(cellsThatContainInputText).parent().show();				
+	$(cells).not(cellsThatContainInputText).parent().hide();
+	
+	$("th.workstate i")
+	.css("color", "white")
+	.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");	
+	
+	var cardcells = 'div.card-square > div.mdl-card__title > h2.mdl-card__title-text';
+	var cardcellsThatContainInputText = cardcells + ':contains("' + inputText + '")';
+	$(cardcellsThatContainInputText).parent().parent().show();	
+	$(cardcells).not(cardcellsThatContainInputText).parent().parent().hide();
+}
+
+function SetProfileImages()
+{
+	var today = new Date();		
+	var day = today.getDate();
+	
+	if (day % 7 == 0 && !localStorage['isCleared'])
+	{
+		localStorage.clear();
+		localStorage['isCleared'] = true;
+	}
+	else
+	{
+		localStorage['isCleared'] = false;
+	}
+	
+	$('div.card-square').each(
+		function() {
+			var self = $(this);
+			
+			var email = self.children('div.mdl-card__menu').first()
+				.children('a[href^="mailto:"]').first()
+				.attr('href').replace('mailto:', '');
+			
+			if (email)
+			{
+				if (localStorage[email])
+				{
+					var src = localStorage[email];
+					
+					if (src) 
+					{
+						self.children('div.mdl-card__title').first()
+						.children('div.circular').first()
+						.css({
+							background: 'url("' + src + '") no-repeat',
+							backgroundSize: 'cover'
+						});
+					}					
+				}
+				else {
+					$.get("http://confirmitconnect.firmglobal.com/Search/Pages/PeopleResults.aspx?k=" + email, {}, function(data, status, xhr) {
+
+						var updatedData = data.replace(/\/(_layouts|Style)+/g, "http://confirmitconnect.firmglobal.com/$1").replace('IMNRC', 'String.prototype.toLowerCase')
+						var temp = $("<div></div>");
+						temp.html(updatedData);
+						
+						var src = temp.find('#CSR_IMG_1').attr('src');
+							
+						if (src) 
+						{
+							localStorage[email] = src;
+							self.children('div.mdl-card__title').first()
+							.children('div.circular').first()
+							.css({
+								background: 'url("' + src + '") no-repeat',
+								backgroundSize: 'cover'
+							});
+						}
+					});
+				}
+			}
+		}
+	);
 }
 
 $(document).ready
@@ -930,22 +1281,36 @@ $(document).ready
 			}
 		);
 		$("table.full-size").before($("div.holiday-box"));
+		
 		ShowTableFullSizeAndHolidayBox();
 		ResizeTableHeader();
-		SetTableHeightForOffice();
+		SetTableHeightForOffice();	
+		
+		AddToggleButtonTableAndCards();
+		SetWorkerCards();
+		AddSortingMenuForCards();		
+		
+		SetProfileImages();
 		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 
 			function() 
 			{			
 				$("#workgroupSelect, #workStateSelect, #roomSelect").val("");
 				var inputText = escapeHtml($(this).val());
-				var cellsThatContainInputText = 'td.employee:contains("' + inputText + '")';
-				var cellsThatDoNotContainInputText = 'td.employee:contains("' + inputText + '")';
-				$(cellsThatContainInputText).parent().show();				
-				$('td.employee').not(cellsThatDoNotContainInputText).parent().hide();
-				$("th.workstate i")
-				.css("color", "white")
-				.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");				
+				$('#card-searchInput').val(inputText);				
+				FilterPeople(inputText);
+				
+				if (inputText != '')
+				{
+					$(this).parent().addClass('is-dirty');
+					$('#card-searchInput').parent().addClass('is-dirty');
+				}
+				else
+				{
+					$(this).parent().removeClass('is-dirty');
+					$('#card-searchInput').parent().removeClass('is-dirty');
+				}
+				
 				ResizeTableHeader();
 				SetTableHeightForOffice();			
 				CheckResetButton();						
@@ -1032,6 +1397,7 @@ $(document).ready
 				SetTableHeightForOffice();
 				
 				$(this).fadeOut("fast");
+				$("button#card-idReset").fadeOut("fast");
 			}
 		);
 		
@@ -1064,6 +1430,90 @@ $(document).ready
 				ResizeTableHeader();
 				SetTableHeightForOffice();
 			}
-		).resize(); // Trigger resize handler		
+		).resize(); // Trigger resize handler
+		
+		$('#table-button').click(
+			function() 
+			{
+				var className = 'mdl-button--fab';
+				if ($(this).hasClass(className))
+					return;
+				$(this).addClass(className);
+				$('#card-button').removeClass(className);
+				$('table.full-size').show();
+				//$('table.full-size tbody').show();
+				//ShowHeaders();
+				$('div.card-box').hide();
+				$('div.card-sorting-menu').hide();
+				
+				ResizeTableHeader();
+				SetTableHeightForOffice();
+			}
+		);
+		
+		/******************************
+			ACTIONS WITH CARDS
+		******************************/
+		
+		
+		$('#card-button').click(
+			function() 
+			{
+				var className = 'mdl-button--fab';
+				if ($(this).hasClass(className))
+					return;
+				$(this).addClass(className);
+				$('#table-button').removeClass(className);
+				$('div.card-box').show();
+				$('div.card-sorting-menu').show();
+				$('table.full-size').hide();
+				//$('table.full-size tbody').hide();
+				//HideHeaders();
+			}
+		);
+		
+		
+		$('#card-groupSelectButton').click(
+			function()
+			{
+				ResetTableParametres();
+				SelectHomeGroup();
+				CheckResetButton();
+			}
+		);
+		
+		$("button#card-idReset").on("click", 
+			function()
+			{			
+				ResetTableParametres();		
+				
+				$(this).fadeOut("fast");
+				$("button#idReset").fadeOut("fast");
+			}
+		);
+		
+		$("#card-searchInput").on("propertychange input change keyup paste click", 
+			function() 
+			{			
+				$("#workgroupSelect, #workStateSelect, #roomSelect").val("");
+				var inputText = escapeHtml($(this).val());
+				$('#searchInput').val(inputText);
+				FilterPeople(inputText);
+				
+				if (inputText != '')
+				{
+					$(this).parent().addClass('is-dirty');
+					$('#searchInput').parent().addClass('is-dirty');
+				}
+				else
+				{
+					$(this).parent().removeClass('is-dirty');
+					$('#searchInput').parent().removeClass('is-dirty');
+				}
+				
+				CheckResetButton();						
+			}
+		);
+		
 	}		
 );
