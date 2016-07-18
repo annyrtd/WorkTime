@@ -1,6 +1,6 @@
 ﻿{
 	"manifest_version": 2,
-	"name": "With MDL",
+	"name": "TimeTrackingPortal",
 	"version": "1.0",
 	"icons": {
 		"128": "images/clock.png"
@@ -48,6 +48,6 @@
 	
 	"browser_action": {
 		"default_icon": "images/clock.png",
-		"default_title": "Work Time"
+		"default_title": "TimeTrackingPortal"
     }	
 }

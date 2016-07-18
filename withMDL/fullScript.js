@@ -209,34 +209,48 @@ function ChangeButtonsToMD()
 
 function ChangeTextInputToMD(index)
 {	
-	$(this).addClass("mdl-textfield__input")
+
+	var nodes = [], values = [];
+	for (var att, i = 0, atts = $(this).get(0).attributes, n = atts.length; i < n; i++) {
+		att = atts[i];
+		nodes.push(att.nodeName);
+		values.push(att.nodeValue);
+	}
+	
+	var input = $('<input></input>');
+	for (i = 0; i < nodes.length; i++)
+	{
+		input.attr(nodes[i], values[i]);
+	}
+
+	input.addClass("mdl-textfield__input")
 	.css("fontSize", "11pt");
 	
 	var id;
-	if ($(this).attr("id"))
+	if (input.attr("id"))
 	{
-		id = $(this).attr("id");
+		id = input.attr("id");
 	}
 	else
 	{
-		id = $(this).attr("name") + "_" + index;
-		$(this).attr("id", id);		
-	}
-	
+		id = input.attr("name") + "_" + index;
+		input.attr("id", id);		
+	}	
 
 	var labelForInput = $("<label></label>", {
 		"class": "mdl-textfield__label",
 		"for": id
-	}).append($(this).attr("placeholder"));	
+	}).append(input.attr("placeholder"));	
 	
-	$(this).attr("placeholder", "");
+	input.attr("placeholder", "");
 	
 	var div = $("<div></div>", {
 		"class": "mdl-textfield mdl-js-textfield"
 	});
 	
 	$(this).after(div);
-	div.append($(this), labelForInput);	
+	div.append(input, labelForInput);
+	$(this).remove();
 	
 	componentHandler.upgradeElement(div.get(0));
 }

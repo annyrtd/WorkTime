@@ -516,11 +516,41 @@ function FilterGroup()
 					$(this).parent().hide();
 			}
 		);
+		
+		$('.card-square').each(
+			function()
+			{
+				var span = $(this).children('div.mdl-card__supporting-text').first()
+									.children('span.workgroup').first();
+				if (span) 
+				{
+					$(this).hide();
+				}
+				else
+				{
+					$(this).show();
+				}
+			}
+		);		
+		
 		return;
 	}
 	var cellsThatContainInputText = 'td.workgroup:contains("' + inputText + '")';
 	$(cellsThatContainInputText).parent().not("[style='display: none;']").show();				
 	$('td.workgroup').not(cellsThatContainInputText).parent().hide();
+	
+	$('.card-square').not("[style='display: none;']").each(
+		function()
+		{
+			if ($(this)
+					.children('div.mdl-card__supporting-text').first()
+					.children('span.workgroup').first().text()				
+					!= inputText) 
+			{
+				$(this).hide();
+			}
+		}
+	);	
 }
 
 function FilterWorkState()
@@ -550,6 +580,21 @@ function FilterWorkState()
 			}
 		}
 	);
+	
+	$(".card-square").not('[style="display: none;"]').each(
+		function(index)
+		{
+			if ($(this).children("div.mdl-card__menu").first().children("img").attr("src").indexOf(inputText) > -1)
+			{
+				$(this).show();
+			}
+			else
+			{							
+				$(this).hide();
+			}
+		}
+	);
+	
 	var newTitle = $("select#workStateSelect option").filter(":selected").attr("title");
 	var color = $("select#workStateSelect option").filter(":selected").attr("id").replace("option_ball_", "");
 	switch(color)
@@ -591,11 +636,41 @@ function FilterRoom()
 					$(this).parent().hide();
 			}
 		);
+		
+		$('.card-square').each(
+			function()
+			{
+				var span = $(this).children('div.mdl-card__supporting-text').first()
+									.children('span.room').first();
+				if (span) 
+				{
+					$(this).hide();
+				}
+				else
+				{
+					$(this).show();
+				}
+			}
+		);	
+		
 		return;
 	}
 	var cellsThatContainInputText = 'td.room:contains("' + inputText + '")';
 	$(cellsThatContainInputText).parent().not('[style="display: none;"]').show();				
-	$('td.room').not(cellsThatContainInputText).parent().hide();			
+	$('td.room').not(cellsThatContainInputText).parent().hide();
+
+	$('.card-square').not("[style='display: none;']").each(
+		function()
+		{
+			if ($(this)
+					.children('div.mdl-card__supporting-text').first()
+					.children('span.room').first().text()				
+					!= inputText) 
+			{
+				$(this).hide();
+			}
+		}
+	);		
 }
 
 
@@ -708,6 +783,19 @@ function SelectHomeRoom()
 	var cellsThatContainInputText = 'td.room:contains("' + inputText + '")';
 	$(cellsThatContainInputText).parent().not('[style="display: none;"]').show();				
 	$('td.room').not(cellsThatContainInputText).parent().hide();	
+	
+	$('.card-square').each(
+		function()
+		{
+			if ($(this)
+					.children('div.mdl-card__supporting-text').first()
+					.children('span.room').first().text()				
+					!= inputText) 
+			{
+				$(this).hide();
+			}
+		}
+	);
 }
 
 function GetMyRoomNumber()
