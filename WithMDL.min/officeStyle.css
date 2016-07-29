@@ -11,10 +11,14 @@
 	/*font-size: 12px !important;*/
 }
 
+span.workgroup {
+	color: #6b6b6b;
+}
+
 .rowDiv {
 	display: flex;    
 	align-items: center;
-	padding: 7px 0px;
+	margin: 7px 0px;
 }
 
 .rowDiv i {
@@ -57,7 +61,7 @@
 
 .card-square.mdl-card {
 	width: 320px;
-	height: 320px;
+	height: auto;
 	margin: 10px 30px; 
 	margin-left: 0px; 
 	background: #fafafa;
@@ -83,13 +87,17 @@
 	display: none;
 }
 
-.card-square  a i {
+.card-square  a i, .card-square  a span.email {
 	color: black;
 }
 
-.card-square  a i:hover {
+.card-square  a:hover .rowDiv i  {
 	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.4);	
 	background: rgba(0,0,0,0.2);	
+}
+
+.card-square  a:hover .rowDiv span.email {
+	text-decoration: underline;	
 }
 
 

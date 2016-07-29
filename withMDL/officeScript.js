@@ -1135,12 +1135,14 @@ function getMDLCard(tr, index)
 	var email = tr.find('td.indicator.mail a img').attr('title');
 	var emailSpan = $('<span class="email"></span>').append(email);
 	var emailIcon = $('<i class="material-icons">email</i>');
-	var emailLink = $('<a></a>', {
-		href: tr.find('td.indicator.mail a').attr('href')		
-	}).append(emailIcon);
+	
 	var emailDiv = $('<div></div>', {
 		'class': 'rowDiv'
-	}).append(emailLink, emailSpan);
+	}).append(emailIcon, emailSpan);
+	
+	var emailLink = $('<a></a>', {
+		href: tr.find('td.indicator.mail a').attr('href')		
+	}).append(emailDiv);
 	
 	
 	var titleDivSmall = $('<div></div>', {
@@ -1165,7 +1167,7 @@ function getMDLCard(tr, index)
 	.append(phonesecond ? phonesecondDiv : '')	
 	.append(phonethird ? phonethirdDiv : '')
 	.append(room ?  roomDiv : '')
-	.append(email ?  emailDiv : '')
+	.append(email ?  emailLink : '')
 	
 	
 	var menu = $('<div></div>', {
