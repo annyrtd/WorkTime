@@ -520,8 +520,7 @@ function FilterGroup()
 		$('.card-square').each(
 			function()
 			{
-				var span = $(this).children('div.mdl-card__supporting-text').first()
-									.children('span.workgroup').first();
+				var span = $(this).find('span.workgroup').first();
 				if (span) 
 				{
 					$(this).hide();
@@ -542,9 +541,7 @@ function FilterGroup()
 	$('.card-square').not("[style='display: none;']").each(
 		function()
 		{
-			if ($(this)
-					.children('div.mdl-card__supporting-text').first()
-					.children('span.workgroup').first().text()				
+			if ($(this).find('span.workgroup').first().text()				
 					!= inputText) 
 			{
 				$(this).hide();
@@ -640,8 +637,7 @@ function FilterRoom()
 		$('.card-square').each(
 			function()
 			{
-				var span = $(this).children('div.mdl-card__supporting-text').first()
-									.children('span.room').first();
+				var span = $(this).find('span.room').first();
 				if (span) 
 				{
 					$(this).hide();
@@ -662,9 +658,7 @@ function FilterRoom()
 	$('.card-square').not("[style='display: none;']").each(
 		function()
 		{
-			if ($(this)
-					.children('div.mdl-card__supporting-text').first()
-					.children('span.room').first().text()				
+			if ($(this).find('span.room').first().text()				
 					!= inputText) 
 			{
 				$(this).hide();
@@ -704,6 +698,8 @@ function SelectHomeGroup()
 		);
 		return;
 	}
+	
+	
 	var cellsThatContainInputText = 'td.workgroup:contains("' + inputText + '")';
 	$(cellsThatContainInputText).parent().not('[style="display: none;"]').show();				
 	$('td.workgroup').not(cellsThatContainInputText).parent().hide();	
@@ -711,9 +707,7 @@ function SelectHomeGroup()
 	$('.card-square').each(
 		function()
 		{
-			if ($(this)
-					.children('div.mdl-card__supporting-text').first()
-					.children('span.workgroup').first().text()				
+			if ($(this).find('span.workgroup').first().text()				
 					!= inputText) 
 			{
 				$(this).hide();
@@ -787,9 +781,7 @@ function SelectHomeRoom()
 	$('.card-square').each(
 		function()
 		{
-			if ($(this)
-					.children('div.mdl-card__supporting-text').first()
-					.children('span.room').first().text()				
+			if ($(this).find('span.room').first().text()				
 					!= inputText) 
 			{
 				$(this).hide();
@@ -1081,65 +1073,108 @@ function SetWorkerCards()
 
 function getMDLCard(tr, index)
 {	
-	var imagediv = $('<div id="person-image' + index + '" class="circular" ></div><br><br>');
+	var color = tr.children('td.indicator.workstate').children('i').first().css('color').replace('rgb', 'rgba');
+	color = color.substr(0, color.length - 1);
+	color += ',1)';
+
+	var imagediv = $('<div id="person-image' + index + '" class="circular" ></div>')
+	.css({
+		border: '4px solid ' + color,
+		background: color
+	});
 	
-	var h2 = $('<h2 class="mdl-card__title-text"></h2>')
+	var h2 = $('<div></div>', {
+		'class': 'bold personName'		
+	})
 	.css({
 		alignSelf: 'flex-start'
 	})
-	.append(tr.children('td.text.employee').html());
-	
-	var color = tr.children('td.indicator.workstate').children('i').first().css('color').replace('rgb', 'rgba');
-	color = color.substr(0, color.length - 1);
-	color += ',0.5)';
-	
-	var title = $('<div></div>', {
-		'class': 'mdl-card__title mdl-card--expand'
-	})
-	.css({
-		backgroundColor: color,
-		flexDirection: 'column'
-	})
-	.append(imagediv, h2);
+	.append(tr.children('td.text.employee').html());	
 	
 	var workgroup = tr.children('td.text.workgroup').text();
+	
 	var room = tr.children('td.text.room').text();
+	var roomSpan = $('<span class="room"></span>').append(room);
+	var roomIcon = $('<i class="material-icons">room</i>');
+	var roomDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	}).append(roomIcon, roomSpan);
+	
 	var info = tr.children('td.text.info').first();
+	var infoSpan = $('<span class="info"></span>').append(info.html());
+	var infoIcon = $('<i class="material-icons">info_outline</i>');
+	var infoDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	}).append(infoIcon, infoSpan);
+	
+	
+	
 	var phonefirst = tr.children('td.text.phone.first').text();
+	var phonefirstSpan = $('<span class="phone first"></span>').append(phonefirst);
+	var phonefirstIcon = $('<i class="material-icons">phonelink</i>');
+	var phonefirstDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	}).append(phonefirstIcon, phonefirstSpan);
+	
+	
 	var phonesecond = tr.children('td.text.phone.second').text();
+	var phonesecondSpan = $('<span class="phone second"></span>').append(phonesecond);
+	var phonesecondIcon = $('<i class="material-icons">smartphone</i>');
+	var phonesecondDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	}).append(phonesecondIcon, phonesecondSpan);
+	
+	
 	var phonethird = tr.children('td.text.phone.third').text();
+	var phonethirdSpan = $('<span class="phone third"></span>').append(phonethird);
+	var phonethirdIcon = $('<i class="material-icons">phone</i>');
+	var phonethirdDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	}).append(phonethirdIcon, phonethirdSpan);
+	
+	var email = tr.find('td.indicator.mail a img').attr('title');
+	var emailSpan = $('<span class="email"></span>').append(email);
+	var emailIcon = $('<i class="material-icons">email</i>');
+	var emailLink = $('<a></a>', {
+		href: tr.find('td.indicator.mail a').attr('href')		
+	}).append(emailIcon);
+	var emailDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	}).append(emailLink, emailSpan);
+	
+	
+	var titleDivSmall = $('<div></div>', {
+		'class': 'rowDiv titleDivSmall'
+	})
+	.append(h2)
+	.append(workgroup ? '<span class="workgroup">' + workgroup + '</span>' : '');
+	
+	
+	var rowDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	})
+	.append(imagediv, titleDivSmall);
 	
 	
 	var supportingtext = $('<div></div>', {
 		'class': 'mdl-card__supporting-text'
 	})
-	.append(workgroup ? '<span class="bold workgroup">' + workgroup + '</span><br>' : '<br>')
-	.append(room ? '<span class="room">' + room + '</span><br><br>' : '<br><br>')
-	.append(info ? info.html() + '<br><br>' : '<br><br>')
-	.append(phonefirst ? 'Tел.: <span class="phone first">' + phonefirst + '</span><br>' : '<br>')
-	.append(phonesecond ? 'Моб.тел.: <span class="phone second">' + phonesecond + '</span><br>' : '<br>')
-	.append(phonethird ? 'Дом.тел.: <span class="phone third">' + phonethird + '</span><br>' : '<br>')
+	.append(rowDiv)
+	.append(info.html().trim() ? infoDiv : '')	
+	.append(phonefirst ? phonefirstDiv : '')	
+	.append(phonesecond ? phonesecondDiv : '')	
+	.append(phonethird ? phonethirdDiv : '')
+	.append(room ?  roomDiv : '')
+	.append(email ?  emailDiv : '')
 	
 	
 	var menu = $('<div></div>', {
 		'class': 'mdl-card__menu'
 	})
+	.css({
+		display: 'none'
+	})
 	.append(tr.children('td.indicator.workstate').html())
-	.append(tr.children('td.indicator.mail').html())
-	
-	var idstatus = 'card-' + menu.children('i').first().attr('id');
-	var tooltip1 = menu.children('div.mdl-tooltip').first();
-	var icon1 = menu.children('i').first();
-	icon1.attr('id', idstatus);
-	tooltip1.attr('for', idstatus);
-	tooltip1.removeAttr('data-upgraded');
-	
-	var idemail = 'card-' + menu.children('a').first().children('i').first().attr('id');
-	var tooltip2 = menu.children('a').first().children('div.mdl-tooltip').first();
-	var icon2 = menu.children('a').first().children('i').first()
-	icon2.attr('id', idemail);
-	tooltip2.attr('for', idemail);	
-	tooltip2.removeAttr('data-upgraded');
 	
 	if (info.children('span.hidden-text').length > 0)
 	{
@@ -1161,7 +1196,7 @@ function getMDLCard(tr, index)
 	.css({
 		'order': index
 	})
-	.append(title, supportingtext, menu);	
+	.append(/*title, */supportingtext , menu);	
 	
 	return maindiv;	
 }
@@ -1263,10 +1298,10 @@ function FilterPeople(inputText)
 	.css("color", "white")
 	.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");	
 	
-	var cardcells = 'div.card-square > div.mdl-card__title > h2.mdl-card__title-text';
+	var cardcells = 'div.card-square > div.mdl-card__supporting-text > div.rowDiv > div.rowDiv.titleDivSmall > div.personName';
 	var cardcellsThatContainInputText = cardcells + ':contains("' + inputText + '")';
-	$(cardcellsThatContainInputText).parent().parent().show();	
-	$(cardcells).not(cardcellsThatContainInputText).parent().parent().hide();
+	$(cardcellsThatContainInputText).parent().parent().parent().parent().show();	
+	$(cardcells).not(cardcellsThatContainInputText).parent().parent().parent().parent().hide();
 }
 
 function SetProfileImages()
@@ -1288,9 +1323,7 @@ function SetProfileImages()
 		function() {
 			var self = $(this);
 			
-			var email = self.children('div.mdl-card__menu').first()
-				.children('a[href^="mailto:"]').first()
-				.attr('href').replace('mailto:', '');
+			var email = self.find('span.email').first().text();
 			
 			if (email)
 			{
@@ -1300,7 +1333,8 @@ function SetProfileImages()
 					
 					if (src) 
 					{
-						self.children('div.mdl-card__title').first()
+						self.children('div.mdl-card__supporting-text').first()
+						.children('div.rowDiv').first()
 						.children('div.circular').first()
 						.css({
 							background: 'url("' + src + '") no-repeat',

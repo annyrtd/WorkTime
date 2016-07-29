@@ -1,8 +1,32 @@
 ﻿.circular {
-	height: 96px;
-	width: 96px;
+	height: 40px;
+	width: 40px;
 	border-radius: 50%;
 	align-self: flex-start;
+	margin-right: 16px;
+}
+
+.titleDivSmall div.bold, .titleDivSmall span {
+	
+	/*font-size: 12px !important;*/
+}
+
+.rowDiv {
+	display: flex;    
+	align-items: center;
+	padding: 7px 0px;
+}
+
+.rowDiv i {
+	margin-right: 16px;
+}
+
+
+.titleDivSmall {
+	flex-direction: column;    
+	justify-content: center;
+	align-items: flex-start;
+	line-height: 16px;
 }
 
 #toggle-div {
@@ -36,6 +60,7 @@
 	height: 320px;
 	margin: 10px 30px; 
 	margin-left: 0px; 
+	background: #fafafa;
 }
 
 .card-square > .mdl-card__title {
@@ -44,8 +69,8 @@
 
 .card-square > .mdl-card__supporting-text, 
 .card-square > .mdl-card__supporting-text > span {
-	font-size: 11px;
-	line-height: 12px;
+	/*font-size: 12px;*/
+	line-height: 14px;
 }
 
 .mdl-tooltip {
@@ -54,13 +79,27 @@
     overflow: hidden
 }
 
+.card-square  .mdl-card__menu {
+	display: none;
+}
+
+.card-square  a i {
+	color: black;
+}
+
+.card-square  a i:hover {
+	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.4);	
+	background: rgba(0,0,0,0.2);	
+}
+
+
 i {
 	outline: none;
 }
 
 .bold {
 	font-weight: bold !important;	
-	font-size: 12px !important;
+	/*font-size: 12px !important;*/
 }
 
 #searchDiv
