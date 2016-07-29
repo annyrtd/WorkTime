@@ -63,7 +63,7 @@ function HideCellsInTableBody()
 					}
 				}
 			);
-			if ($(this).attr("class") == "future")
+			if ($(this).hasClass("future"))
 			{
 				$(this).children("td.time").hide();
 				$(this).children().not("td[class]").each(
@@ -118,7 +118,7 @@ function HideAllCellsInTableBodyWhenNoReport()
 					}
 				}
 			);
-			if ($(this).attr("class") == "future")
+			if ($(this).hasClass("future"))
 			{
 				$(this).children("td.time").hide();
 				$(this).children().not("td[class]").each(
@@ -881,7 +881,7 @@ function AddRowBetweenWeeksWithWeekNumber()
 	.each(
 		function(index)
 		{
-			if ($(this).prev().attr("class") != "intervalRow")
+			if (!$(this).prev().hasClass("intervalRow"))
 			{
 				if (orderOfDays[$(this).children().first().text()]  <= orderOfDays[previousDay.children().first().text()])
 				{		
@@ -930,8 +930,8 @@ function DivideDayoffIntoParts()
 	$("tr.intervalRow").each(
 		function(index)
 		{
-			if ($(this).prev().attr("class") == "dayoff" 
-				&& $(this).next().attr("class") == "dayoff" 
+			if ($(this).prev().hasClass("dayoff")
+				&& $(this).next().hasClass("dayoff")
 				&& $(this).next().children("td.dayoff").length == 0
 				&& $(this).next().children('td.time').length == 0)
 			{		
@@ -1342,7 +1342,7 @@ $(document).ready
 				$(this).nextAll().each(
 					function()
 					{
-						if ($(this).attr("class") == "intervalRow")
+						if ($(this).hasClass("intervalRow"))
 						{
 							shouldBeHidden = true;
 						}
