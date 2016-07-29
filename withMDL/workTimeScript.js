@@ -175,16 +175,17 @@ function CreateFlex()
 function AddConclusionForMonth()
 {		
 	var currentTime = GetAlreadyWorkedTimeForMonth();	
+    var reportTimeForMonth = GetSumReportTimeForMonth();
 	if ($("#NetTime") !== undefined)
 	{
 		if ($("#NetTime").children("option[selected]").val() == "Yes")
 		{
 			currentTime = SumOfTime(currentTime, GetTimeOfHolidays());
+			reportTimeForMonth = SumOfTime(reportTimeForMonth, GetTimeOfHolidays());
 		}
 	}
 	var thisDayLeft = GetCurrentTimeForCurrentDay();
-	var timeForMonthLeft = DifferenceOfTime(GetTimeForMonthLeft(), thisDayLeft);
-    var reportTimeForMonth = GetSumReportTimeForMonth();	
+	var timeForMonthLeft = DifferenceOfTime(GetTimeForMonthLeft(), thisDayLeft);	
 	var currentTimeClass;
 	
 	if (thisDayLeft.indexOf("-") > -1)
@@ -438,15 +439,16 @@ function AddConclusionForWeek()
 	
 	var currentTime = GetCurrentTimeForWeek();
 	
+	var reportTimeForWeek = GetSumReportTimeForWeek();
+	
 	if ($("#NetTime") !== undefined)
 	{
 		if ($("#NetTime").children("option[selected]").val() == "Yes")
 		{
 			currentTime = SumOfTime(currentTime, GetTimeOfHolidaysForWeek());
+			reportTimeForWeek = SumOfTime(reportTimeForWeek, GetTimeOfHolidaysForWeek());
 		}
-	}
-	
-	var reportTimeForWeek = GetSumReportTimeForWeek();
+	}	
 	
 	var label2_1 = $("<label></label>", {
 		id: "text_thisDayLeft_week",
@@ -935,7 +937,17 @@ function DivideDayoffIntoParts()
 				&& $(this).next().children("td.dayoff").length == 0
 				&& $(this).next().children('td.time').length == 0)
 			{		
-				var newDayoff = $("td.dayoff").first().clone();
+				var rows = $(this).nextUntil(".intervalRow").filter("tr.dayoff");				
+				var newDayoff = $("td.dayoff").first().clone();			
+				
+				for (var i = rows.length - 1; i >=0 ; i--) {					
+					if ($(rows[i]).children('td.dayoff').length > 0)
+					{
+						newDayoff = $(rows[i]).children('td.dayoff').first().clone();
+						break;
+					}
+				}
+				
 				$(this).next().append(newDayoff);				
 			}
 		}
@@ -1044,6 +1056,9 @@ function CreateSettings()
 			{
 				$("#currentTime").text(SumOfTime(GetAlreadyWorkedTimeForMonth(), GetTimeOfHolidays()));
 				$("#currentTime_week").text(SumOfTime(GetCurrentTimeForWeek(), GetTimeOfHolidaysForWeek()));
+				$("#reportTimeForMonth").text(SumOfTime(GetSumReportTimeForMonth(), GetTimeOfHolidays()));
+				$("#reportTimeForWeek_week").text(SumOfTime(GetSumReportTimeForWeek(), GetTimeOfHolidaysForWeek()));
+				
 			}
 			else
 			{
