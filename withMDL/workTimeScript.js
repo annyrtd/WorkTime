@@ -937,13 +937,13 @@ function DivideDayoffIntoParts()
 				&& $(this).next().children("td.dayoff").length == 0
 				&& $(this).next().children('td.time').length == 0)
 			{		
-				var rows = $(this).nextUntil(".intervalRow").filter("tr.dayoff");				
+				var rows = $(this).prevUntil(".intervalRow").filter("tr.dayoff");
 				var newDayoff = $("td.dayoff").first().clone();			
 				
-				for (var i = rows.length - 1; i >=0 ; i--) {					
+				for (var i = 0; i < rows.length; i++) {								
 					if ($(rows[i]).children('td.dayoff').length > 0)
 					{
-						newDayoff = $(rows[i]).children('td.dayoff').first().clone();
+						newDayoff = $(rows[i]).children('td.dayoff').first().clone();						
 						break;
 					}
 				}
