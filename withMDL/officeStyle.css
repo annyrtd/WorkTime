@@ -1,6 +1,6 @@
 ﻿.circular {
-	height: 40px;
-	width: 40px;
+	height: 64px;
+	width: 64px;
 	border-radius: 50%;
 	align-self: flex-start;
 	margin-right: 16px;
@@ -16,9 +16,10 @@ span.workgroup {
 }
 
 .rowDiv {
+	line-height: 40px;
 	display: flex;    
 	align-items: center;
-	margin: 7px 0px;
+	padding: 0px 16px;
 }
 
 .rowDiv i {
@@ -65,12 +66,18 @@ span.workgroup {
 	margin: 10px 30px; 
 	margin-left: 0px; 
 	background: #fafafa;
+	padding: 16px 0px !important;
 }
 
 .card-square > .mdl-card__title {
 	width: 100%;
 }
 
+.card-square > .mdl-card__supporting-text {
+	padding: 0 !important;
+	width: 100% !important;
+}
+ 
 .card-square > .mdl-card__supporting-text, 
 .card-square > .mdl-card__supporting-text > span {
 	/*font-size: 12px;*/
@@ -91,6 +98,11 @@ span.workgroup {
 	color: black;
 }
 
+.card-square  a:hover .rowDiv{
+	background-color: rgba(255, 171, 64, 0.5);
+}
+
+/*
 .card-square  a:hover .rowDiv i  {
 	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.4);	
 	background: rgba(0,0,0,0.2);	
@@ -98,7 +110,7 @@ span.workgroup {
 
 .card-square  a:hover .rowDiv span.email {
 	text-decoration: underline;	
-}
+}*/
 
 
 i {
