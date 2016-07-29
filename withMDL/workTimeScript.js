@@ -258,6 +258,7 @@ function AddConclusionForMonth()
 	{
 		$("#span_timeForMonthOrWeekLeft").hide();
 		
+		/*
 		var today = new Date();		
 		var mm = today.getMonth()+1; //January is 0!
 		var yyyy = today.getFullYear();
@@ -266,7 +267,7 @@ function AddConclusionForMonth()
 		if ((window.location.search == '' || window.location.search == today) && !isLastDayOfMonth())
 		{
 			$("#span_reportTimeForMonth").hide();
-		}
+		}*/
 	}
 	
 	AddTooltipAbout30Minutes();
