@@ -772,20 +772,21 @@ function SeparateStartAndFinish()
 		function()
 		{
 			var start = "", finish = "", positionCurrent, startCurrent = "", finishCurrent = "";
-			var timeRange = "";
+			var timeRange = "", timeRangeSpan;
 			
 			$(this).children("span").each(
 				function()
 				{
-					timeRange = $(this).text();
+					timeRangeSpan = $(this);
+					timeRange = timeRangeSpan.text();
 					if (timeRange == 'Англ')
 					{
-						$(this).parent().nextAll('td.note.text').first().prepend('Англ.<br>');
+						timeRangeSpan.parent().nextAll('td.note.text').first().prepend('Англ.<br>');
 					}
 					
 					if (timeRange == " ... ")
 					{
-						timeOfLeavingSpan_title = $(this).attr("title");
+						timeOfLeavingSpan_title = timeRangeSpan.attr("title");
 						finish += "<span id='" + timeOfLeavingSpan_id + "'>...</span>"
 						+ "<br>";
 					}
@@ -800,6 +801,8 @@ function SeparateStartAndFinish()
 						{
 							finish += finishCurrent + "<br>";
 						}
+					} else {
+						timeRangeSpan.parent().nextAll('td.note.text').first().append(timeRangeSpan);
 					}
 				}
 			);
@@ -856,6 +859,15 @@ function SeparateStartAndFinish()
 	)
 	
 	ChangeTitleToMDTooltip(timeOfLeavingSpan_id, timeOfLeavingSpan_title);
+	$('table.full-size td.note.text span.hidden-text').each(
+		function(index) {
+			var id = 'spaninfo' + index;
+			$(this).attr('id', id);
+			ChangeTitleToMDTooltip(id, $(this).attr('title'));
+			$(this).removeAttr('title');
+		}
+	);
+	
 }
 
 function AddWarningForEmptyTime(type)

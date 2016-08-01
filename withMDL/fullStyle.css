@@ -19,9 +19,7 @@ rgb(255,171,64) - orange
 	font-family: Roboto, sans-serif !important;
 }
 
-table.full-size 
-{
-    		
+table.full-size  {    		
 	width: auto !important;
 }
 
@@ -539,7 +537,7 @@ main.mdl-layout__content
 
 table.full-size tr
 {
-	height: 30px;
+	height: 40px;
 }
 
 div.holiday-box
