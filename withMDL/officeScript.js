@@ -770,7 +770,7 @@ function SelectHomeRoom()
 	
 	var inputText = GetMyRoomNumber();
 	$("#roomSelect").val(inputText);
-	$('#groupMenuSpan').text(inputText);
+	$('#roomMenuSpan').text(inputText);
 	
 	if (inputText == "")
 	{
