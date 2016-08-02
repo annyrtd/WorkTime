@@ -207,20 +207,7 @@ function SetClassesOnColumns()
 // добавляют select на колонки 
 function CreateSelectForGroups()
 {
-	var arrayOfGroupNames = [];
-	
-	$("table.full-size > tbody > tr").each(
-		function (index)
-		{
-			var newOption = $(this).children("td.workgroup").text();
-			if (arrayOfGroupNames.indexOf(newOption) < 0)
-			{
-				arrayOfGroupNames.push(newOption)
-			}
-		}
-	);
-	
-	arrayOfGroupNames.sort();
+	var arrayOfGroupNames = GetGroupNames();
 	
 	var button, tooltip;
 	if (IsMyHomeOffice())
@@ -235,7 +222,7 @@ function CreateSelectForGroups()
 		id: "workgroupSelect",
 		title: "Выберите группу"
 	})
-	.append("<option value=''>Группы</option>");
+	.append("<option value=''>Группа</option>");
 	
 	for (var i = 0; i < arrayOfGroupNames.length; i++)
 	{
@@ -263,6 +250,26 @@ function CreateSelectForGroups()
 	}
 }
 
+function GetGroupNames() {
+	
+	var arrayOfGroupNames = [];
+	
+	$("table.full-size > tbody > tr").each(
+		function (index)
+		{
+			var newOption = $(this).children("td.workgroup").text();
+			if (arrayOfGroupNames.indexOf(newOption) < 0)
+			{
+				arrayOfGroupNames.push(newOption)
+			}
+		}
+	);
+	
+	arrayOfGroupNames.sort();
+	
+	return arrayOfGroupNames;
+}
+
 function CreateSelectOnWorkState()
 {
 	var select = $("<select></select>", {
@@ -280,20 +287,7 @@ function CreateSelectOnWorkState()
 
 function CreateSelectOnRoom()
 {
-	var arrayOfRoomNumbers = [];
-	
-	$("table.full-size > tbody > tr").each(
-		function (index)
-		{
-			var newOption = $(this).children("td.room").text();
-			if (arrayOfRoomNumbers.indexOf(newOption) < 0)
-			{
-				arrayOfRoomNumbers.push(newOption)
-			}
-		}
-	);
-	
-	arrayOfRoomNumbers.sort();
+	var arrayOfRoomNumbers = GetRoomNumbers();
 	
 	var button, tooltip;
 	if (IsMyHomeOffice())
@@ -332,6 +326,26 @@ function CreateSelectOnRoom()
 	{		
 		$("th.text").eq(6).append(select);
 	}
+}
+
+function GetRoomNumbers() {
+	
+	var arrayOfRoomNumbers = [];
+	
+	$("table.full-size > tbody > tr").each(
+		function (index)
+		{
+			var newOption = $(this).children("td.room").text();
+			if (arrayOfRoomNumbers.indexOf(newOption) < 0)
+			{
+				arrayOfRoomNumbers.push(newOption)
+			}
+		}
+	);
+	
+	arrayOfRoomNumbers.sort();
+	
+	return arrayOfRoomNumbers;
 }
 
 function IsMyHomeOffice()
@@ -679,6 +693,7 @@ function SelectHomeGroup()
 	
 	var inputText = GetMyGroupName();	
 	$("#workgroupSelect").val(inputText);
+	$('#groupMenuSpan').text(inputText);
 	
 	if (inputText == "")
 	{
@@ -755,6 +770,7 @@ function SelectHomeRoom()
 	
 	var inputText = GetMyRoomNumber();
 	$("#roomSelect").val(inputText);
+	$('#groupMenuSpan').text(inputText);
 	
 	if (inputText == "")
 	{
@@ -851,7 +867,7 @@ function CreateSettingsForLang()
 		function()
 		{
 			$("#settings").hide();
-			$("#settings").prepend("<br><br><label><b>Настройки:</b></label><br>");
+			$("#settings").prepend("<br><br><label><b>Настройки:</b></label>");
 			$("#ReturnTo").val("/" + window.location.search);
 			$("#settings a").hide();
 			$("#settings label").removeAttr("for");
@@ -863,6 +879,13 @@ function CreateSettingsForLang()
 			
 			$("div.table-form").hide();
 			$("div.table-form").first().show();
+			$("div.table-form").eq(4).show();
+			
+			$("div.table-form").eq(4).children('label').text('Вид по умолчанию:')
+			$('select#SummaryWithoutToday option[value=No]').text('Таблица');
+			$('select#SummaryWithoutToday option[value=Yes]').text('Карточки');
+			
+			ChangeTableCardMode();
 			
 			ReplaceInput.apply($("form[action='/Preferences/Edit'] input[type=submit]").get(0));
 			ChangeButtonsToMD.apply($("form[action='/Preferences/Edit'] button.inputReplaceButton").get(0));
@@ -993,6 +1016,9 @@ function ResetTableParametres()
 	$('.card-square').show();
 	$("table.full-size > tbody > tr").show();
 	$("#workgroupSelect, #workStateSelect, #roomSelect").val("");
+	$('#workstateMenu').attr('datavalue', '')
+	$('#groupMenuSpan').text('Группа');
+	$('#roomMenuSpan').text('Комната');
 				
 	$("#searchInput").val("").parent().removeClass("is-dirty");
 	$("#card-searchInput").val("").parent().removeClass("is-dirty");
@@ -1040,6 +1066,21 @@ function AddToggleButtonTableAndCards()
 	componentHandler.upgradeElement(tooltip2.get(0));
 	
 	div.append(tooltip1, tooltip2);
+	
+	
+	if ($('select#SummaryWithoutToday').length > 0) {
+		ChangeTableCardMode();
+	}
+}
+
+function ChangeTableCardMode() {
+	if ($('select#SummaryWithoutToday option:selected').val() == 'No') {
+		$('#table-button').click();
+		$('.mdl-tooltip.is-active').removeClass('is-active');
+	} else {
+		$('#card-button').click();
+		$('.mdl-tooltip.is-active').removeClass('is-active');
+	}
 }
 
 function SetWorkerCards()
@@ -1209,6 +1250,10 @@ function AddSortingMenuForCards()
 		'class': 'card-sorting-menu toggle'
 	})
 	
+	/******************/
+	/** Home Buttons **/
+	/******************/
+	
 	var homeGroupButton, tooltipHomeGroupButton	
 	var homeRoomButton, tooltipHomeRoomButton;
 	if (IsMyHomeOffice())
@@ -1221,6 +1266,12 @@ function AddSortingMenuForCards()
 			+'  mdl-button--accent mdl-js-ripple-effect"><i class="material-icons">weekend</i></button>')
 		tooltipHomeRoomButton = $('<div class="mdl-tooltip" for="card-roomSelectButton">Моя комната</div>');	
 	}
+	
+	
+	/******************/
+	/** Reset Button **/
+	/******************/
+	
 	var resetIcon = $('<i class="material-icons">clear</i>');
 	var resetButton = $('<button></button>', {
 		"id": "card-idReset",
@@ -1229,6 +1280,139 @@ function AddSortingMenuForCards()
 	}).append(resetIcon);	
 	
 	var tooltipResetButton = $('<div class="mdl-tooltip" for="card-idReset">Сбросить<br>фильтры</div>');
+	
+	/******************/
+	/** State Select **/
+	/******************/	
+	
+	var statemenuId = 'workstateMenu';
+	
+	var stateIcon = $('<i class="material-icons">lens</i>');
+	
+	var stateButton = $('<button></button>', {
+		id: statemenuId,
+		'class': 'mdl-button mdl-js-button mdl-button--icon',
+		datavalue: ''
+	}).append(stateIcon);
+	
+	//var stateColors = ['white', '#8bc349', 'rgb(63, 81, 181)', '#ffeb3b', 'gray'];	
+	var stateText = ['', 'На работе', 'Работает удаленно', 'Закончил работу', 'Отсутствует'];
+	var stateValues = ['', '/Content/ball_green.png', '/Content/ball_blue.png', '/Content/ball_yellow.png', '/Content/ball_gray.png'];
+	var li, ic;
+	
+	var stateUl = $('<ul></ul>', {
+		'class': 'mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect',
+		'for': statemenuId
+	});
+	
+	for(var i = 0; i < stateValues.length; i++) {		
+		ic = $('<i class="material-icons">lens</i>');
+		
+		li = $('<li></li>', {
+			'class': 'mdl-menu__item selectLi',
+			datavalue: stateValues[i],
+		})
+		.append(ic)
+		.append(stateText[i]);
+		
+		stateUl.append(li);
+	}
+	
+	var stateSelect = $('<div class="card-stateSelect"></div>')
+	.append(stateButton, stateUl);
+	
+	
+	/******************/
+	/** Group Select **/
+	/******************/
+	
+	var groupmenuId = 'groupMenu';
+	
+	var groupSpan = $('<span id="groupMenuSpan">Группа</span>');
+	
+	var groupButton = $('<button></button>', {
+		id: groupmenuId,
+		'class': 'mdl-button mdl-js-button',
+	})
+	.append(groupSpan);
+	
+	var arrayOfGroupNames = GetGroupNames();
+	var groupText = ['Группа'].concat(arrayOfGroupNames);
+	var groupValues = [''].concat(arrayOfGroupNames);
+	
+	
+	var groupUl = $('<ul></ul>', {
+		'class': 'mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect',
+		'for': groupmenuId
+	});
+	
+	var shouldGroupBeAdded = false;
+	
+	for(var i = 0; i < groupValues.length; i++) {		
+		li = $('<li></li>', {
+			'class': 'mdl-menu__item selectLi',
+			datavalue: groupValues[i],
+		})
+		.append(groupText[i]);
+		
+		if (groupValues[i]) {
+			shouldGroupBeAdded = true;
+		}
+		
+		groupUl.append(li);
+	}
+	
+	var groupSelect = $('<div class="card-groupSelect"></div>')
+	.append(groupButton, groupUl);
+	
+	
+	/******************/
+	/** Room Select **/
+	/******************/
+	
+	var roommenuId = 'roomMenu';
+	
+	var roomSpan = $('<span id="roomMenuSpan">Комната</span>');
+	
+	var roomButton = $('<button></button>', {
+		id: roommenuId,
+		'class': 'mdl-button mdl-js-button',
+	})
+	.append(roomSpan);
+	
+	var arrayOfRoomNumbers = GetRoomNumbers();
+	var roomText = ['Комната'].concat(arrayOfRoomNumbers);
+	var roomValues = [''].concat(arrayOfRoomNumbers);
+	
+	
+	var roomUl = $('<ul></ul>', {
+		'class': 'mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect',
+		'for': roommenuId
+	});
+	
+	var shouldRoomBeAdded = false;
+	
+	for(var i = 0; i < roomValues.length; i++) {		
+		li = $('<li></li>', {
+			'class': 'mdl-menu__item selectLi',
+			datavalue: roomValues[i],
+		})
+		.append(roomText[i]);
+		
+		if (roomValues[i]) {
+			shouldRoomBeAdded = true;
+		}
+		
+		roomUl.append(li);
+	}
+	
+	var roomSelect = $('<div class="card-roomSelect"></div>')
+	.append(roomButton, roomUl);
+	
+	/***************/
+	/** Appending **/
+	/***************/
+	
 	
 	$('#toggle-div').after(div);	
 	
@@ -1248,6 +1432,25 @@ function AddSortingMenuForCards()
 		componentHandler.upgradeElement(homeRoomButton.get(0));
 		componentHandler.upgradeElement(tooltipHomeRoomButton.get(0));	
 	}	
+	
+	div.append(stateSelect);
+	componentHandler.upgradeElement(stateButton.get(0));
+	componentHandler.upgradeElement(stateUl.get(0));
+	componentHandler.upgradeElement(stateSelect.get(0));
+	
+	if (shouldGroupBeAdded) {
+		div.append(groupSelect);
+		componentHandler.upgradeElement(groupButton.get(0));
+		componentHandler.upgradeElement(groupUl.get(0));
+		componentHandler.upgradeElement(groupSelect.get(0));
+	}
+	
+	if (shouldRoomBeAdded) {
+		div.append(roomSelect);
+		componentHandler.upgradeElement(roomButton.get(0));
+		componentHandler.upgradeElement(roomUl.get(0));
+		componentHandler.upgradeElement(roomSelect.get(0));
+	}
 	
 	div.append(resetButton, tooltipResetButton)
 	componentHandler.upgradeElement(resetButton.get(0));
@@ -1306,8 +1509,7 @@ function FilterPeople(inputText)
 	$(cardcells).not(cardcellsThatContainInputText).parent().parent().parent().parent().hide();
 }
 
-function SetProfileImages()
-{
+function SetProfileImages() {
 	var today = new Date();		
 	var day = today.getDate();
 	
@@ -1324,50 +1526,53 @@ function SetProfileImages()
 	$('div.card-square').each(
 		function() {
 			var self = $(this);
+			var item = self.children('div.mdl-card__supporting-text').first()
+						.children('div.rowDiv').first()
+						.children('div.circular').first();
 			
 			var email = self.find('span.email').first().text();
+			var src;
 			
 			if (email)
 			{
 				if (localStorage[email])
 				{
-					var src = localStorage[email];
+					src = localStorage[email];
 					
 					if (src) 
 					{
-						self.children('div.mdl-card__supporting-text').first()
-						.children('div.rowDiv').first()
-						.children('div.circular').first()
-						.css({
-							background: 'url("' + src + '") no-repeat',
-							backgroundSize: 'cover'
-						});
+						SetIndividualProfileImage(item, src);
 					}					
 				}
 				else {
 					$.get("http://confirmitconnect.firmglobal.com/Search/Pages/PeopleResults.aspx?k=" + email, {}, function(data, status, xhr) {
-
-						var updatedData = data.replace(/\/(_layouts|Style)+/g, "http://confirmitconnect.firmglobal.com/$1").replace('IMNRC', 'String.prototype.toLowerCase')
+						var updatedData = FixDownloadedDataForProfileImages(data);
 						var temp = $("<div></div>");
 						temp.html(updatedData);
 						
-						var src = temp.find('#CSR_IMG_1').attr('src');
+						src = temp.find('#CSR_IMG_1').attr('src');
 							
 						if (src) 
 						{
 							localStorage[email] = src;
-							self.children('div.mdl-card__title').first()
-							.children('div.circular').first()
-							.css({
-								background: 'url("' + src + '") no-repeat',
-								backgroundSize: 'cover'
-							});
+							SetIndividualProfileImage(item, src);
 						}
 					});
 				}
 			}
 		}
 	);
+}
+
+function SetIndividualProfileImage(item, src) {
+	item.css({
+		background: 'url("' + src + '") no-repeat',
+		backgroundSize: 'cover'
+	});
+}
+
+function FixDownloadedDataForProfileImages(data) {
+	return data.replace(/\/(_layouts|Style)+/g, "http://confirmitconnect.firmglobal.com/$1").replace('IMNRC', 'String.prototype.toLowerCase');
 }
 
 $(document).ready
@@ -1444,13 +1649,55 @@ $(document).ready
 		
 		$("#workgroupSelect, #workStateSelect, #roomSelect").change(
 			function ()
-			{
+			{	
+				var datavalueState = $("select#workStateSelect option").filter(":selected").val();
+				$('#workstateMenu').attr('datavalue', datavalueState);
+				
+				var datavalueGroup = $("select#workgroupSelect option").filter(":selected").text();
+				$('#groupMenuSpan').text(datavalueGroup);
+				
+				var datavalueRoom = $("select#roomSelect option").filter(":selected").text();
+				$('#roomMenuSpan').text(datavalueRoom);
+				
 				SetFilters();
 				ResizeTableHeader();
 				SetTableHeightForOffice();
 				CheckResetButton();
 			}
 		);
+		
+		$('.card-stateSelect li.selectLi').click(function () {
+			var datavalue = $(this).attr('datavalue');
+			$("select#workStateSelect").val(datavalue);
+			$('#workstateMenu').attr('datavalue', datavalue)
+			
+			SetFilters();
+			ResizeTableHeader();
+			SetTableHeightForOffice();
+			CheckResetButton();			
+		});
+		
+		$('.card-groupSelect li.selectLi').click(function () {
+			var datavalue = $(this).attr('datavalue');
+			$("select#workgroupSelect").val(datavalue);
+			$('#groupMenuSpan').text($(this).text());
+			
+			SetFilters();
+			ResizeTableHeader();
+			SetTableHeightForOffice();
+			CheckResetButton();			
+		});
+		
+		$('.card-roomSelect li.selectLi').click(function () {
+			var datavalue = $(this).attr('datavalue');
+			$("select#roomSelect").val(datavalue);
+			$('#roomMenuSpan').text($(this).text());
+			
+			SetFilters();
+			ResizeTableHeader();
+			SetTableHeightForOffice();
+			CheckResetButton();			
+		});
 		
 		
 		$(".arrowDiv").click(		
@@ -1565,8 +1812,6 @@ $(document).ready
 				$(this).addClass(className);
 				$('#card-button').removeClass(className);
 				$('table.full-size').show();
-				//$('table.full-size tbody').show();
-				//ShowHeaders();
 				$('div.card-box').hide();
 				$('div.card-sorting-menu').hide();
 				
@@ -1591,8 +1836,6 @@ $(document).ready
 				$('div.card-box').show();
 				$('div.card-sorting-menu').show();
 				$('table.full-size').hide();
-				//$('table.full-size tbody').hide();
-				//HideHeaders();
 			}
 		);
 		

@@ -112,6 +112,55 @@ span.workgroup {
 	text-decoration: underline;	
 }*/
 
+.selectLi.mdl-menu__item:hover {
+    background-color: rgba(255, 171, 64, 0.5) !important;
+}
+
+li.selectLi i{
+	display: block; 
+	padding-right: 8px;
+}
+	
+	
+li.selectLi {
+	width: 100%; 
+	display: inline-flex; 
+	align-items: center;
+}
+
+.card-stateSelect [datavalue=''] i{
+	color: white;
+	text-shadow: gray -1px 0px, gray 0px 1px, gray 1px 0px, gray 0px -1px;
+}
+
+.card-stateSelect [datavalue='/Content/ball_green.png'] i{
+	color: #8bc349;
+}
+
+.card-stateSelect [datavalue='/Content/ball_blue.png'] i{
+	color: rgb(63, 81, 181);
+}
+
+.card-stateSelect [datavalue='/Content/ball_yellow.png'] i{
+	color: #ffeb3b;
+}
+
+.card-stateSelect [datavalue='/Content/ball_gray.png'] i{
+	color: gray;
+}
+
+#groupMenu, #roomMenu{
+	text-transform: none;
+}
+
+#groupMenuSpan, #roomMenuSpan {
+	font-size: 14px !important;
+	color: rgb(66, 66, 66)
+}
+
+div.table-form {
+	margin: 16px 0px;
+}
 
 i {
 	outline: none;
