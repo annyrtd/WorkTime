@@ -3,7 +3,7 @@
 	width: 64px;
 	border-radius: 50%;
 	align-self: flex-start;
-	margin-right: 16px;
+	margin-bottom: 16px;
 }
 
 .titleDivSmall div.bold, .titleDivSmall span {
@@ -26,12 +26,16 @@ span.workgroup {
 	margin-right: 16px;
 }
 
+.employee:not(.text ){
+	font-size: 16px;
+}
 
 .titleDivSmall {
 	flex-direction: column;    
 	justify-content: center;
 	align-items: flex-start;
 	line-height: 16px;
+	margin-bottom: 16px;
 }
 
 #toggle-div {
@@ -47,6 +51,8 @@ span.workgroup {
 
 .card-sorting-menu {	 
 	align-items: center;	
+	display: flex
+	flex-wrap: wrap;
 }
 .card-sorting-menu button {
 	margin: 0px 8px !important;
@@ -149,11 +155,23 @@ li.selectLi {
 	color: gray;
 }
 
-#groupMenu, #roomMenu{
+#groupMenu, #roomMenu, #workstateMenu{
 	text-transform: none;
 }
 
-#groupMenuSpan, #roomMenuSpan {
+#workstateMenu {
+	display: inline-flex;
+    align-items: center;
+}
+#workstateMenu i{
+	padding-right: 8px;
+}
+
+.mdl-menu__item, .mdl-menu__item span {	
+	font-size: 14px !important;
+}
+
+#groupMenuSpan, #roomMenuSpan, #stateMenuSpan {
 	font-size: 14px !important;
 	color: rgb(66, 66, 66)
 }

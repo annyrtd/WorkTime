@@ -524,10 +524,10 @@ function FilterGroup()
 		$('td.workgroup').not("[style='display: none;']").each(
 			function(index)
 			{
-				if ($(this).text() == "")
-					$(this).parent().show();
-				else								
+				if ($(this).text() != "")
 					$(this).parent().hide();
+				//else								
+					//$(this).parent().show();
 			}
 		);
 		
@@ -539,17 +539,17 @@ function FilterGroup()
 				{
 					$(this).hide();
 				}
-				else
-				{
-					$(this).show();
-				}
+				//else
+				//{
+					//$(this).show();
+				//}
 			}
 		);		
 		
 		return;
 	}
 	var cellsThatContainInputText = 'td.workgroup:contains("' + inputText + '")';
-	$(cellsThatContainInputText).parent().not("[style='display: none;']").show();				
+	//$(cellsThatContainInputText).parent().not("[style='display: none;']").show();				
 	$('td.workgroup').not(cellsThatContainInputText).parent().hide();
 	
 	$('.card-square').not("[style='display: none;']").each(
@@ -583,7 +583,7 @@ function FilterWorkState()
 		{
 			if ($(this).children("td.indicator").first().children("img").attr("src").indexOf(inputText) > -1)
 			{
-				$(this).show();
+				//$(this).show();
 			}
 			else
 			{							
@@ -595,12 +595,7 @@ function FilterWorkState()
 	$(".card-square").not('[style="display: none;"]').each(
 		function(index)
 		{
-			if ($(this).children("div.mdl-card__menu").first().children("img").attr("src").indexOf(inputText) > -1)
-			{
-				$(this).show();
-			}
-			else
-			{							
+			if ($(this).children("div.mdl-card__menu").first().children("img").attr("src").indexOf(inputText) <= -1) {							
 				$(this).hide();
 			}
 		}
@@ -641,10 +636,10 @@ function FilterRoom()
 		$('td.room').not('[style="display: none;"]').each(
 			function(index)
 			{
-				if ($(this).text() == "")
-					$(this).parent().show();
-				else								
+				if ($(this).text() != "")
 					$(this).parent().hide();
+				//else								
+				//	$(this).parent().show();
 			}
 		);
 		
@@ -658,7 +653,7 @@ function FilterRoom()
 				}
 				else
 				{
-					$(this).show();
+					//$(this).show();
 				}
 			}
 		);	
@@ -666,7 +661,7 @@ function FilterRoom()
 		return;
 	}
 	var cellsThatContainInputText = 'td.room:contains("' + inputText + '")';
-	$(cellsThatContainInputText).parent().not('[style="display: none;"]').show();				
+	//$(cellsThatContainInputText).parent().not('[style="display: none;"]').show();				
 	$('td.room').not(cellsThatContainInputText).parent().hide();
 
 	$('.card-square').not("[style='display: none;']").each(
@@ -1017,6 +1012,7 @@ function ResetTableParametres()
 	$("table.full-size > tbody > tr").show();
 	$("#workgroupSelect, #workStateSelect, #roomSelect").val("");
 	$('#workstateMenu').attr('datavalue', '')
+	$('#stateMenuSpan').text('Статус')
 	$('#groupMenuSpan').text('Группа');
 	$('#roomMenuSpan').text('Комната');
 				
@@ -1052,7 +1048,8 @@ function AddToggleButtonTableAndCards()
 	.css({ 
 		display: 'flex',
 		alignItems: 'center',
-		height: '65px'
+		flexWrap: 'wrap',
+		minHeight: '65px'
 	})
 	.append(div);
 	
@@ -1114,6 +1111,7 @@ function SetWorkerCards()
 
 function getMDLCard(tr, index)
 {	
+/*
 	var color = tr.children('td.indicator.workstate').children('i').first().css('color').replace('rgb', 'rgba');
 	color = color.substr(0, color.length - 1);
 	color += ',1)';
@@ -1125,7 +1123,7 @@ function getMDLCard(tr, index)
 	});
 	
 	var h2 = $('<div></div>', {
-		'class': 'bold personName'		
+		'class': 'employee'		
 	})
 	.css({
 		alignSelf: 'flex-start'
@@ -1133,6 +1131,7 @@ function getMDLCard(tr, index)
 	.append(tr.children('td.text.employee').html());	
 	
 	var workgroup = tr.children('td.text.workgroup').text();
+	*/
 	
 	var room = tr.children('td.text.room').text();
 	var roomSpan = $('<span class="room"></span>').append(room);
@@ -1149,13 +1148,16 @@ function getMDLCard(tr, index)
 	}).append(infoIcon, infoSpan);
 	
 	
-	
+	/*
 	var phonefirst = tr.children('td.text.phone.first').text();
 	var phonefirstSpan = $('<span class="phone first"></span>').append(phonefirst);
 	var phonefirstIcon = $('<i class="material-icons">phonelink</i>');
 	var phonefirstDiv = $('<div></div>', {
 		'class': 'rowDiv'
 	}).append(phonefirstIcon, phonefirstSpan);
+	*/
+	
+	var phonefirstDiv = CreatePhonefirstRow(tr, index);
 	
 	
 	var phonesecond = tr.children('td.text.phone.second').text();
@@ -1185,26 +1187,30 @@ function getMDLCard(tr, index)
 		href: tr.find('td.indicator.mail a').attr('href')		
 	}).append(emailDiv);
 	
-	
+	/*
 	var titleDivSmall = $('<div></div>', {
 		'class': 'rowDiv titleDivSmall'
 	})
 	.append(h2)
 	.append(workgroup ? '<span class="workgroup">' + workgroup + '</span>' : '');
+	*/
 	
+	var rowDiv = CreateTitleRow(tr, index);
 	
+	/*
 	var rowDiv = $('<div></div>', {
 		'class': 'rowDiv'
 	})
 	.append(imagediv, titleDivSmall);
-	
+	*/
 	
 	var supportingtext = $('<div></div>', {
 		'class': 'mdl-card__supporting-text'
 	})
 	.append(rowDiv)
 	.append(info.html().trim() ? infoDiv : '')	
-	.append(phonefirst ? phonefirstDiv : '')	
+	//.append(phonefirst ? phonefirstDiv : '')	
+	.append(phonefirstDiv)	
 	.append(phonesecond ? phonesecondDiv : '')	
 	.append(phonethird ? phonethirdDiv : '')
 	.append(room ?  roomDiv : '')
@@ -1239,20 +1245,110 @@ function getMDLCard(tr, index)
 	.css({
 		'order': index
 	})
-	.append(/*title, */supportingtext , menu);	
+	.append(supportingtext , menu);	
 	
 	return maindiv;	
 }
 
-function AddSortingMenuForCards()
+function CreateTitleRow(tr, index) 
+{
+	var color = tr.children('td.indicator.workstate').children('i').first().css('color').replace('rgb', 'rgba');
+	color = color.substr(0, color.length - 1);
+	color += ',1)';
+	
+	var imagediv = $('<div id="person-image' + index + '" class="circular" ></div>')
+	.css({
+		border: '4px solid ' + color,
+		background: color
+	});
+	
+	var h2 = $('<div></div>', {
+		'class': 'employee'		
+	})
+	.css({
+		alignSelf: 'flex-start'
+	})
+	.append(tr.children('td.text.employee').html());	
+	
+	var workgroup = tr.children('td.text.workgroup').text();
+	
+	var titleDivSmall = $('<div></div>', {
+		'class': 'rowDiv titleDivSmall'
+	})
+	.append(h2)
+	.append(workgroup ? '<span class="workgroup">' + workgroup + '</span>' : '');
+	
+	var rowDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	})
+	.append(imagediv, titleDivSmall);
+	
+	return rowDiv;
+}
+
+function CreatePhonefirstRow(tr, index) 
+{
+	var phonefirst = tr.children('td.text.phone.first').text();
+	var phonefirstSpan = $('<span class="phone first"></span>').append(phonefirst);
+	var phonefirstIcon = $('<i class="material-icons">phonelink</i>');
+	var phonefirstDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	}).append(phonefirstIcon, phonefirstSpan);
+
+	return phonefirst ? phonefirstDiv : '';
+}
+
+function AddFilterMenuForCards()
 {
 	var div = $('<div></div>', {
 		'class': 'card-sorting-menu toggle'
 	})
 	
-	/******************/
-	/** Home Buttons **/
-	/******************/
+	$('#toggle-div').after(div);		
+	
+	CreateCardSearchInput(div);
+	CreateHomeButtons(div);
+	CreateStateButton(div);
+	CreateGroupButton(div);
+	CreateRoomButton(div);
+	CreateResetButton(div);
+	
+	div.hide();	
+}
+
+// Добавляет поле для ввода для поиска по имени
+function CreateCardSearchInput(parent)
+{
+	var input = $("<input>", {
+		type: "text",
+		"class": "mdl-textfield__input",
+		id: "card-searchInput"
+	});
+	
+	var labelForInput = $("<label></label>", {
+		"class": "mdl-textfield__label",
+		"for": "card-searchInput",
+		"style": "line-height: 12pt !important;"
+	}).append('Сотрудник');	
+	
+	var icon = $('<i class="material-icons" style="float: left; margin-top: 22px;">search</i>');
+	
+	var div = $("<div></div>", {
+		"class": "mdl-textfield mdl-js-textfield"
+	}).append(input, labelForInput);
+	
+	var div2 = $("<div class='toggle'></div>").append(icon,div);
+	
+	parent.append(div2);
+	
+	componentHandler.upgradeElement(div.get(0));
+	
+	ChangeTitleToMDTooltip("card-searchInput", 
+		"Введите фамилию <br>или имя сотрудника");
+}
+
+function CreateHomeButtons(parent) 
+{
 	
 	var homeGroupButton, tooltipHomeGroupButton	
 	var homeRoomButton, tooltipHomeRoomButton;
@@ -1267,38 +1363,39 @@ function AddSortingMenuForCards()
 		tooltipHomeRoomButton = $('<div class="mdl-tooltip" for="card-roomSelectButton">Моя комната</div>');	
 	}
 	
+	if (homeGroupButton !== undefined && tooltipHomeGroupButton !== undefined && $('div.card-square span.workgroup').length > 0)
+	{
+		parent.append(homeGroupButton, tooltipHomeGroupButton);
+		componentHandler.upgradeElement(homeGroupButton.get(0));
+		componentHandler.upgradeElement(tooltipHomeGroupButton.get(0));	
+	}	
 	
-	/******************/
-	/** Reset Button **/
-	/******************/
-	
-	var resetIcon = $('<i class="material-icons">clear</i>');
-	var resetButton = $('<button></button>', {
-		"id": "card-idReset",
-		"class": "mdl-button mdl-js-button  mdl-button--fab mdl-button--icon mdl-button--accent  mdl-js-ripple-effect",
-		type: "button"
-	}).append(resetIcon);	
-	
-	var tooltipResetButton = $('<div class="mdl-tooltip" for="card-idReset">Сбросить<br>фильтры</div>');
-	
-	/******************/
-	/** State Select **/
-	/******************/	
-	
+	if (homeRoomButton !== undefined && tooltipHomeRoomButton !== undefined && $('div.card-square span.room').length > 0)
+	{
+		parent.append(homeRoomButton, tooltipHomeRoomButton);
+		componentHandler.upgradeElement(homeRoomButton.get(0));
+		componentHandler.upgradeElement(tooltipHomeRoomButton.get(0));	
+	}	
+}
+
+function CreateStateButton(parent)
+{
 	var statemenuId = 'workstateMenu';
 	
 	var stateIcon = $('<i class="material-icons">lens</i>');
+	var stateSpan = $('<span id="stateMenuSpan">Статус</span>');
 	
 	var stateButton = $('<button></button>', {
 		id: statemenuId,
-		'class': 'mdl-button mdl-js-button mdl-button--icon',
+		'class': 'mdl-button mdl-js-button',
 		datavalue: ''
-	}).append(stateIcon);
+	}).append(stateIcon)
+	.append(stateSpan);
 	
 	//var stateColors = ['white', '#8bc349', 'rgb(63, 81, 181)', '#ffeb3b', 'gray'];	
-	var stateText = ['', 'На работе', 'Работает удаленно', 'Закончил работу', 'Отсутствует'];
+	var stateText = ['Статус', 'На работе', 'Работает удаленно', 'Закончил работу', 'Отсутствует'];
 	var stateValues = ['', '/Content/ball_green.png', '/Content/ball_blue.png', '/Content/ball_yellow.png', '/Content/ball_gray.png'];
-	var li, ic;
+	var li, ic, sp;
 	
 	var stateUl = $('<ul></ul>', {
 		'class': 'mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect',
@@ -1307,13 +1404,14 @@ function AddSortingMenuForCards()
 	
 	for(var i = 0; i < stateValues.length; i++) {		
 		ic = $('<i class="material-icons">lens</i>');
+		sp = $('<span class="stateTextSpan">' + stateText[i] + '</span>')
 		
 		li = $('<li></li>', {
 			'class': 'mdl-menu__item selectLi',
 			datavalue: stateValues[i],
 		})
 		.append(ic)
-		.append(stateText[i]);
+		.append(sp);
 		
 		stateUl.append(li);
 	}
@@ -1321,11 +1419,14 @@ function AddSortingMenuForCards()
 	var stateSelect = $('<div class="card-stateSelect"></div>')
 	.append(stateButton, stateUl);
 	
-	
-	/******************/
-	/** Group Select **/
-	/******************/
-	
+	parent.append(stateSelect);
+	componentHandler.upgradeElement(stateButton.get(0));
+	componentHandler.upgradeElement(stateUl.get(0));
+	componentHandler.upgradeElement(stateSelect.get(0));
+}
+
+function CreateGroupButton(parent) 
+{
 	var groupmenuId = 'groupMenu';
 	
 	var groupSpan = $('<span id="groupMenuSpan">Группа</span>');
@@ -1347,6 +1448,7 @@ function AddSortingMenuForCards()
 	});
 	
 	var shouldGroupBeAdded = false;
+	var li;
 	
 	for(var i = 0; i < groupValues.length; i++) {		
 		li = $('<li></li>', {
@@ -1365,11 +1467,16 @@ function AddSortingMenuForCards()
 	var groupSelect = $('<div class="card-groupSelect"></div>')
 	.append(groupButton, groupUl);
 	
-	
-	/******************/
-	/** Room Select **/
-	/******************/
-	
+	if (shouldGroupBeAdded) {
+		parent.append(groupSelect);
+		componentHandler.upgradeElement(groupButton.get(0));
+		componentHandler.upgradeElement(groupUl.get(0));
+		componentHandler.upgradeElement(groupSelect.get(0));
+	}
+}
+
+function CreateRoomButton(parent) 
+{
 	var roommenuId = 'roomMenu';
 	
 	var roomSpan = $('<span id="roomMenuSpan">Комната</span>');
@@ -1409,88 +1516,35 @@ function AddSortingMenuForCards()
 	var roomSelect = $('<div class="card-roomSelect"></div>')
 	.append(roomButton, roomUl);
 	
-	/***************/
-	/** Appending **/
-	/***************/
-	
-	
-	$('#toggle-div').after(div);	
-	
-	
-	CreateCardSearchInput();
-		
-	if (homeGroupButton !== undefined && tooltipHomeGroupButton !== undefined && $('div.card-square span.workgroup').length > 0)
-	{
-		div.append(homeGroupButton, tooltipHomeGroupButton);
-		componentHandler.upgradeElement(homeGroupButton.get(0));
-		componentHandler.upgradeElement(tooltipHomeGroupButton.get(0));	
-	}	
-	
-	if (homeRoomButton !== undefined && tooltipHomeRoomButton !== undefined && $('div.card-square span.room').length > 0)
-	{
-		div.append(homeRoomButton, tooltipHomeRoomButton);
-		componentHandler.upgradeElement(homeRoomButton.get(0));
-		componentHandler.upgradeElement(tooltipHomeRoomButton.get(0));	
-	}	
-	
-	div.append(stateSelect);
-	componentHandler.upgradeElement(stateButton.get(0));
-	componentHandler.upgradeElement(stateUl.get(0));
-	componentHandler.upgradeElement(stateSelect.get(0));
-	
-	if (shouldGroupBeAdded) {
-		div.append(groupSelect);
-		componentHandler.upgradeElement(groupButton.get(0));
-		componentHandler.upgradeElement(groupUl.get(0));
-		componentHandler.upgradeElement(groupSelect.get(0));
-	}
-	
 	if (shouldRoomBeAdded) {
-		div.append(roomSelect);
+		parent.append(roomSelect);
 		componentHandler.upgradeElement(roomButton.get(0));
 		componentHandler.upgradeElement(roomUl.get(0));
 		componentHandler.upgradeElement(roomSelect.get(0));
 	}
+}
+
+function CreateResetButton(parent) 
+{
 	
-	div.append(resetButton, tooltipResetButton)
+	var resetIcon = $('<i class="material-icons">clear</i>');
+	var resetButton = $('<button></button>', {
+		"id": "card-idReset",
+		"class": "mdl-button mdl-js-button  mdl-button--fab mdl-button--icon mdl-button--accent  mdl-js-ripple-effect",
+		type: "button"
+	}).append(resetIcon);	
+	
+	var tooltipResetButton = $('<div class="mdl-tooltip" for="card-idReset">Сбросить<br>фильтры</div>');
+	
+	parent.append(resetButton, tooltipResetButton)
 	componentHandler.upgradeElement(resetButton.get(0));
 	componentHandler.upgradeElement(tooltipResetButton.get(0));
 	
-	
 	resetButton.hide();	
-	div.hide();	
 }
 
-// Добавляет поле для ввода для поиска по имени
-function CreateCardSearchInput()
-{
-	var input = $("<input>", {
-		type: "text",
-		"class": "mdl-textfield__input",
-		id: "card-searchInput"
-	});
-	
-	var labelForInput = $("<label></label>", {
-		"class": "mdl-textfield__label",
-		"for": "card-searchInput",
-		"style": "line-height: 12pt !important;"
-	}).append('Сотрудник');	
-	
-	var icon = $('<i class="material-icons" style="float: left; margin-top: 22px;">search</i>');
-	
-	var div = $("<div></div>", {
-		"class": "mdl-textfield mdl-js-textfield"
-	}).append(input, labelForInput);
-	
-	var div2 = $("<div class='toggle'></div>").append(icon,div);
-	
-	$('div.card-sorting-menu').append(div2);
-	
-	componentHandler.upgradeElement(div.get(0));
-	
-	ChangeTitleToMDTooltip("card-searchInput", 
-		"Введите фамилию <br>или имя сотрудника");
-}
+
+
 
 function FilterPeople(inputText)
 {
@@ -1503,7 +1557,7 @@ function FilterPeople(inputText)
 	.css("color", "white")
 	.css("textShadow", "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray");	
 	
-	var cardcells = 'div.card-square > div.mdl-card__supporting-text > div.rowDiv > div.rowDiv.titleDivSmall > div.personName';
+	var cardcells = 'div.card-square > div.mdl-card__supporting-text > div.rowDiv > div.rowDiv.titleDivSmall > div.employee';
 	var cardcellsThatContainInputText = cardcells + ':contains("' + inputText + '")';
 	$(cardcellsThatContainInputText).parent().parent().parent().parent().show();	
 	$(cardcells).not(cardcellsThatContainInputText).parent().parent().parent().parent().hide();
@@ -1575,6 +1629,8 @@ function FixDownloadedDataForProfileImages(data) {
 	return data.replace(/\/(_layouts|Style)+/g, "http://confirmitconnect.firmglobal.com/$1").replace('IMNRC', 'String.prototype.toLowerCase');
 }
 
+
+
 $(document).ready
 ( 
 	function() 
@@ -1617,7 +1673,7 @@ $(document).ready
 		
 		AddToggleButtonTableAndCards();
 		SetWorkerCards();
-		AddSortingMenuForCards();		
+		AddFilterMenuForCards();		
 		
 		SetProfileImages();
 		
@@ -1650,12 +1706,12 @@ $(document).ready
 		$("#workgroupSelect, #workStateSelect, #roomSelect").change(
 			function ()
 			{	
-				var datavalueState = $("select#workStateSelect option").filter(":selected").val();
-				$('#workstateMenu').attr('datavalue', datavalueState);
-				
 				var datavalueGroup = $("select#workgroupSelect option").filter(":selected").text();
 				$('#groupMenuSpan').text(datavalueGroup);
 				
+				var datavalueState = $("select#workStateSelect option").filter(":selected").val();
+				$('#workstateMenu').attr('datavalue', datavalueState);
+							
 				var datavalueRoom = $("select#roomSelect option").filter(":selected").text();
 				$('#roomMenuSpan').text(datavalueRoom);
 				
@@ -1664,12 +1720,15 @@ $(document).ready
 				SetTableHeightForOffice();
 				CheckResetButton();
 			}
-		);
+		);		
+		
 		
 		$('.card-stateSelect li.selectLi').click(function () {
 			var datavalue = $(this).attr('datavalue');
 			$("select#workStateSelect").val(datavalue);
-			$('#workstateMenu').attr('datavalue', datavalue)
+			$('#workstateMenu').attr('datavalue', datavalue);
+			
+			$('#stateMenuSpan').text($(this).find('.stateTextSpan').text());
 			
 			SetFilters();
 			ResizeTableHeader();
@@ -1706,6 +1765,7 @@ $(document).ready
 				// determine column for sort
 				var classToSort = GetColumnToSort($(this).parent());
 				var arrayToSort = $("table.full-size > tbody > tr");
+				var cardsToSort = $('.card-square');
 				if ($(this).hasClass("headerSortUp"))
 				{
 					//sortDown					
@@ -1718,6 +1778,25 @@ $(document).ready
 							}
 							else 
 								if ($(item1).children("td." + classToSort).text().toLowerCase() < $(item2).children("td." + classToSort).text().toLowerCase())
+								{
+									return 1;								
+								}
+								else
+								{
+									return 0;
+								}
+						}
+					);
+					
+					cardsToSort = mergeSort(cardsToSort, 
+						function (item1, item2)
+						{
+							if ($(item1).find("." + classToSort).text().toLowerCase() > $(item2).find("." + classToSort).text().toLowerCase())
+							{
+								return -1;
+							}
+							else 
+								if ($(item1).find("." + classToSort).text().toLowerCase() < $(item2).find("." + classToSort).text().toLowerCase())
 								{
 									return 1;								
 								}
@@ -1752,10 +1831,40 @@ $(document).ready
 								}
 						}
 					);
+					
+					cardsToSort = mergeSort(cardsToSort, 
+						function (item1, item2)
+						{
+							if ($(item1).find("." + classToSort).text().toLowerCase() > $(item2).find("." + classToSort).text().toLowerCase())
+							{
+								return 1;
+							}
+							else 
+								if ($(item1).find("." + classToSort).text().toLowerCase() < $(item2).find("." + classToSort).text().toLowerCase())
+								{
+									return -1;								
+								}
+								else
+								{
+									return 0;
+								}
+						}
+					);
+					
 					$(this).removeClass("headerSortDown").addClass("headerSortUp")
 						.css("backgroundImage", "url(" + chrome.extension.getURL("/images/desc.gif") + ")");
 				}
+				
 				$("table.full-size > tbody").append(arrayToSort);
+				
+				$(cardsToSort).each(function(index) {
+					$(this).css({ 
+						'order': index
+					});
+				});
+				
+				$('div.card-box').append(cardsToSort);
+				
 			}
 		);
 		
