@@ -521,17 +521,19 @@ function FilterGroup()
 	
 	if (inputText == "NoGroup")
 	{
-		$('td.workgroup').not("[style='display: none;']").each(
+		$('td.workgroup')
+		.not("[style='display: none")
+		each(
 			function(index)
 			{
 				if ($(this).text() != "")
 					$(this).parent().hide();
-				//else								
-					//$(this).parent().show();
 			}
 		);
 		
-		$('.card-square').each(
+		$('.card-square')
+		.not("[style='display: none;']")
+		.each(
 			function()
 			{
 				var span = $(this).find('span.workgroup').first();
@@ -539,20 +541,17 @@ function FilterGroup()
 				{
 					$(this).hide();
 				}
-				//else
-				//{
-					//$(this).show();
-				//}
 			}
 		);		
 		
 		return;
 	}
-	var cellsThatContainInputText = 'td.workgroup:contains("' + inputText + '")';
-	//$(cellsThatContainInputText).parent().not("[style='display: none;']").show();				
+	var cellsThatContainInputText = 'td.workgroup:contains("' + inputText + '")';			
 	$('td.workgroup').not(cellsThatContainInputText).parent().hide();
 	
-	$('.card-square').not("[style='display: none;']").each(
+	$('.card-square')
+	.not("[style='display: none;']")
+	.each(
 		function()
 		{
 			if ($(this).find('span.workgroup').first().text()				
@@ -578,24 +577,24 @@ function FilterWorkState()
 		return;
 	}
 	
-	$("tbody tr").not('[style="display: none;"]').each(
+	$("tbody tr")
+	.not('[style="display: none;"]')
+	.each(
 		function(index)
 		{
-			if ($(this).children("td.indicator").first().children("img").attr("src").indexOf(inputText) > -1)
-			{
-				//$(this).show();
-			}
-			else
-			{							
+			if ($(this).children("td.indicator").first().children("img").attr("src").indexOf(inputText) <= -1)
+			{					
 				$(this).hide();
 			}
 		}
 	);
 	
-	$(".card-square").not('[style="display: none;"]').each(
+	$(".card-square")
+	.not('[style="display: none;"]')
+	.each(
 		function(index)
 		{
-			if ($(this).children("div.mdl-card__menu").first().children("img").attr("src").indexOf(inputText) <= -1) {							
+			if ($(this).find('.circular').attr('datavalue').indexOf(inputText) <= -1) {								
 				$(this).hide();
 			}
 		}
@@ -633,17 +632,19 @@ function FilterRoom()
 	
 	if (inputText == "NoRoom")
 	{
-		$('td.room').not('[style="display: none;"]').each(
+		$('td.room')
+		.not('[style="display: none;"]')
+		.each(
 			function(index)
 			{
 				if ($(this).text() != "")
 					$(this).parent().hide();
-				//else								
-				//	$(this).parent().show();
 			}
 		);
 		
-		$('.card-square').each(
+		$('.card-square')
+		.not('[style="display: none;"]')
+		.each(
 			function()
 			{
 				var span = $(this).find('span.room').first();
@@ -651,20 +652,17 @@ function FilterRoom()
 				{
 					$(this).hide();
 				}
-				else
-				{
-					//$(this).show();
-				}
 			}
 		);	
 		
 		return;
 	}
-	var cellsThatContainInputText = 'td.room:contains("' + inputText + '")';
-	//$(cellsThatContainInputText).parent().not('[style="display: none;"]').show();				
+	var cellsThatContainInputText = 'td.room:contains("' + inputText + '")';		
 	$('td.room').not(cellsThatContainInputText).parent().hide();
 
-	$('.card-square').not("[style='display: none;']").each(
+	$('.card-square')
+	.not("[style='display: none;']")
+	.each(
 		function()
 		{
 			if ($(this).find('span.room').first().text()				
@@ -697,12 +695,12 @@ function SelectHomeGroup()
 	
 	if (inputText == "NoGroup")
 	{
-		$('td.workgroup').not('[style="display: none;"]').each(
+		$('td.workgroup')
+		.not('[style="display: none;"]')
+		.each(
 			function(index)
 			{
-				if ($(this).text() == "")
-					$(this).parent().show();
-				else								
+				if ($(this).text() != "")			
 					$(this).parent().hide();
 			}
 		);
@@ -710,11 +708,12 @@ function SelectHomeGroup()
 	}
 	
 	
-	var cellsThatContainInputText = 'td.workgroup:contains("' + inputText + '")';
-	$(cellsThatContainInputText).parent().not('[style="display: none;"]').show();				
+	var cellsThatContainInputText = 'td.workgroup:contains("' + inputText + '")';				
 	$('td.workgroup').not(cellsThatContainInputText).parent().hide();	
 	
-	$('.card-square').each(
+	$('.card-square')
+	.not('[style="display: none;"]')
+	.each(
 		function()
 		{
 			if ($(this).find('span.workgroup').first().text()				
@@ -774,22 +773,23 @@ function SelectHomeRoom()
 	
 	if (inputText == "NoRoom")
 	{
-		$('td.room').not('[style="display: none;"]').each(
+		$('td.room')
+		.not('[style="display: none;"]')
+		.each(
 			function(index)
 			{
-				if ($(this).text() == "")
-					$(this).parent().show();
-				else								
+				if ($(this).text() != "")		
 					$(this).parent().hide();
 			}
 		);
 		return;
 	}
-	var cellsThatContainInputText = 'td.room:contains("' + inputText + '")';
-	$(cellsThatContainInputText).parent().not('[style="display: none;"]').show();				
+	var cellsThatContainInputText = 'td.room:contains("' + inputText + '")';			
 	$('td.room').not(cellsThatContainInputText).parent().hide();	
 	
-	$('.card-square').each(
+	$('.card-square')
+	.not('[style="display: none;"]')
+	.each(
 		function()
 		{
 			if ($(this).find('span.room').first().text()				
@@ -833,6 +833,8 @@ function CreateMDLCard()
 	$(".mdl-layout__content").append(header, $("table.full-size"));
 }
 
+
+
 function ResizeTableHeader()
 {
 	var $table = $('table.full-size'),
@@ -855,7 +857,7 @@ function ResizeTableHeader()
 	);  
 }
 
-function CreateSettingsForLang()
+function CreateSettingsForLangAndDisplay()
 {
 	$("div.mdl-layout__drawer").append($("<div id=settings></div>"));
 	$("#settings").load("http://co-msk-app02/Preferences/Edit form", 
@@ -879,6 +881,38 @@ function CreateSettingsForLang()
 			$("div.table-form").eq(4).children('label').text('Вид по умолчанию:')
 			$('select#SummaryWithoutToday option[value=No]').text('Таблица');
 			$('select#SummaryWithoutToday option[value=Yes]').text('Карточки');
+			
+			var office;
+			
+			if ($('head title').first().text().toLowerCase().indexOf('ярославль') > -1)
+			{
+				office = 'isRussianEquivalentSet_Yar';
+				if ($('#ListLanguage').children('option:selected').val() == 'English') {
+					if (localStorage[office]) {
+						SetGenderForEnglishLanguage();
+					} else {
+						$('.genderMenu').remove();
+						$('.rowDiv i.man').parent().remove();
+						$('.rowDiv i.woman').parent().remove();
+					}
+				} else {
+					SetRussianEquivalentForEnglishNames(office);
+				}
+			} else {
+				office = 'isRussianEquivalentSet_Msk';
+				if ($('#ListLanguage').children('option:selected').val() == 'English') {
+					if (localStorage[office]) {
+						SetGenderForEnglishLanguage();
+					} else {
+						$('.genderMenu').remove();
+						$('.rowDiv i.man').parent().remove();
+						$('.rowDiv i.woman').parent().remove();
+					}
+				} else {
+					SetRussianEquivalentForEnglishNames(office);
+				}				
+			}
+			
 			
 			ChangeTableCardMode();
 			
@@ -940,6 +974,7 @@ function AddBorderToStatusSelect()
 	
 	$("th.indicator.workstate.header").append(span);
 }
+
 
 
 function AddTooltips_officeScript()
@@ -1025,7 +1060,7 @@ function ResetTableParametres()
 }
 
 
-
+// Добавление меню для смены таблицы/карточек
 function AddToggleButtonTableAndCards()
 {
 	var icon1 = $('<i id="table-icon" class="material-icons">list</i>');
@@ -1070,7 +1105,8 @@ function AddToggleButtonTableAndCards()
 	}
 }
 
-function ChangeTableCardMode() {
+function ChangeTableCardMode() 
+{
 	if ($('select#SummaryWithoutToday option:selected').val() == 'No') {
 		$('#table-button').click();
 		$('.mdl-tooltip.is-active').removeClass('is-active');
@@ -1080,6 +1116,8 @@ function ChangeTableCardMode() {
 	}
 }
 
+
+// Добавление карточек работников
 function SetWorkerCards()
 {
 	var div = $('<div></div>', {
@@ -1111,127 +1149,34 @@ function SetWorkerCards()
 
 function getMDLCard(tr, index)
 {	
-/*
-	var color = tr.children('td.indicator.workstate').children('i').first().css('color').replace('rgb', 'rgba');
-	color = color.substr(0, color.length - 1);
-	color += ',1)';
-
-	var imagediv = $('<div id="person-image' + index + '" class="circular" ></div>')
-	.css({
-		border: '4px solid ' + color,
-		background: color
-	});
-	
-	var h2 = $('<div></div>', {
-		'class': 'employee'		
-	})
-	.css({
-		alignSelf: 'flex-start'
-	})
-	.append(tr.children('td.text.employee').html());	
-	
-	var workgroup = tr.children('td.text.workgroup').text();
-	*/
-	
-	var room = tr.children('td.text.room').text();
-	var roomSpan = $('<span class="room"></span>').append(room);
-	var roomIcon = $('<i class="material-icons">room</i>');
-	var roomDiv = $('<div></div>', {
-		'class': 'rowDiv'
-	}).append(roomIcon, roomSpan);
-	
-	var info = tr.children('td.text.info').first();
-	var infoSpan = $('<span class="info"></span>').append(info.html());
-	var infoIcon = $('<i class="material-icons">info_outline</i>');
-	var infoDiv = $('<div></div>', {
-		'class': 'rowDiv'
-	}).append(infoIcon, infoSpan);
-	
-	
-	/*
-	var phonefirst = tr.children('td.text.phone.first').text();
-	var phonefirstSpan = $('<span class="phone first"></span>').append(phonefirst);
-	var phonefirstIcon = $('<i class="material-icons">phonelink</i>');
-	var phonefirstDiv = $('<div></div>', {
-		'class': 'rowDiv'
-	}).append(phonefirstIcon, phonefirstSpan);
-	*/
-	
-	var phonefirstDiv = CreatePhonefirstRow(tr, index);
-	
-	
-	var phonesecond = tr.children('td.text.phone.second').text();
-	var phonesecondSpan = $('<span class="phone second"></span>').append(phonesecond);
-	var phonesecondIcon = $('<i class="material-icons">smartphone</i>');
-	var phonesecondDiv = $('<div></div>', {
-		'class': 'rowDiv'
-	}).append(phonesecondIcon, phonesecondSpan);
-	
-	
-	var phonethird = tr.children('td.text.phone.third').text();
-	var phonethirdSpan = $('<span class="phone third"></span>').append(phonethird);
-	var phonethirdIcon = $('<i class="material-icons">phone</i>');
-	var phonethirdDiv = $('<div></div>', {
-		'class': 'rowDiv'
-	}).append(phonethirdIcon, phonethirdSpan);
-	
-	var email = tr.find('td.indicator.mail a img').attr('title');
-	var emailSpan = $('<span class="email"></span>').append(email);
-	var emailIcon = $('<i class="material-icons">email</i>');
-	
-	var emailDiv = $('<div></div>', {
-		'class': 'rowDiv'
-	}).append(emailIcon, emailSpan);
-	
-	var emailLink = $('<a></a>', {
-		href: tr.find('td.indicator.mail a').attr('href')		
-	}).append(emailDiv);
-	
-	/*
-	var titleDivSmall = $('<div></div>', {
-		'class': 'rowDiv titleDivSmall'
-	})
-	.append(h2)
-	.append(workgroup ? '<span class="workgroup">' + workgroup + '</span>' : '');
-	*/
-	
+	var infoDiv = CreateInfoRow(tr, index);
 	var rowDiv = CreateTitleRow(tr, index);
-	
-	/*
-	var rowDiv = $('<div></div>', {
-		'class': 'rowDiv'
-	})
-	.append(imagediv, titleDivSmall);
-	*/
+	var phonefirstDiv = CreatePhonefirstRow(tr, index);	
+	var phonesecondDiv = CreatePhonesecondRow(tr, index);	
+	var phonethirdDiv = CreatePhonethirdRow(tr, index);
+	var roomDiv = CreateRoomRow(tr, index);
+	var emailLink = CreateEmailRow(tr, index);
 	
 	var supportingtext = $('<div></div>', {
 		'class': 'mdl-card__supporting-text'
 	})
 	.append(rowDiv)
-	.append(info.html().trim() ? infoDiv : '')	
-	//.append(phonefirst ? phonefirstDiv : '')	
-	.append(phonefirstDiv)	
-	.append(phonesecond ? phonesecondDiv : '')	
-	.append(phonethird ? phonethirdDiv : '')
-	.append(room ?  roomDiv : '')
-	.append(email ?  emailLink : '')
+	.append(infoDiv)	
+	.append(phonefirstDiv)
+	.append(phonesecondDiv)		
+	.append(phonethirdDiv)	
+	.append(roomDiv)
+	.append(emailLink)
 	
-	
-	var menu = $('<div></div>', {
-		'class': 'mdl-card__menu'
-	})
-	.css({
-		display: 'none'
-	})
-	.append(tr.children('td.indicator.workstate').html())
-	
-	if (info.children('span.hidden-text').length > 0)
+	var cardmenu = $('<div class="mdl-card__menu"></div>');
+				
+	if ($(infoDiv).find('span.hidden-text').length > 0)
 	{
-		info.children('span.hidden-text').each(
+		$(infoDiv).find('span.hidden-text').each(
 			function()
 			{
 				var id = 'card-' + $(this).attr('id');
-				var tooltip = info.children('div.mdl-tooltip[for=' + $(this).attr('id') + ']').first();
+				var tooltip = $(infoDiv).find('div.mdl-tooltip[for=' + $(this).attr('id') + ']').first();
 				$(this).attr('id', id);
 				tooltip.attr('for', id);	
 				tooltip.removeAttr('data-upgraded');	
@@ -1245,7 +1190,7 @@ function getMDLCard(tr, index)
 	.css({
 		'order': index
 	})
-	.append(supportingtext , menu);	
+	.append(supportingtext, cardmenu);	
 	
 	return maindiv;	
 }
@@ -1261,6 +1206,9 @@ function CreateTitleRow(tr, index)
 		border: '4px solid ' + color,
 		background: color
 	});
+	
+	var datavalue = tr.children('td.indicator.workstate').find('img').attr('src');
+	imagediv.attr('datavalue', datavalue);
 	
 	var h2 = $('<div></div>', {
 		'class': 'employee'		
@@ -1286,6 +1234,18 @@ function CreateTitleRow(tr, index)
 	return rowDiv;
 }
 
+function CreateInfoRow(tr, index) 
+{
+	var info = tr.children('td.text.info').first().html();
+	var infoSpan = $('<span class="info"></span>').append(info);
+	var infoIcon = $('<i class="material-icons">info_outline</i>');
+	var infoDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	}).append(infoIcon, infoSpan);
+	
+	return info.trim() ? infoDiv : '';
+}
+
 function CreatePhonefirstRow(tr, index) 
 {
 	var phonefirst = tr.children('td.text.phone.first').text();
@@ -1298,6 +1258,61 @@ function CreatePhonefirstRow(tr, index)
 	return phonefirst ? phonefirstDiv : '';
 }
 
+function CreatePhonesecondRow(tr, index) 
+{
+	var phonesecond = tr.children('td.text.phone.second').text();
+	var phonesecondSpan = $('<span class="phone second"></span>').append(phonesecond);
+	var phonesecondIcon = $('<i class="material-icons">smartphone</i>');
+	var phonesecondDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	}).append(phonesecondIcon, phonesecondSpan);
+	
+	return phonesecond ? phonesecondDiv : '';
+}
+
+function CreatePhonethirdRow(tr, index) 
+{
+	var phonethird = tr.children('td.text.phone.third').text();
+	var phonethirdSpan = $('<span class="phone third"></span>').append(phonethird);
+	var phonethirdIcon = $('<i class="material-icons">phone</i>');
+	var phonethirdDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	}).append(phonethirdIcon, phonethirdSpan);
+	
+	return phonethird ? phonethirdDiv : '';
+}
+
+function CreateRoomRow(tr, index)
+{
+	var room = tr.children('td.text.room').text();
+	var roomSpan = $('<span class="room"></span>').append(room);
+	var roomIcon = $('<i class="material-icons">room</i>');
+	var roomDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	}).append(roomIcon, roomSpan);
+	
+	return room ?  roomDiv : '';
+}
+
+function CreateEmailRow(tr, index) 
+{
+	var email = tr.find('td.indicator.mail a img').attr('title');
+	var emailSpan = $('<span class="email"></span>').append(email);
+	var emailIcon = $('<i class="material-icons">email</i>');
+	
+	var emailDiv = $('<div></div>', {
+		'class': 'rowDiv'
+	}).append(emailIcon, emailSpan);
+	
+	var emailLink = $('<a></a>', {
+		href: tr.find('td.indicator.mail a').attr('href')		
+	}).append(emailDiv);
+	
+	return email ?  emailLink : '';
+}
+
+
+// Добавление меню фильтрации для карточек
 function AddFilterMenuForCards()
 {
 	var div = $('<div></div>', {
@@ -1311,12 +1326,12 @@ function AddFilterMenuForCards()
 	CreateStateButton(div);
 	CreateGroupButton(div);
 	CreateRoomButton(div);
+	CreateGenderButtons(div);
 	CreateResetButton(div);
 	
 	div.hide();	
 }
 
-// Добавляет поле для ввода для поиска по имени
 function CreateCardSearchInput(parent)
 {
 	var input = $("<input>", {
@@ -1543,8 +1558,69 @@ function CreateResetButton(parent)
 	resetButton.hide();	
 }
 
-
-
+function CreateGenderButtons(parent) 
+{
+	var iconAll = $('<i class="material-icons">wc</i>');	
+	var buttonAll = $('<button></button>', {
+		"id": "card-allpeople",
+		"class": "checked mdl-button mdl-js-button mdl-button--icon mdl-button--accent mdl-js-ripple-effect",
+		type: "button"
+	})
+	/*
+	.css({
+		color: 'rgb(250, 250, 250)',
+		backgroundColor: 'rgb(66, 66, 66)'
+	})*/
+	.append(iconAll);	
+	
+	var tooltipButtonAll = $('<div class="mdl-tooltip" for="card-allpeople">Все сотрудники</div>');
+	
+	var badgeAll = $('<span id="badgeAll" class="genderMenu mdl-badge mdl-badge--no-background mdl-badge--overlap" data-badge="0"></span>').append(buttonAll, tooltipButtonAll);
+	
+	//var iconMan = $('<i class="material-icons">fitness_center</i>');	
+	var iconMan = '♂';	
+	var buttonMan = $('<button></button>', {
+		"id": "card-man",
+		"class": "mdl-button mdl-js-button mdl-button--icon mdl-button--accent mdl-js-ripple-effect",
+		type: "button"
+	})
+	/*
+	.css({
+		color: 'rgb(96, 125, 139)'
+	})*/
+	.append(iconMan);	
+	
+	var tooltipButtonMan = $('<div class="mdl-tooltip" for="card-man">Мужчины</div>');
+	
+	var badgeMan = $('<span id="badgeMan" class="genderMenu mdl-badge mdl-badge--no-background mdl-badge--overlap"  data-badge="0"></span>').append(buttonMan, tooltipButtonMan);
+	
+	//var iconWoman = $('<i class="material-icons">local_florist</i>');	
+	var iconWoman = '♀';
+	var buttonWoman = $('<button></button>', {
+		"id": "card-woman",
+		"class": "mdl-button mdl-js-button mdl-button--icon mdl-button--accent mdl-js-ripple-effect",
+		type: "button"
+	})
+	/*
+	.css({
+		color: 'rgb(255, 171, 64)'
+	})*/
+	.append(iconWoman);		
+	
+	var tooltipButtonWoman = $('<div class="mdl-tooltip" for="card-woman">Женщины</div>');
+	
+	var badgeWoman = $('<span id="badgeWoman" class="genderMenu mdl-badge mdl-badge--no-background mdl-badge--overlap" data-badge="0"></span>').append(buttonWoman, tooltipButtonWoman);
+	
+	//parent.append(buttonAll, buttonMan, buttonWoman);
+	parent.append(badgeAll, badgeMan, badgeWoman);
+	
+	componentHandler.upgradeElement(buttonAll.get(0));
+	componentHandler.upgradeElement(tooltipButtonAll.get(0));
+	componentHandler.upgradeElement(buttonMan.get(0));
+	componentHandler.upgradeElement(tooltipButtonMan.get(0));
+	componentHandler.upgradeElement(buttonWoman.get(0));
+	componentHandler.upgradeElement(tooltipButtonWoman.get(0));
+}
 
 function FilterPeople(inputText)
 {
@@ -1563,19 +1639,9 @@ function FilterPeople(inputText)
 	$(cardcells).not(cardcellsThatContainInputText).parent().parent().parent().parent().hide();
 }
 
-function SetProfileImages() {
-	var today = new Date();		
-	var day = today.getDate();
-	
-	if (day % 7 == 0 && !localStorage['isCleared'])
-	{
-		localStorage.clear();
-		localStorage['isCleared'] = true;
-	}
-	else
-	{
-		localStorage['isCleared'] = false;
-	}
+function SetProfileImages() 
+{
+	ClearLocalStorage();
 	
 	$('div.card-square').each(
 		function() {
@@ -1585,10 +1651,11 @@ function SetProfileImages() {
 						.children('div.circular').first();
 			
 			var email = self.find('span.email').first().text();
-			var src;
+			
+			var src, gender;
 			
 			if (email)
-			{
+			{				
 				if (localStorage[email])
 				{
 					src = localStorage[email];
@@ -1615,18 +1682,181 @@ function SetProfileImages() {
 				}
 			}
 		}
+	);		
+}
+
+
+function ClearLocalStorage() {
+	var today = new Date();		
+	var day = today.getDate();
+	
+	if (day % 7 == 0 && !localStorage['isCleared'])
+	{
+		localStorage.clear();
+		localStorage['isCleared'] = true;		
+	}
+	else
+	{
+		localStorage['isCleared'] = false;
+	}
+}
+
+function SetAllPeopleGender() {
+	ClearLocalStorage();
+	
+	$('div.card-square').each(
+		function(index) {
+			var self = $(this);
+			var employee = self.find('.employee').first().text();
+			
+			var email = self.find('span.email').first().text();
+			
+			var gender;
+			
+			if (employee) {
+				if (localStorage[employee])
+				{
+					gender = localStorage[employee];
+					
+					if (gender) 
+					{
+						SetGender(self, gender);
+					}					
+				} else {				
+					$.get("http://morpher.ru/Demo.aspx?s=" + employee, {}, function(data, status, xhr) {
+						var updatedData = FixDownloadedDataForGender(data);
+						var temp = $("<div></div>");
+						temp.html(updatedData);
+								
+						gender = temp.find('#ctl00_ctl00_BodyPlaceHolder_ContentPlaceHolder1_РодЧислоLabel').text();
+							
+						if (gender) 
+						{
+							localStorage[employee] = gender;
+							SetGender(self, gender);
+						}
+					});
+				}
+			}
+		}
+	);	
+}
+
+function SetRussianEquivalentForEnglishNames(office) {
+	ClearLocalStorage();
+	
+	$('div.card-square').each(
+		function(index) {
+			var self = $(this);
+			var employee = self.find('.employee').first().text();
+			
+			var email = self.find('span.email').first().text();
+			
+			var nameIndex = email.indexOf('@');			
+			var englishName = email.substr(0, nameIndex);
+			
+			if (englishName) {
+				localStorage[englishName] = employee;
+				localStorage[office] = true;
+			}
+		}
+	);	
+}
+
+function SetGenderForEnglishLanguage() {
+	ClearLocalStorage();
+	
+	$('div.card-square').each(
+		function(index) {
+			var self = $(this);
+			
+			var email = self.find('span.email').first().text();
+			var nameIndex = email.indexOf('@');			
+			var englishName = email.substr(0, nameIndex);
+			
+			var employee, gender;
+			
+			if (englishName) {
+				if (localStorage[englishName])
+				{
+					employee = localStorage[englishName];
+					gender = localStorage[employee];
+					
+					if (gender) 
+					{
+						SetGender(self, gender);
+					}					
+				} 
+			}
+		}
 	);
 }
 
-function SetIndividualProfileImage(item, src) {
+
+/*
+http://morpher.ru/Demo.aspx?s=%D0%9A%D0%BE%D0%B2%D0%B0%D0%BB%D1%8C%D1%87%D1%83%D0%BA%20%D0%92%D0%B8%D0%BA%D1%82%D0%BE%D1%80%D0%B8%D1%8F
+*/
+
+function SetIndividualProfileImage(item, src) 
+{
 	item.css({
 		background: 'url("' + src + '") no-repeat',
 		backgroundSize: 'cover'
 	});
 }
 
-function FixDownloadedDataForProfileImages(data) {
+function SetGender(card, gender) 
+{
+	
+		/* ♀ &#9792; woman */
+		/* ♂ &#9794; man */
+		
+		
+	var number = +$('#badgeAll').attr('data-badge');
+	$('#badgeAll').attr('data-badge', +number + 1);	
+	
+	
+	var image = card.find('.circular').first();
+	var imageParent = image.parent();	
+	
+	if (gender.toLowerCase().indexOf('мужской') >= 0) {
+		//card.find('.rowDiv .titleDivSmall').first().append('<i class="material-icons man">fitness_center</i>');
+		//card.find('.mdl-card__menu').first().append('<i class="material-icons man">fitness_center</i>');
+		
+		var badgeMan = $('<span class="man mdl-badge mdl-badge--overlap" data-badge="♂"></span>')
+		.append(image);
+		
+		imageParent.prepend(badgeMan);	
+
+		badgeMan.parent().css('paddingTop','8px');
+		
+		var number1 = +$('#badgeMan').attr('data-badge');
+		$('#badgeMan').attr('data-badge', +number1 + 1);		
+	} 
+	if (gender.toLowerCase().indexOf('женский') >= 0) {
+		//card.find('.rowDiv .titleDivSmall').first().append('<i class="material-icons woman">local_florist</i>');
+		//card.find('.mdl-card__menu').first().append('<i class="material-icons woman">local_florist</i>');
+		
+		var badgeWoman = $('<span class="woman mdl-badge mdl-badge--overlap" data-badge="♀"></span>')
+		.append(image);
+		
+		imageParent.prepend(badgeWoman);	
+	
+		badgeWoman.parent().css('paddingTop','8px');		
+		
+		var number2 = +$('#badgeWoman').attr('data-badge');
+		$('#badgeWoman').attr('data-badge', +number2 + 1);		
+	}
+}
+
+function FixDownloadedDataForProfileImages(data) 
+{
 	return data.replace(/\/(_layouts|Style)+/g, "http://confirmitconnect.firmglobal.com/$1").replace('IMNRC', 'String.prototype.toLowerCase');
+}
+
+function FixDownloadedDataForGender(data) 
+{
+	return data.replace(/(\/WebResource|images|orphus|logo)+/g, "http://morpher.ru/$1").replace('IMNRC', 'String.prototype.toLowerCase');
 }
 
 
@@ -1649,7 +1879,7 @@ $(document).ready
 		
 		RemoveEmptyColumns();
 		AddResetFiltersButton();
-		CreateSettingsForLang();
+		CreateSettingsForLangAndDisplay();
 		CreateMDLCard();	
 		
 		AddBorderToStatusSelect();
@@ -1676,6 +1906,7 @@ $(document).ready
 		AddFilterMenuForCards();		
 		
 		SetProfileImages();
+		SetAllPeopleGender();
 		
 		$( "#searchInput" ).on("propertychange input change keyup paste click", 
 			function() 
@@ -1991,5 +2222,34 @@ $(document).ready
 			}
 		);
 		
+		
+		$('#card-allpeople, #card-man, #card-woman').click(function(){
+			
+			ResetTableParametres();
+			ResizeTableHeader();
+			SetTableHeightForOffice();
+			CheckResetButton();
+			
+			
+			$('#card-allpeople, #card-man, #card-woman').removeClass('checked');			
+			$(this).addClass('checked');
+			
+			var id = $(this).attr('id').replace('card-', '').replace('allpeople', '');
+			if (id) {
+				$('div.card-square').each(
+					function() {
+						if ($(this).find('.' + id).length > 0) {
+							$(this).show();
+						} else {
+							$(this).hide();					
+						}
+					}
+				);				
+			} else {
+				$('div.card-square').show();
+			}
+			
+			
+		});
 	}		
 );

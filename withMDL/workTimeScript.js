@@ -779,30 +779,25 @@ function SeparateStartAndFinish()
 				{
 					timeRangeSpan = $(this);
 					timeRange = timeRangeSpan.text();
-					if (timeRange == 'Англ')
-					{
-						timeRangeSpan.parent().nextAll('td.note.text').first().prepend('Англ.<br>');
-					}
 					
-					if (timeRange == " ... ")
-					{
+					if (timeRange == " ... ") {
 						timeOfLeavingSpan_title = timeRangeSpan.attr("title");
 						finish += "<span id='" + timeOfLeavingSpan_id + "'>...</span>"
 						+ "<br>";
-					}
-					
-					positionCurrent = timeRange.indexOf("—");
-					if (positionCurrent > -1)
-					{
-						startCurrent = timeRange.substr(0, positionCurrent);
-						finishCurrent = timeRange.substr(positionCurrent + 1);
-						start += startCurrent + "<br>";
-						if (finishCurrent != "")
-						{
-							finish += finishCurrent + "<br>";
-						}
 					} else {
-						timeRangeSpan.parent().nextAll('td.note.text').first().append(timeRangeSpan);
+						positionCurrent = timeRange.indexOf("—");
+						if (positionCurrent > -1)
+						{
+							startCurrent = timeRange.substr(0, positionCurrent);
+							finishCurrent = timeRange.substr(positionCurrent + 1);
+							start += startCurrent + "<br>";
+							if (finishCurrent != "")
+							{
+								finish += finishCurrent + "<br>";
+							}
+						} else {
+							timeRangeSpan.parent().nextAll('td.note.text').first().append(timeRangeSpan);
+						}
 					}
 				}
 			);

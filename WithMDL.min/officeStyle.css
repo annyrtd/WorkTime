@@ -6,6 +6,57 @@
 	margin-bottom: 16px;
 }
 
+.mdl-badge[data-badge]:not(.mdl-badge--no-background)::after {
+	background: transparent;
+	font-weight: bold;
+	font-family: 'Lucida Sans Unicode';
+	font-size: 14px;
+}
+
+.man.mdl-badge[data-badge]::after {
+	/*color: rgba(30,144,255, 1);*/
+	color: rgb(96, 125, 139);
+}
+
+.woman.mdl-badge[data-badge]::after {
+	/*color: rgba(255,105,180, 1);	*/
+	color: rgb(255, 171, 64);
+}
+
+#card-man, #card-woman {
+	font-weight: bold;
+	font-family: 'Lucida Sans Unicode' !important;
+	font-size: 16px;
+}
+
+/*
+.man {
+	color: rgba(30,144,255, 0.3);
+	margin: 4px 0px;
+}
+
+.man:hover {
+	color: rgba(30,144,255, 0.8);
+}
+
+.woman {
+	color: rgba(255,105,180, 0.3);
+	margin: 4px 0px;
+}
+
+.woman:hover {
+	color: rgba(255,105,180, 0.8);
+	margin: 4px 0px;
+}
+*/
+
+.mdl-badge.mdl-badge--no-background[data-badge]::after {
+	background: transparent;
+    box-shadow: none;
+    color: rgba(66, 66, 66, 1);
+}
+
+
 .titleDivSmall div.bold, .titleDivSmall span {
 	
 	/*font-size: 12px !important;*/
@@ -96,10 +147,6 @@ span.workgroup {
     overflow: hidden
 }
 
-.card-square  .mdl-card__menu {
-	display: none;
-}
-
 .card-square  a i, .card-square  a span.email {
 	color: black;
 }
@@ -108,15 +155,42 @@ span.workgroup {
 	background-color: rgba(255, 171, 64, 0.5);
 }
 
-/*
-.card-square  a:hover .rowDiv i  {
-	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.4);	
-	background: rgba(0,0,0,0.2);	
+/*******************/
+/* Gender buttons  */
+/*******************/
+
+#card-allpeople.checked {
+	color: rgb(250, 250, 250) !important;
+	background-color: rgb(66, 66, 66);
 }
 
-.card-square  a:hover .rowDiv span.email {
-	text-decoration: underline;	
-}*/
+#card-man.checked {
+	color: rgb(250, 250, 250) !important;
+	background-color: rgb(96, 125, 139);
+}
+
+#card-woman.checked {
+	color: rgb(250, 250, 250) !important;
+	background-color: rgb(255, 171, 64);
+}
+
+#card-allpeople {
+	color: rgb(66, 66, 66);
+	background-color: transparent;
+}
+
+#card-man {
+	color: rgb(96, 125, 139);
+	background-color: transparent;
+}
+
+#card-woman {
+	color: rgb(255, 171, 64);
+	background-color: transparent;
+}
+
+/********************/
+
 
 .selectLi.mdl-menu__item:hover {
     background-color: rgba(255, 171, 64, 0.5) !important;
