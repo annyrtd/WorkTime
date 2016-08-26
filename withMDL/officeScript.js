@@ -1687,7 +1687,7 @@ function SetProfileImages()
 
 
 function ClearLocalStorage() {
-	var today = new Date();		
+	/*var today = new Date();		
 	var day = today.getDate();
 	
 	if (day % 7 == 0 && !localStorage['isCleared'])
@@ -1698,7 +1698,7 @@ function ClearLocalStorage() {
 	else
 	{
 		localStorage['isCleared'] = false;
-	}
+	}*/
 }
 
 function SetAllPeopleGender() {

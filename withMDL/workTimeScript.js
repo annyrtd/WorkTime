@@ -142,7 +142,11 @@ function AddReportColumn()
 	}).append("Отчет");
 	$("th.time").last().after(newHeader);
 	
-	$("tr[id]").not(".future").each( 
+	$("tr[id]")
+	.not(".future")
+	.not('.trTimeChecker')
+	.not('.other')
+	.each( 
 		function(index)
 		{
 			var newTime = DifferenceOfTime($(this).children("td.time").first().text(), "00:30");
@@ -320,7 +324,11 @@ function AddTooltipAbout30Minutes()
 function GetAlreadyWorkedTimeForMonth()
 {
 	var time = $(".summary").last().children(".time").first().text();
-	$("tr[id]").not(".future").each(
+	$("tr[id]")
+	.not(".future")
+	.not('.trTimeChecker')
+	.not('.other')
+	.each(
 		function (index)
 		{
 			time = DifferenceOfTime(time, "00:30")
@@ -381,7 +389,11 @@ function GetSumReportTimeForMonth()
 		}
 	);
 	
-	$("tr[id]").not("[class=future]").each(
+	$("tr[id]")
+	.not(".future")
+	.not('.trTimeChecker')
+	.not('.other')
+	.each(
 		function(index)
 		{
 			sum = SumOfTime(sum, DifferenceOfTime($(this).children(".time").eq(1).text(), "00:30"));
@@ -401,7 +413,11 @@ function GetSumReportTimeForMonth_ForStudent()
 		}
 	);
 	
-	$("tr[id]").not("[class=future]").each(
+	$("tr[id]")
+	.not(".future")
+	.not('.trTimeChecker')
+	.not('.other')
+	.each(
 		function(index)
 		{
 			sum = SumOfTime(sum, $(this).children(".time").eq(1).text());
@@ -531,6 +547,8 @@ function GetTimeForWeekLeft()
 	.not('[style="display: none;"]')
 	.first()
 	.nextAll()
+	.not('.trTimeChecker')
+	.not('.other')
 	.each(
 		function()
 		{
@@ -558,7 +576,12 @@ function GetTimeForWeekLeft()
 function GetCurrentTimeForWeek()
 {
 	var sum = "00:00";
-	$("tr[id]").not("[class=future]").not('[style="display: none;"]').each(
+	$("tr[id]")
+	.not(".future")
+	.not('.trTimeChecker')
+	.not('.other')
+	.not('[style="display: none;"]')
+	.each(
 		function(index)
 		{
 			sum = SumOfTime(sum, DifferenceOfTime($(this).children(".time").first().text(), "00:30"));
@@ -570,7 +593,7 @@ function GetCurrentTimeForWeek()
 function GetCurrentTimeForWeek_ForStudent()
 {
 	var sum = "00:00";
-	$("tr[id]").not("[class=future]").not('[style="display: none;"]').each(
+	$("tr[id]").not(".future").not('[style="display: none;"]').each(
 		function(index)
 		{
 			sum = SumOfTime(sum, $(this).children(".time").first().text());
@@ -593,6 +616,8 @@ function GetSumReportTimeForWeek()
 	.first()
 	.nextUntil('tr.intervalRow')
 	.filter('tr[id]')
+	.not('.trTimeChecker')
+	.not('.other')
 	.each(
 		function(index)
 		{
@@ -618,6 +643,8 @@ function GetSumReportTimeForWeek_ForStudent()
 	.first()
 	.nextUntil('tr.intervalRow')
 	.filter('tr[id]')
+	.not('.trTimeChecker')
+	.not('.other')
 	.each(
 		function(index)
 		{
@@ -884,9 +911,14 @@ function AddRowBetweenWeeksWithWeekNumber()
 	var length = +$("th").not("[style='display: none;']").length + 1;
 	AddFirstRowBetweenWeeks(length);
 	var numberOfWeek = 2;
-	var previousDay = $("tr[id], tr.dayoff").first();
+	var previousDay = $("tr[id], tr.dayoff")
+	.not('.trTimeChecker')
+	.not('.other')
+	.first();
 	
 	$("tr[id], tr.dayoff")
+	.not('.trTimeChecker')
+	.not('.other')
 	.each(
 		function(index)
 		{
@@ -1136,7 +1168,11 @@ function SetUpTimeForStudent()
 {
 	if (isStudent)
 	{
-		$("tr[id]").not("[class=future]").each( 
+		$("tr[id]")
+		.not(".future")
+		.not('.trTimeChecker')
+		.not('.other')
+		.each( 
 			function(index)
 			{
 				var newText = $(this).children("td.time").first().text();
@@ -1226,7 +1262,11 @@ function AddButtonToShowTimeInDecimals()
 
 function AddSpansForDifferentTypesOfTime()
 {	
-	$('table.full-size tbody tr[id]').not('tr.future').each(
+	$('table.full-size tbody tr[id]')
+	.not('tr.future')
+	.not('.trTimeChecker')
+	.not('.other')
+	.each(
 		function()
 		{
 			var time = $(this).children('td.time').last().text();
@@ -1342,7 +1382,12 @@ $(document).ready
 				if (!isMonth)
 				{
 					$(".intervalRow").show();
-					$("tr[id]").show();
+					
+					$("tr[id]")
+					.not('.trTimeChecker')
+					.not('.other')
+					.show();
+					
 					$(".dayoff").show();
 					$(".future").hide();
 					RemoveConclusionForWeek();
@@ -1410,7 +1455,12 @@ $(document).ready
 							return;
 						}
 						$(".intervalRow").show();
-						$("tr[id]").show();
+						
+						$("tr[id]")
+						.not('.trTimeChecker')
+						.not('.other')
+						.show();
+						
 						$(".dayoff").show();
 						$(".future").hide();
 						RemoveConclusionForWeek();

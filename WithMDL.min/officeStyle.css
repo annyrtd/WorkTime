@@ -7,20 +7,20 @@
 }
 
 .mdl-badge[data-badge]:not(.mdl-badge--no-background)::after {
-	background: transparent;
-	font-weight: bold;
-	font-family: 'Lucida Sans Unicode';
-	font-size: 14px;
+	background: transparent !important;
+	font-weight: bold !important;
+	font-family: 'Lucida Sans Unicode' !important;
+	font-size: 14px !important;
 }
 
 .man.mdl-badge[data-badge]::after {
 	/*color: rgba(30,144,255, 1);*/
-	color: rgb(96, 125, 139);
+	color: rgb(96, 125, 139) !important;
 }
 
 .woman.mdl-badge[data-badge]::after {
 	/*color: rgba(255,105,180, 1);	*/
-	color: rgb(255, 171, 64);
+	color: rgb(255, 171, 64) !important;
 }
 
 #card-man, #card-woman {
@@ -51,9 +51,9 @@
 */
 
 .mdl-badge.mdl-badge--no-background[data-badge]::after {
-	background: transparent;
-    box-shadow: none;
-    color: rgba(66, 66, 66, 1);
+	background: transparent !important;
+    box-shadow: none !important;
+    color: rgba(66, 66, 66, 1) !important;
 }
 
 
