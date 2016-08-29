@@ -146,6 +146,7 @@ function AddReportColumn()
 	.not(".future")
 	.not('.trTimeChecker')
 	.not('.other')
+	.not('.header')
 	.each( 
 		function(index)
 		{
@@ -328,6 +329,7 @@ function GetAlreadyWorkedTimeForMonth()
 	.not(".future")
 	.not('.trTimeChecker')
 	.not('.other')
+	.not('.header')
 	.each(
 		function (index)
 		{
@@ -393,6 +395,7 @@ function GetSumReportTimeForMonth()
 	.not(".future")
 	.not('.trTimeChecker')
 	.not('.other')
+	.not('.header')
 	.each(
 		function(index)
 		{
@@ -417,6 +420,7 @@ function GetSumReportTimeForMonth_ForStudent()
 	.not(".future")
 	.not('.trTimeChecker')
 	.not('.other')
+	.not('.header')
 	.each(
 		function(index)
 		{
@@ -549,6 +553,7 @@ function GetTimeForWeekLeft()
 	.nextAll()
 	.not('.trTimeChecker')
 	.not('.other')
+	.not('.header')
 	.each(
 		function()
 		{
@@ -580,6 +585,7 @@ function GetCurrentTimeForWeek()
 	.not(".future")
 	.not('.trTimeChecker')
 	.not('.other')
+	.not('.header')
 	.not('[style="display: none;"]')
 	.each(
 		function(index)
@@ -618,6 +624,7 @@ function GetSumReportTimeForWeek()
 	.filter('tr[id]')
 	.not('.trTimeChecker')
 	.not('.other')
+	.not('.header')
 	.each(
 		function(index)
 		{
@@ -645,6 +652,7 @@ function GetSumReportTimeForWeek_ForStudent()
 	.filter('tr[id]')
 	.not('.trTimeChecker')
 	.not('.other')
+	.not('.header')
 	.each(
 		function(index)
 		{
@@ -914,11 +922,13 @@ function AddRowBetweenWeeksWithWeekNumber()
 	var previousDay = $("tr[id], tr.dayoff")
 	.not('.trTimeChecker')
 	.not('.other')
+	.not('.header')
 	.first();
 	
 	$("tr[id], tr.dayoff")
 	.not('.trTimeChecker')
 	.not('.other')
+	.not('.header')
 	.each(
 		function(index)
 		{
@@ -1172,6 +1182,7 @@ function SetUpTimeForStudent()
 		.not(".future")
 		.not('.trTimeChecker')
 		.not('.other')
+		.not('.header')
 		.each( 
 			function(index)
 			{
@@ -1266,6 +1277,7 @@ function AddSpansForDifferentTypesOfTime()
 	.not('tr.future')
 	.not('.trTimeChecker')
 	.not('.other')
+	.not('.header')
 	.each(
 		function()
 		{
@@ -1386,6 +1398,7 @@ $(document).ready
 					$("tr[id]")
 					.not('.trTimeChecker')
 					.not('.other')
+					.not('.header')
 					.show();
 					
 					$(".dayoff").show();
@@ -1459,6 +1472,7 @@ $(document).ready
 						$("tr[id]")
 						.not('.trTimeChecker')
 						.not('.other')
+						.not('.header')
 						.show();
 						
 						$(".dayoff").show();
