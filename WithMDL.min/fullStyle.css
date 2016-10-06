@@ -5,7 +5,13 @@ rgb(255, 64, 129) - pink
 rgb(96,125,139) - blue gray
 rgb(255,171,64) - orange
 */
-
+/*********TOOLTI BUG: EMTPY SPACE, REMOVE LATER*********/
+.mdl-tooltip.is-active {
+    animation: none !important;
+    transform: scale(1) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
 
 .blink  {
 	position: absolute !important; 
@@ -628,4 +634,30 @@ form[action='/Notes']
 select 
 {
 	border-radius: 2px !important;
+}
+
+
+
+
+
+
+
+table.full-size tbody, table.full-size thead 
+{ 
+	background-color: white;
+}
+
+table.full-size th 
+{  
+	background-color: white !important;
+}
+
+table.full-size th { 
+    height: 30px;
+    line-height: 30px;
+}
+
+tr.summary {
+    font-weight: bolder;
+    background-color: white !important;
 }
