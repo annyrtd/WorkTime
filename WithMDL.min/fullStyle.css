@@ -20,6 +20,12 @@ rgb(255,171,64) - orange
 	display: none !important;
 }
 
+
+.is-dirty label.mdl-textfield__label {
+	display: none;
+}
+/****************/
+
 *:not(i)
 {
 	font-family: Roboto, sans-serif !important;
