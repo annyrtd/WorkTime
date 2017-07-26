@@ -6,6 +6,7 @@ jQuery.expr[':'].contains = function(a, i, m) {
 
 var origin = window.location.origin;
 var wasCardsSetUp = true;
+var peoplePhotoLink = 'https://confirmitconnect.firmglobal.com/Search/Pages/PeopleResults.aspx';
 
 // для сортировки колонок
 function mergeSort(arrayToSort, compare) 
@@ -1809,7 +1810,7 @@ function SetProfileImages()
 					} catch (e) {}
 				}
 				else {
-					$.get("http://confirmitconnect.firmglobal.com/Search/Pages/PeopleResults.aspx?k=" + email, {}, function(data, status, xhr) {
+					$.get(peoplePhotoLink + "?k=" + email, {}, function(data, status, xhr) {
 						var updatedData = FixDownloadedDataForProfileImages(data);
 						var temp = $("<div></div>");
 						temp.html(updatedData);
